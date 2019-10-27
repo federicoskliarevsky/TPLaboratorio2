@@ -33,3 +33,33 @@
 1572204984 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
 	"Menu.h"
 
+1572209112 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\administrador.c
+	"Administrador.h"
+
+1572209112 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\administrador.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Menu.h"
+
+1572210085 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\menu.h
+	<stdio.h>
+	<stdlib.h>
+	"Administrador.h"
+	"Usuario.h"
+
+1572209112 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.h
+	<stdio.h>
+	<stdlib.h>
+
+1572209112 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.c
+	"Usuario.h"
+
+1572210152 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Menu.h"
+
+1572210290 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\menu.c
+	"Menu.h"
+

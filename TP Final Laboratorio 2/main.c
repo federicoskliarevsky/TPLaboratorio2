@@ -5,6 +5,8 @@
 
 int main()
 {
+    system("COLOR 02");
+    imprimirCabecera();
     ejecutarMenu ();
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "Administrador.h"
 #include "Usuario.h"
 
+void imprimirCabecera();
 void ejecutarMenu ();
 
 #endif // MENU_H_INCLUDED

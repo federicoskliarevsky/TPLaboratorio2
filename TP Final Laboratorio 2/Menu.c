@@ -1,4 +1,25 @@
 #include "Menu.h"
+void imprimirCabecera()
+{
+    char cabecera[] = "FIFA 20";
+    int i;
+    printf("%c", 201);
+    for(i=0; i<50; i++)
+    {
+        printf("%c",205);
+    }
+    printf("%c\n", 187);
+    printf("%c%32s%19c\n", 186,cabecera,186);
+    printf("%c", 200);
+    for(i=0; i<50; i++)
+    {
+        printf("%c",205);
+    }
+    printf("%c", 188);
+    printf("\n");
+    system("pause");
+    system("cls");
+}
 
 void ejecutarMenu (){
     int opcion=-1;
