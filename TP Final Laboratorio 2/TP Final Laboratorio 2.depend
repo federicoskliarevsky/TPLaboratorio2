@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1572201120 source:c:\users\fede_\desktop\sistemas operativos\tp 2\tp final laboratorio 2\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1572203385 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.c
+	"Usuario.h"
+
+1572205221 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
+	"Administrador.h"
+
+1572203422 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Menu.h"
+
+1572203422 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.h
+	<stdio.h>
+	<stdlib.h>
+	"Administrador.h"
+	"Usuario.h"
+
+1572204602 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Menu.h"
+
+1572203196 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.h
+	<stdio.h>
+	<stdlib.h>
+
+1572204984 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
+	"Menu.h"
+
