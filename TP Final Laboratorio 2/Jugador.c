@@ -41,3 +41,7 @@ void mostrarJugador(jugador aux){
     printf (" Calificacion: %d", aux.calificacion);
     printf ("\n Precio: %d", aux.precio);
 }
+
+nodoArbol * inicArbol(){
+return NULL;
+}

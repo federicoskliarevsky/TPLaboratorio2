@@ -192,7 +192,7 @@
 1572369374 source:c:\users\usuario\desktop\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
-1572359708 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.h
+1572388376 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.h
 	<stdio.h>
 	<stdlib.h>
 
@@ -201,14 +201,17 @@
 	<stdlib.h>
 	"Equipo.h"
 
-1572372182 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\equipo.h
+1572388162 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\equipo.h
 	<stdio.h>
 	<stdlib.h>
 	"Jugador.h"
 
-1572361886 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.c
+1572388375 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.c
 	"Jugador.h"
 
-1572371916 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\liga.c
+1572387592 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\liga.c
 	"Liga.h"
+
+1572388301 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\equipo.c
+	"Equipo.h"
 

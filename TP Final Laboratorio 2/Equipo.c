@@ -48,7 +48,7 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
     {
      while(fread(&aux,sizeof(equipo),1,archi) > 0)
      {
-      if(strcmp(aux.nombreLiga,nombre))
+      if(strcmp(aux.nombreLiga,nombre) == 0)
       {
        lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux));
       }
@@ -56,4 +56,45 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
     }
     fclose(archi);
     return lista;
+}
+
+nodoEquipo * crearNodoEquipo(equipo dato){
+char nombre[30];
+nodoEquipo * nuevoNodo =(nodoEquipo*) malloc (sizeof(nodoEquipo));
+nuevoNodo->dato = dato;
+nuevoNodo->sig = NULL;
+nuevoNodo->dato.arbolJugadoresEquipo = inicArbol();
+return nuevoNodo;
+}
+
+nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
+    if(lista==NULL)
+    {
+     lista = nuevoNodo;
+    }else
+    {
+     nodoEquipo * ultimo = buscarUltimoLiga(lista);
+     ultimo->sig = nuevoNodo;
+    }
+    return lista;
+}
+
+nodoEquipo * buscarUltimoEquipo(nodoEquipo * lista){
+ nodoEquipo * seg = lista;
+ if(seg!=NULL)
+ {
+  while(seg->sig != NULL)
+  {
+   seg = seg->sig;
+  }
+ }
+ return seg;
+}
+
+void muestraListaEquipos (nodoEquipo * lista){
+    printf ("\nLista de equipos:");
+    while (lista!=NULL){
+        mostrarLiga(lista->dato);
+        lista = lista->sig;
+    }
 }

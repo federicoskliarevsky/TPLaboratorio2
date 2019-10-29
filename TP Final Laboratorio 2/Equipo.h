@@ -22,4 +22,6 @@ nodoEquipo * iniclistaEquipo();
 nodoEquipo * cargarListaEquipo(nodoEquipo *,char[]);
 nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * ,nodoEquipo *);
 nodoEquipo * crearNodoEquipo(equipo);
+nodoEquipo * buscarUltimoEquipo(nodoEquipo *);
+void muestraListaEquipos (nodoEquipo *);
 #endif // EQUIPO_H_INCLUDED

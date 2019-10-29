@@ -36,6 +36,7 @@ nodoLiga * cargarListaLigas(nodoLiga * lista){
 
 nodoLiga * crearNodoLiga(liga dato){
  char nombre[40];
+ strcpy(nombre,dato.nombreLiga);
  nodoLiga * nuevoNodo = (nodoLiga*) malloc(sizeof(nodoLiga));
  nuevoNodo->dato = dato;
  nuevoNodo->sig = NULL;
@@ -56,8 +57,7 @@ nodoLiga * agregarFinalNodoLiga(nodoLiga * lista,nodoLiga * nuevoNodo){
   return  lista;
 }
 
-nodoLiga * buscarUltimoLiga(nodoLiga * lista)
-{
+nodoLiga * buscarUltimoLiga(nodoLiga * lista){
  nodoLiga * seg = lista;
  if(seg!=NULL)
  {

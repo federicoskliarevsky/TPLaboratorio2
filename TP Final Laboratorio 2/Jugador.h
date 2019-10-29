@@ -20,5 +20,5 @@ typedef struct {
 
 void leerJugador (jugador *);
 void mostrarJugador (jugador);
-
+nodoArbol * inicArbol();
 #endif // JUGADOR_H_INCLUDED
