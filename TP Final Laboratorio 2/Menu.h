@@ -4,8 +4,10 @@
 #include <stdlib.h>
 #include "Administrador.h"
 #include "Usuario.h"
+#include "Jugador.h"
 
 void imprimirCabecera();
-void ejecutarMenu ();
+void ejecutarMenu (nodoLiga *);
+void crearVariables();
 
 #endif // MENU_H_INCLUDED

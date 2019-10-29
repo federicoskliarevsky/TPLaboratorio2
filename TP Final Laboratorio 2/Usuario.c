@@ -1,6 +1,6 @@
 #include "Usuario.h"
 
-void menuUsuario(){
+void menuUsuario(nodoLiga * listaLigas){
     int opcion=-1;
     system("cls");
     printf ("Bienvenido, Usuario!\n Que desea hacer?");
@@ -21,17 +21,17 @@ void menuUsuario(){
             system ("pause");
             ///menuListarTodos();
             system("cls");
-            ejecutarMenu();
+            ejecutarMenu(listaLigas);
             break;
         case 2:
             printf ("\n Menu Mi Club\n");
             system ("pause");
             ///menuMiClub();
             system("cls");
-            ejecutarMenu();
+            ejecutarMenu(listaLigas);
             break;
         default:
             system("cls");
-            ejecutarMenu();
+            ejecutarMenu(listaLigas);
     }
 }

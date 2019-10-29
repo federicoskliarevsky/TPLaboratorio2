@@ -1,6 +1,8 @@
 #include "Menu.h"
+
 void imprimirCabecera()
 {
+    system("COLOR 02");
     char cabecera[] = "FIFA 20";
     int i;
     printf("%c", 201);
@@ -19,9 +21,14 @@ void imprimirCabecera()
     printf("\n");
     system("pause");
     system("cls");
+    crearVariables();
 }
-
-void ejecutarMenu (){
+void crearVariables(){
+    nodoLiga * listaLigas = inicListaliga();
+    listaLigas = cargarListaLigas(listaLigas);
+    ejecutarMenu(listaLigas);
+}
+void ejecutarMenu (nodoLiga * listaLigas){
     int opcion=-1;
     printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n A continuacion, debera elegir una opcion:");
     printf ("\n  1. Para ingresar como administrador.");
@@ -37,10 +44,10 @@ void ejecutarMenu (){
     }
     switch (opcion){
         case 1:
-            menuAdministrador();
+            menuAdministrador(listaLigas);
             break;
         case 2:
-            menuUsuario();
+            menuUsuario(listaLigas);
             break;
         default:
             printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");
