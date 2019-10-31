@@ -24,4 +24,5 @@ nodoArbol * inicArbol();
 nodoArbol* crearNodoArbolJug(jugador);
 nodoArbol* insertarArbol(nodoArbol*,jugador);
 nodoArbol* cargarArbolJugador(nodoArbol* ,char[]);
+nodoArbol* mostrarPreOrder(nodoArbol*);
 #endif // JUGADOR_H_INCLUDED

@@ -73,7 +73,19 @@ nodoArbol* cargarArbolJugador(nodoArbol* a,char nombreEquipo[]){
     if(archi!=NULL){
         jugador aux;
         while(fread(&aux,sizeof(jugador),1,arch)>0){
-
+            a=insertarArbol(a,aux);
         }
+
+        fclose(arch);
+    }
+
+    return a;
+}
+
+nodoArbol* mostrarPreOrder(nodoArbol* a){
+    if(a!=NULL){
+        mostrarJugador(a->dato);
+        mostrarPreOrder(a->izq);
+        mostrarPreOrder(a->der);
     }
 }
