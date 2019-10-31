@@ -33,7 +33,7 @@ void muestraArchJugadores (){
     fclose(archJug);
 }
 
-void cargaArchEquipos (){
+void cargaArchEquipos (nodoLiga * listaLigas){
     FILE * archEquipos;
     archEquipos = fopen("Equipos.dat", "ab");
     equipo aux;
@@ -43,6 +43,10 @@ void cargaArchEquipos (){
     while (control=='s'){
         printf ("\n Lectura de datos de equipo:");
         leerEquipo(&aux);
+        if (buscarLiga(listaLigas, aux.nombreLiga)==NULL){
+            printf ("\n No se encontro la liga %s. A continuacion debera crearla): ", aux.nombreLiga);
+            listaLigas = agregarLigaIndividual(listaLigas); ///CREAR
+        }
         fwrite(&aux, sizeof(equipo), 1, archEquipos);
         printf ("\n Desea ingresar otro equipo? (s para continuar): ");
         fflush (stdin);
@@ -129,7 +133,7 @@ void menuArchJugadores(){
     }
 }
 
-void menuArchEquipos(){
+void menuArchEquipos(nodoLiga * listaLigas){
     int opc;
     system("cls");
     printf ("Bienvenido al menu archivo de equipos.\n A continuacion, debera elegir una opcion:");
@@ -150,11 +154,13 @@ void menuArchEquipos(){
             break;
         case 1:
             system("cls");
-            cargaArchEquipos();
+            cargaArchEquipos(listaLigas);
             break;
         case 2:
             system("cls");
             muestraArchEquipos();
+            muestraTodosLosEquipos (listaLigas);
+            system ("pause");
             break;
     }
 }
@@ -217,7 +223,7 @@ void ingresoAdmin (nodoLiga * listaLigas){
             ingresoAdmin(listaLigas);
             break;
         case 2:
-            menuArchEquipos();
+            menuArchEquipos(listaLigas);
             ingresoAdmin(listaLigas);
             break;
         case 3:

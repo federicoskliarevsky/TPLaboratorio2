@@ -11,11 +11,11 @@
 #define password "a"
 
 void menuArchJugadores();
-void menuArchEquipos();
+void menuArchEquipos(nodoLiga *);
 void menuArchLigas(nodoLiga *);
 void cargaArchJugadores();
 void muestraArchJugadores();
-void cargaArchEquipos();
+void cargaArchEquipos(nodoLiga *);
 void muestraArchEquipos();
 void cargaArchLigas();
 void muestraArchLigas();

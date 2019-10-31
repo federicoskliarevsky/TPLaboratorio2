@@ -60,10 +60,12 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
 
 nodoEquipo * crearNodoEquipo(equipo dato){
 char nombre[30];
+strcpy(nombre,dato.nombreEquipo);
 nodoEquipo * nuevoNodo =(nodoEquipo*) malloc (sizeof(nodoEquipo));
 nuevoNodo->dato = dato;
 nuevoNodo->sig = NULL;
 nuevoNodo->dato.arbolJugadoresEquipo = inicArbol();
+nuevoNodo->dato.arbolJugadoresEquipo = cargarArbolJugador(nuevoNodo->dato.arbolJugadoresEquipo,nombre);
 return nuevoNodo;
 }
 
@@ -73,7 +75,7 @@ nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
      lista = nuevoNodo;
     }else
     {
-     nodoEquipo * ultimo = buscarUltimoLiga(lista);
+     nodoEquipo * ultimo = buscarUltimoEquipo(lista);
      ultimo->sig = nuevoNodo;
     }
     return lista;
@@ -92,9 +94,10 @@ nodoEquipo * buscarUltimoEquipo(nodoEquipo * lista){
 }
 
 void muestraListaEquipos (nodoEquipo * lista){
-    printf ("\nLista de equipos:");
+    printf ("\nLista de equipos  de la liga %s:\n", lista->dato.nombreLiga);
     while (lista!=NULL){
-        mostrarLiga(lista->dato);
+        mostrarEquipo(lista->dato);
+        printf ("\n");
         lista = lista->sig;
     }
 }

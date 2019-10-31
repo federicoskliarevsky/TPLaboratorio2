@@ -7,6 +7,7 @@ void leerLiga (liga * nuevo){
     printf (" Ingrese pais de la liga: ");
     fflush (stdin);
     gets (nuevo->paisLiga);
+    nuevo->listaEquipos=iniclistaEquipo();
 }
 
 void mostrarLiga(liga aux){
@@ -27,7 +28,8 @@ nodoLiga * cargarListaLigas(nodoLiga * lista){
     {
         while(fread(&aux,sizeof(liga),1,archi)> 0)
         {
-            lista = agregarFinalNodoLiga(lista,crearNodoLiga(aux));
+            nodoLiga * nuevo = crearNodoLiga(aux);
+            lista = agregarFinalNodoLiga(lista,nuevo);
         }
     }
     fclose(archi);
@@ -40,9 +42,28 @@ nodoLiga * crearNodoLiga(liga dato){
  nodoLiga * nuevoNodo = (nodoLiga*) malloc(sizeof(nodoLiga));
  nuevoNodo->dato = dato;
  nuevoNodo->sig = NULL;
- nuevoNodo->listaEquipos = iniclistaEquipo();
- nuevoNodo->listaEquipos = cargarListaEquipo(nuevoNodo->listaEquipos,nombre);
+ nuevoNodo->dato.listaEquipos = iniclistaEquipo();
+ nuevoNodo->dato.listaEquipos = cargarListaEquipo(nuevoNodo->dato.listaEquipos,nombre);
  return nuevoNodo;
+}
+
+nodoLiga * buscarLiga(nodoLiga * lista, char nombreBuscado[]){
+    while (lista!=NULL && strcmpi(lista->dato.nombreLiga, nombreBuscado)!=0){
+        lista = lista->sig;
+    }
+    return lista;
+}
+
+nodoLiga * agregarLigaIndividual(nodoLiga * lista){
+    FILE * archLigas;
+    archLigas = fopen("Ligas.dat", "ab");
+    liga aux;
+    printf ("\n Lectura de datos de la nueva liga:");
+    leerLiga(&aux);
+    fwrite(&aux, sizeof(liga), 1, archLigas);
+    lista = agregarFinalNodoLiga(lista, crearNodoLiga(aux));
+    fclose(archLigas);
+    return lista;
 }
 
 nodoLiga * agregarFinalNodoLiga(nodoLiga * lista,nodoLiga * nuevoNodo){
@@ -70,9 +91,17 @@ nodoLiga * buscarUltimoLiga(nodoLiga * lista){
 }
 
 void muestraListaLigas (nodoLiga * lista){
-    printf ("\nLista de ligas:");
+    printf ("\n\nLista de ligas:");
     while (lista!=NULL){
         mostrarLiga(lista->dato);
+        lista = lista->sig;
+    }
+}
+
+void muestraTodosLosEquipos (nodoLiga * lista){
+    while (lista!=NULL){
+        muestraListaEquipos(lista->dato.listaEquipos);
+        printf ("\n");
         lista = lista->sig;
     }
 }

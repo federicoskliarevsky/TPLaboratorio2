@@ -45,3 +45,35 @@ void mostrarJugador(jugador aux){
 nodoArbol * inicArbol(){
 return NULL;
 }
+
+nodoArbol* crearNodoArbolJug(jugador info){
+    nodoArbol* aux=(nodoArbol*)malloc(sizeof(nodoArbol));
+    aux->dato=info;
+    aux->der=NULL;
+    aux->izq=NULL;
+    return aux;
+}
+
+nodoArbol* insertarArbol(nodoArbol* a,jugador aux){
+    if(a==NULL){
+        a=crearNodoArbolJug(aux);
+    }else{
+        if(a->dato.calificacion>=aux.calificacion){
+            a->izq=insertarArbol(a->izq,aux);
+        }else{
+            a->der=insertarArbol(a->der,aux);
+        }
+    }
+
+    return a;
+}
+
+nodoArbol* cargarArbolJugador(nodoArbol* a,char nombreEquipo[]){
+    FILE* arch=fopen("Jugadores.dat","rb");
+    if(archi!=NULL){
+        jugador aux;
+        while(fread(&aux,sizeof(jugador),1,arch)>0){
+
+        }
+    }
+}

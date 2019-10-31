@@ -21,4 +21,7 @@ typedef struct {
 void leerJugador (jugador *);
 void mostrarJugador (jugador);
 nodoArbol * inicArbol();
+nodoArbol* crearNodoArbolJug(jugador);
+nodoArbol* insertarArbol(nodoArbol*,jugador);
+nodoArbol* cargarArbolJugador(nodoArbol* ,char[]);
 #endif // JUGADOR_H_INCLUDED

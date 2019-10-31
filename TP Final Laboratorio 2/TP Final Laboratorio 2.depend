@@ -215,3 +215,65 @@
 1572388301 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\equipo.c
 	"Equipo.h"
 
+1572542922 source:f:\tplaboratorio2\tp final laboratorio 2\equipo.c
+	"Equipo.h"
+
+1572541442 f:\tplaboratorio2\tp final laboratorio 2\equipo.h
+	<stdio.h>
+	<stdlib.h>
+	"Jugador.h"
+
+1572388378 f:\tplaboratorio2\tp final laboratorio 2\jugador.h
+	<stdio.h>
+	<stdlib.h>
+
+1572388376 source:f:\tplaboratorio2\tp final laboratorio 2\jugador.c
+	"Jugador.h"
+
+1572542922 source:f:\tplaboratorio2\tp final laboratorio 2\liga.c
+	"Liga.h"
+
+1572542348 f:\tplaboratorio2\tp final laboratorio 2\liga.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Equipo.h"
+
+1572367328 source:f:\tplaboratorio2\tp final laboratorio 2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Menu.h"
+
+1572369284 f:\tplaboratorio2\tp final laboratorio 2\menu.h
+	<stdio.h>
+	<stdlib.h>
+	"Administrador.h"
+	"Usuario.h"
+	"Jugador.h"
+
+1572538478 f:\tplaboratorio2\tp final laboratorio 2\administrador.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+	"Menu.h"
+	"Jugador.h"
+	"Equipo.h"
+	"Liga.h"
+
+1572369392 f:\tplaboratorio2\tp final laboratorio 2\usuario.h
+	<stdio.h>
+	<stdlib.h>
+	"Jugador.h"
+	"Menu.h"
+	"Liga.h"
+
+1572370846 source:f:\tplaboratorio2\tp final laboratorio 2\menu.c
+	"Menu.h"
+
+1572369376 source:f:\tplaboratorio2\tp final laboratorio 2\usuario.c
+	"Usuario.h"
+
+1572541442 source:f:\tplaboratorio2\tp final laboratorio 2\administrador.c
+	"Administrador.h"
+
