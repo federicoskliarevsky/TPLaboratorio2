@@ -69,14 +69,15 @@ nodoArbol* insertarArbol(nodoArbol* a,jugador aux){
 }
 
 nodoArbol* cargarArbolJugador(nodoArbol* a,char nombreEquipo[]){
-    FILE* arch=fopen("Jugadores.dat","rb");
+    FILE* archi=fopen("Jugadores.dat","rb");
     if(archi!=NULL){
         jugador aux;
-        while(fread(&aux,sizeof(jugador),1,arch)>0){
+        while(fread(&aux,sizeof(jugador),1,archi)>0){
+            if(strcmpi(aux.nombreEquipo,nombreEquipo) == 0)
             a=insertarArbol(a,aux);
         }
 
-        fclose(arch);
+        fclose(archi);
     }
 
     return a;
