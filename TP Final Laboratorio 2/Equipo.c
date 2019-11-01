@@ -29,7 +29,8 @@ void mostrarEquipo (equipo aux){
         fflush (stdin);
         scanf ("%c", &control);
         if (control=='s'){
-            printf ("\n Muestra jugadores: "); ///REEMPLAZAR POR FUNCION MUESTRA ARBOL
+            printf ("\n Muestra jugadores (ordenados por valoracion): ");
+            mostrarInOrder(aux.arbolJugadoresEquipo);
         }
     } else {
         printf ("\n Equipo sin jugadores.");
@@ -100,4 +101,11 @@ void muestraListaEquipos (nodoEquipo * lista){
         printf ("\n");
         lista = lista->sig;
     }
+}
+
+nodoEquipo * buscarEquipo(nodoEquipo * lista, char nombreBuscado[]){
+    while (lista!=NULL && strcmpi(lista->dato.nombreEquipo, nombreBuscado)!=0){
+        lista = lista->sig;
+    }
+    return lista;
 }

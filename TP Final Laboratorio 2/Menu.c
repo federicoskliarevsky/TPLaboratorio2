@@ -44,7 +44,7 @@ void ejecutarMenu (nodoLiga * listaLigas){
     }
     switch (opcion){
         case 1:
-            menuAdministrador(listaLigas);
+            listaLigas = menuAdministrador(listaLigas);
             break;
         case 2:
             menuUsuario(listaLigas);

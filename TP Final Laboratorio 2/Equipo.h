@@ -19,9 +19,10 @@ typedef struct {
 void leerEquipo (equipo *);
 void mostrarEquipo (equipo);
 nodoEquipo * iniclistaEquipo();
-nodoEquipo * cargarListaEquipo(nodoEquipo *,char[]);
+nodoEquipo * cargarListaEquipo(nodoEquipo *, char[]);
 nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * ,nodoEquipo *);
 nodoEquipo * crearNodoEquipo(equipo);
 nodoEquipo * buscarUltimoEquipo(nodoEquipo *);
+nodoEquipo * buscarEquipo(nodoEquipo *, char[]);
 void muestraListaEquipos (nodoEquipo *);
 #endif // EQUIPO_H_INCLUDED

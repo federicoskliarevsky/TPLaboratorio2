@@ -10,16 +10,16 @@
 #include "Liga.h"
 #define password "a"
 
-void menuArchJugadores();
-void menuArchEquipos(nodoLiga *);
+nodoLiga * menuArchJugadores(nodoLiga *);
+nodoLiga * menuArchEquipos(nodoLiga *);
 void menuArchLigas(nodoLiga *);
-void cargaArchJugadores();
+nodoLiga * cargaArchJugadores(nodoLiga *);
 void muestraArchJugadores();
-void cargaArchEquipos(nodoLiga *);
+nodoLiga * cargaArchEquipos(nodoLiga *);
 void muestraArchEquipos();
-void cargaArchLigas();
+nodoLiga * cargaArchLigas(nodoLiga *);
 void muestraArchLigas();
-void ingresoAdmin(nodoLiga *);
-void menuAdministrador(nodoLiga *);
+nodoLiga * ingresoAdmin(nodoLiga *);
+nodoLiga * menuAdministrador(nodoLiga *);
 
 #endif // ADMINISTRADOR_H_INCLUDED

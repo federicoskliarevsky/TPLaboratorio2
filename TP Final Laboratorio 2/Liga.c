@@ -100,7 +100,12 @@ void muestraListaLigas (nodoLiga * lista){
 
 void muestraTodosLosEquipos (nodoLiga * lista){
     while (lista!=NULL){
-        muestraListaEquipos(lista->dato.listaEquipos);
+        if (lista->dato.listaEquipos!=NULL){
+            muestraListaEquipos(lista->dato.listaEquipos);
+        } else {
+            printf ("La liga %s no tiene equipos cargados.\n", lista->dato.nombreLiga);
+            Sleep(750);
+        }
         printf ("\n");
         lista = lista->sig;
     }

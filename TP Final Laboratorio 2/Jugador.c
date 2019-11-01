@@ -30,7 +30,7 @@ void leerJugador(jugador * nuevo){
 }
 
 void mostrarJugador(jugador aux){
-    printf ("\n Jugador: ");
+    printf ("\n\n Jugador: ");
     puts (aux.nombreJugador);
     printf (" Equipo: ");
     puts (aux.nombreEquipo);
@@ -83,10 +83,10 @@ nodoArbol* cargarArbolJugador(nodoArbol* a,char nombreEquipo[]){
     return a;
 }
 
-nodoArbol* mostrarPreOrder(nodoArbol* a){
+nodoArbol* mostrarInOrder(nodoArbol* a){
     if(a!=NULL){
+        mostrarInOrder(a->izq);
         mostrarJugador(a->dato);
-        mostrarPreOrder(a->izq);
-        mostrarPreOrder(a->der);
+        mostrarInOrder(a->der);
     }
 }
