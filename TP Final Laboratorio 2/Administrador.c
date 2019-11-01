@@ -186,6 +186,7 @@ nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
             system ("pause");
             break;
     }
+    return listaLigas;
 }
 
 void menuArchLigas(nodoLiga * listaLigas){
