@@ -1,6 +1,7 @@
 #include "Menu.h"
 
-void imprimirCabecera()
+
+void imprimirCabecera()  ///Printea el nombre del juego
 {
     system("COLOR 02");
     char cabecera[] = "FIFA 20";
@@ -23,11 +24,15 @@ void imprimirCabecera()
     system("cls");
     crearVariables();
 }
+
+///Inicializa la lista de ligas, carga las ligas que esten en el archivo a la lista de ligas y ejecuta el menu principal.
 void crearVariables(){
     nodoLiga * listaLigas = inicListaliga();
     listaLigas = cargarListaLigas(listaLigas);
     ejecutarMenu(listaLigas);
 }
+
+///Permite ingresar como usuario o administrador. Dependiendo la opción elegida nos lleva al menu de los anteriormente nombrados.
 void ejecutarMenu (nodoLiga * listaLigas){
     int opcion=-1;
     printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n A continuacion, debera elegir una opcion:");

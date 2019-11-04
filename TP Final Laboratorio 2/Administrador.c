@@ -1,4 +1,7 @@
 #include "Administrador.h"
+/** Carga jugadores a su correpondiente archivo y arbol.Si el nombre de liga o equipo ingresado en los datos del jugador no se
+encuentra en la lista de ligas o equipos se pedira al administrador que cargue la liga o el equipo no encontrado.Caso contrario
+el jugador ingresado se cargara directamente al arbol y archivo**/
 
 nodoLiga * cargaArchJugadores(nodoLiga * listaLigas){
     FILE * archJug;
@@ -34,6 +37,8 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas){
     return listaLigas;
 }
 
+
+///Muestra todos los jugadores cargados exitosamente al archivo
 void muestraArchJugadores (){
     FILE * archJug;
     archJug = fopen("Jugadores.dat", "rb");
@@ -48,7 +53,9 @@ void muestraArchJugadores (){
     system ("Pause");
     fclose(archJug);
 }
-
+/** Carga equipos a su correpondiente lista y archivo.Si no existe el nombre de la liga en los datos del equipo ingresado
+se pedira al administrador que cargue la liga no encontrada a la lista de ligas.Caso contrario el equipo ingresado se cargara
+directamente al archivo y a la lista**/
 nodoLiga * cargaArchEquipos (nodoLiga * listaLigas){
     FILE * archEquipos;
     archEquipos = fopen("Equipos.dat", "ab");
@@ -74,7 +81,7 @@ nodoLiga * cargaArchEquipos (nodoLiga * listaLigas){
     fclose(archEquipos);
     return listaLigas;
 }
-
+///Muestra todos los equipos cargados exitosamente al archivo
 void muestraArchEquipos(){
     FILE * archEquipos;
     archEquipos = fopen("Equipos.dat", "rb");
@@ -89,7 +96,7 @@ void muestraArchEquipos(){
     system ("Pause");
     fclose(archEquipos);
 }
-
+///Carga ligas a su correpondiente lista y archivo.
 nodoLiga * cargaArchLigas (nodoLiga * listaLigas){
     FILE * archLigas;
     archLigas = fopen("Ligas.dat", "ab");
@@ -109,7 +116,7 @@ nodoLiga * cargaArchLigas (nodoLiga * listaLigas){
     fclose(archLigas);
     return listaLigas;
 }
-
+///Muestra todos las ligas cargadas exitosamente al archivo
 void muestraArchLigas(){
     FILE * archLigas;
     archLigas = fopen("Ligas.dat", "rb");
@@ -124,7 +131,7 @@ void muestraArchLigas(){
     system ("Pause");
     fclose(archLigas);
 }
-
+///Segun la opcion elegida por el administrador carga jugadores al archivo y arbol, o muestra el contenido que hay en ellos
 nodoLiga * menuArchJugadores(nodoLiga * listaLigas){
     int opc;
     system("cls");
@@ -155,7 +162,7 @@ nodoLiga * menuArchJugadores(nodoLiga * listaLigas){
     }
     return listaLigas;
 }
-
+///Segun la opcion elegida por el administrador carga equipos al archivo y lista, o muestra el contenido que hay en ellos
 nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
     int opc;
     system("cls");
@@ -188,7 +195,7 @@ nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
     }
     return listaLigas;
 }
-
+///Segun la opcion elegida por el administrador carga lisgas al archivo y lista, o muestra el contenido que hay en ellos
 void menuArchLigas(nodoLiga * listaLigas){
     int opc;
     system("cls");
@@ -220,7 +227,7 @@ void menuArchLigas(nodoLiga * listaLigas){
             break;
     }
 }
-
+///Segun la opcion elegida por el administrador nos lleva al menu archivos de: jugadores, equpos o ligas.
 nodoLiga * ingresoAdmin (nodoLiga * listaLigas){
     int opcion;
     system("cls");
@@ -257,7 +264,9 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas){
     }
     return listaLigas;
 }
-
+/**Pide al administrador la contraseña. Si este ingresa una opcion incorrecta da dos intentos mas para que pueda ingresar
+ la correcta,si vuelve a fallar en los dos intentos el programa termina.Si el administrador ingresa la contraseña correcta
+ se invoca a la funcion "ingresoAdmin"**/
 nodoLiga * menuAdministrador(nodoLiga * listaLigas){
     char pass[20];
     system("cls");

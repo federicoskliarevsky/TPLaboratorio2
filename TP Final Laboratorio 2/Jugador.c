@@ -1,5 +1,5 @@
 #include "Jugador.h"
-
+///Lee los datos de la estructura jugador para luego cargarlos al archivo. Se invoca en la foncion "cargaArchJugadores"
 void leerJugador(jugador * nuevo){
     printf ("\n Ingrese el nombre del jugador: ");
     fflush (stdin);
@@ -28,7 +28,7 @@ void leerJugador(jugador * nuevo){
         scanf ("%d", &(nuevo->precio));
     }
 }
-
+///Printea todos los datos de la estructura jugador
 void mostrarJugador(jugador aux){
     printf ("\n\n Jugador: ");
     puts (aux.nombreJugador);
@@ -54,6 +54,7 @@ nodoArbol* crearNodoArbolJug(jugador info){
     return aux;
 }
 
+/**Inserta los datos del jugador cargado en el arbol segun su campo de calificacion**/
 nodoArbol* insertarArbol(nodoArbol* a,jugador aux){
     if(a==NULL){
         a=crearNodoArbolJug(aux);
@@ -67,7 +68,7 @@ nodoArbol* insertarArbol(nodoArbol* a,jugador aux){
 
     return a;
 }
-
+/**Pasa los datos de los jugadores cargados en el archivo a el arbol de jugadore**/
 nodoArbol* cargarArbolJugador(nodoArbol* a,char nombreEquipo[]){
     FILE* archi=fopen("Jugadores.dat","rb");
     if(archi!=NULL){
@@ -82,7 +83,7 @@ nodoArbol* cargarArbolJugador(nodoArbol* a,char nombreEquipo[]){
 
     return a;
 }
-
+///Muestra el contenido del arbol de jugadores **/
 nodoArbol* mostrarInOrder(nodoArbol* a){
     if(a!=NULL){
         mostrarInOrder(a->izq);

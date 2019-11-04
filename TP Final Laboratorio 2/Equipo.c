@@ -1,5 +1,7 @@
 #include "Equipo.h"
 
+/**Lee los campos de la estructura equipo para luego cargarlos al archivo e inicializa el campo "arbolJugadoresEquipo".
+Se invoca en la foncion "cargaArchEquipos"**/
 void leerEquipo (equipo * nuevo){
     printf ("\n Ingrese el nombre del equipo: ");
     fflush (stdin);
@@ -16,7 +18,8 @@ void leerEquipo (equipo * nuevo){
     }
     nuevo->arbolJugadoresEquipo = NULL;
 }
-
+/**Printea los campos de la estructura equipo. Si el equipo tiene cargado jugadores da la opcion de ver los jugadores que tiene
+el equipo,caso contrario muestra un mensaje informando que el equipo esta sin jugadores*/
 void mostrarEquipo (equipo aux){
     printf ("\n Equipo: ");
     puts (aux.nombreEquipo);
@@ -40,7 +43,7 @@ void mostrarEquipo (equipo aux){
 nodoEquipo * iniclistaEquipo(){
 return NULL;
 }
-
+/**Pasa los datos de los equipos cargados en el archivo a la lista de equipos**/
 nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
     equipo aux;
     nodoEquipo * a;
@@ -58,7 +61,7 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
     fclose(archi);
     return lista;
 }
-
+/**Crea un nodo en la lista de equipos.Se invoca en la funcion "cargarListaEquipo"**/
 nodoEquipo * crearNodoEquipo(equipo dato){
 char nombre[30];
 strcpy(nombre,dato.nombreEquipo);
@@ -69,7 +72,7 @@ nuevoNodo->dato.arbolJugadoresEquipo = inicArbol();
 nuevoNodo->dato.arbolJugadoresEquipo = cargarArbolJugador(nuevoNodo->dato.arbolJugadoresEquipo,nombre);
 return nuevoNodo;
 }
-
+/**Se invoca en la funcion "cargarListaEquipo" para ir agregando en orden de carga los equipos a la lista**/
 nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
     if(lista==NULL)
     {
@@ -81,7 +84,8 @@ nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
     }
     return lista;
 }
-
+/**Se invoca en la funcion "agregarFinalNodoEquipo" para buscar el ultimo nodo y asi poder enlazar este con el nodo recien
+cargado**/
 nodoEquipo * buscarUltimoEquipo(nodoEquipo * lista){
  nodoEquipo * seg = lista;
  if(seg!=NULL)
