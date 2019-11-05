@@ -1,6 +1,6 @@
 #include "Usuario.h"
 
-void menuUsuario(nodoLiga * listaLigas){
+void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado){
     int opcion=-1;
     system("cls");
     printf ("Bienvenido, Usuario!\n Que desea hacer?");
@@ -21,17 +21,46 @@ void menuUsuario(nodoLiga * listaLigas){
             system ("pause");
             ///menuListarTodos();
             system("cls");
-            ejecutarMenu(listaLigas);
+            ejecutarMenu(listaLigas, arbolMercado);
             break;
         case 2:
             printf ("\n Menu Mi Club\n");
             system ("pause");
             ///menuMiClub();
             system("cls");
-            ejecutarMenu(listaLigas);
+            ejecutarMenu(listaLigas, arbolMercado);
             break;
         default:
             system("cls");
-            ejecutarMenu(listaLigas);
+            ejecutarMenu(listaLigas, arbolMercado);
     }
 }
+
+void verificarUsuario(){
+    int opcion = -1;
+    system("cls");
+    printf ("\n  1.Ingresar Usuario");
+    printf ("\n  2.Loguear Usuario");
+    printf ("\n  0. Para salir.");
+     printf ("\n\n Ingrese la opcion deseada: ");
+    fflush (stdin);
+    scanf ("%d", &opcion);
+    while (opcion<0 || opcion>2){
+        printf ("\nSe ingreso una opcion incorrecta. Por favor, ingrese una opcion valida: ");
+        fflush (stdin);
+        scanf ("%d", &opcion);
+    }
+     switch (opcion){
+        case 1:
+            ///IngresarUsuario();
+            break;
+        case 2:
+            ///LoguearUsuario();
+            break;
+        default:
+            system("cls");
+            ///ejecutarMenu(listaLigas, arbolMercado);
+    }
+
+}
+

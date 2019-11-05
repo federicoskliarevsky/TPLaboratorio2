@@ -45,7 +45,7 @@ nodoLiga * crearNodoLiga(liga dato){
  nuevoNodo->dato = dato;
  nuevoNodo->sig = NULL;
  nuevoNodo->dato.listaEquipos = iniclistaEquipo();
- nuevoNodo->dato.listaEquipos = cargarListaEquipo(nuevoNodo->dato.listaEquipos,nombre);
+ nuevoNodo->dato.listaEquipos = cargarListaEquipo(nuevoNodo->dato.listaEquipos,nombre); ///Dentro de la funcion llamada se cargan los equipos del archivo a la lista de cada liga
  return nuevoNodo;
 }
 

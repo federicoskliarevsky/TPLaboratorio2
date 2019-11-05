@@ -12,7 +12,7 @@ void leerEquipo (equipo * nuevo){
     printf (" Ingrese anio de creacion (mayor a 0): ");
     fflush (stdin);
     scanf ("%d", &(nuevo->anioCreacion));
-    while (nuevo->anioCreacion<0 || nuevo->anioCreacion>2019){
+    while (nuevo->anioCreacion<1800 || nuevo->anioCreacion>2019){
         printf (" Ingrese un anio valido: ");
         scanf ("%d", &(nuevo->anioCreacion));
     }
@@ -52,9 +52,9 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
     {
      while(fread(&aux,sizeof(equipo),1,archi) > 0)
      {
-      if(strcmp(aux.nombreLiga,nombre) == 0)
+      if(strcmpi(aux.nombreLiga,nombre) == 0)
       {
-       lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux));
+       lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux)); ///Dentro de la funcion llamada se cargan los jugadores del archivo al arbol del equipo
       }
      }
     }
@@ -69,7 +69,7 @@ nodoEquipo * nuevoNodo =(nodoEquipo*) malloc (sizeof(nodoEquipo));
 nuevoNodo->dato = dato;
 nuevoNodo->sig = NULL;
 nuevoNodo->dato.arbolJugadoresEquipo = inicArbol();
-nuevoNodo->dato.arbolJugadoresEquipo = cargarArbolJugador(nuevoNodo->dato.arbolJugadoresEquipo,nombre);
+nuevoNodo->dato.arbolJugadoresEquipo = cargarArbolJugador(nuevoNodo->dato.arbolJugadoresEquipo,nombre); ///Carga desde el archivo
 return nuevoNodo;
 }
 /**Se invoca en la funcion "cargarListaEquipo" para ir agregando en orden de carga los equipos a la lista**/

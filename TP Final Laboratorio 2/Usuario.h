@@ -7,13 +7,24 @@
 #include "Liga.h"
 
 typedef struct{
-    char nombre[30];
+    char nombreClub[30];
     int monedas;
     char estadio[30];
     char camiseta[30];
     nodoArbol * arbolJugadoresClub;
 } miClub;
 
-void menuUsuario(nodoLiga *);
+typedef struct{
+  char nombreUser[30];
+  char pass[30];
+  miClub club;
+}usuario;
 
+typedef struct{
+  usuario user;
+  struct nodoUsuario * sig;
+}nodoUsuario;
+
+void menuUsuario(nodoLiga *, nodoArbol *);
+void verificarUsuario();
 #endif // USUARIO_H_INCLUDED

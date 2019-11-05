@@ -10,6 +10,7 @@ typedef struct {
     char nacionalidad[20];
     int calificacion; ///Entre 1 y 99
     int precio; ///Mayor a 0. Se puso entero por correspondencia con el juego real
+    int eliminado; ///1 si esta eliminado, 0 si no. Se crea en 0
 } jugador;
 
 typedef struct {
@@ -18,11 +19,14 @@ typedef struct {
     struct nodoArbol * der;
 } nodoArbol;
 
-void leerJugador (jugador *);
+int buscarJugadorArchivo(jugador);
+int leerJugador (jugador *);
 void mostrarJugador (jugador);
 nodoArbol * inicArbol();
 nodoArbol* crearNodoArbolJug(jugador);
 nodoArbol* insertarArbol(nodoArbol*,jugador);
 nodoArbol* cargarArbolJugador(nodoArbol* ,char[]);
 nodoArbol* mostrarInOrder(nodoArbol*);
+nodoArbol* crearArbolMercado (nodoArbol*);
+nodoArbol* buscarJugador (nodoArbol*, char[]);
 #endif // JUGADOR_H_INCLUDED

@@ -4,6 +4,14 @@
 void imprimirCabecera()  ///Printea el nombre del juego
 {
     system("COLOR 02");
+    printf ("CARGANDO");
+    printf ("     ");
+    for (int i=0; i<30; i++){
+        printf ("%c", 178);
+        Sleep(50);
+    }
+    printf ("\n\n");
+    system ("cls");
     char cabecera[] = "FIFA 20";
     int i;
     printf("%c", 201);
@@ -29,11 +37,13 @@ void imprimirCabecera()  ///Printea el nombre del juego
 void crearVariables(){
     nodoLiga * listaLigas = inicListaliga();
     listaLigas = cargarListaLigas(listaLigas);
-    ejecutarMenu(listaLigas);
+    nodoArbol * arbolMercado = inicArbol();
+    arbolMercado = crearArbolMercado(arbolMercado);
+    ejecutarMenu(listaLigas, arbolMercado);
 }
 
 ///Permite ingresar como usuario o administrador. Dependiendo la opción elegida nos lleva al menu de los anteriormente nombrados.
-void ejecutarMenu (nodoLiga * listaLigas){
+void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado){
     int opcion=-1;
     printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n A continuacion, debera elegir una opcion:");
     printf ("\n  1. Para ingresar como administrador.");
@@ -49,10 +59,11 @@ void ejecutarMenu (nodoLiga * listaLigas){
     }
     switch (opcion){
         case 1:
-            listaLigas = menuAdministrador(listaLigas);
+            listaLigas = menuAdministrador(listaLigas, &arbolMercado);
             break;
         case 2:
-            menuUsuario(listaLigas);
+            verificarUsuario();
+            menuUsuario(listaLigas, arbolMercado);
             break;
         default:
             printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");
