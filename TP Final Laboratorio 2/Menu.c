@@ -29,26 +29,38 @@ void imprimirCabecera()  ///Printea el nombre del juego
     for(i=0; i<70; i++)
     {
         printf("%c",205);
-        ///Sleep(50);
+        Sleep(20);
     }
     printf("%c\n", 187);
     printf("%c%40s%4c\n", 186,cabecera,186);
+    Sleep(50);
     printf("%c%40s%6c\n", 186,cabecera2,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera3,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera4,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera5,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera6,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera7,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera8,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera9,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera10,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera11,186);
+    Sleep(50);
     printf("%c%32s%6c\n", 186,cabecera12,186);
+    Sleep(50);
     printf("%c", 200);
     for(i=0; i<70; i++)
     {
         printf("%c",205);
-        ///Sleep(50);
+        Sleep(20);
     }
     printf("%c", 188);
     printf("\n");
