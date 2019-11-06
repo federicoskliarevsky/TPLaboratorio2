@@ -36,7 +36,7 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado){
     }
 }
 
-void verificarUsuario(){
+void verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado){
     int opcion = -1;
     system("cls");
     printf ("\n  1.Ingresar Usuario");
@@ -52,15 +52,21 @@ void verificarUsuario(){
     }
      switch (opcion){
         case 1:
-            ///IngresarUsuario();
+            IngresarUsuario();
             break;
         case 2:
-            ///LoguearUsuario();
+            LoguearUsuario();
             break;
         default:
             system("cls");
-            ///ejecutarMenu(listaLigas, arbolMercado);
+            ejecutarMenu(listaLigas, arbolMercado);
     }
 
 }
 
+void IngresarUsuario(){
+
+}
+
+void LoguearUsuario(){
+}

@@ -26,5 +26,7 @@ typedef struct{
 }nodoUsuario;
 
 void menuUsuario(nodoLiga *, nodoArbol *);
-void verificarUsuario();
+void verificarUsuario(nodoLiga *,nodoArbol *);
+void LoguearUsuario();
+void IngresarUsuario();
 #endif // USUARIO_H_INCLUDED

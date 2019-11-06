@@ -1,6 +1,5 @@
 #include "Menu.h"
 
-
 void imprimirCabecera()  ///Printea el nombre del juego
 {
     system("COLOR 02");
@@ -12,19 +11,44 @@ void imprimirCabecera()  ///Printea el nombre del juego
     }
     printf ("\n\n");
     system ("cls");
-    char cabecera[] = "FIFA 20";
+    char cabecera[]="  _________         ______         _________         _________     ";
+    char cabecera2[] =" |         |        |    |        |         |       |   ____   | ";
+    char cabecera3[] =" |    _____|        |    |        |    _____|       |  |    |  | ";
+    char cabecera4[] =" |   |              |    |        |   |             |  |    |  | ";
+    char cabecera5[] =" |   |              |    |        |   |             |  |    |  | ";
+    char cabecera6[] =" |   |_____         |    |        |   |_____        |  |____|  | ";
+    char cabecera7[] =" |         |        |    |        |         |       |          | ";
+    char cabecera8[] =" |    _____|        |    |        |    _____|       |          | ";
+    char cabecera9[] =" |    |             |    |        |    |            |   ____   | ";
+    char cabecera10[]=" |    |             |    |        |    |            |  |    |  | ";
+    char cabecera11[]=" |    |             |    |        |    |            |  |    |  | ";
+    char cabecera12[]=" |____|             |____|        |____|            |__|    |__| ";
+
     int i;
     printf("%c", 201);
-    for(i=0; i<50; i++)
+    for(i=0; i<70; i++)
     {
         printf("%c",205);
+        ///Sleep(50);
     }
     printf("%c\n", 187);
-    printf("%c%32s%19c\n", 186,cabecera,186);
+    printf("%c%40s%4c\n", 186,cabecera,186);
+    printf("%c%40s%6c\n", 186,cabecera2,186);
+    printf("%c%32s%6c\n", 186,cabecera3,186);
+    printf("%c%32s%6c\n", 186,cabecera4,186);
+    printf("%c%32s%6c\n", 186,cabecera5,186);
+    printf("%c%32s%6c\n", 186,cabecera6,186);
+    printf("%c%32s%6c\n", 186,cabecera7,186);
+    printf("%c%32s%6c\n", 186,cabecera8,186);
+    printf("%c%32s%6c\n", 186,cabecera9,186);
+    printf("%c%32s%6c\n", 186,cabecera10,186);
+    printf("%c%32s%6c\n", 186,cabecera11,186);
+    printf("%c%32s%6c\n", 186,cabecera12,186);
     printf("%c", 200);
-    for(i=0; i<50; i++)
+    for(i=0; i<70; i++)
     {
         printf("%c",205);
+        ///Sleep(50);
     }
     printf("%c", 188);
     printf("\n");
@@ -62,8 +86,7 @@ void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado){
             listaLigas = menuAdministrador(listaLigas, &arbolMercado);
             break;
         case 2:
-            verificarUsuario();
-            menuUsuario(listaLigas, arbolMercado);
+            verificarUsuario(listaLigas,arbolMercado);
             break;
         default:
             printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");
