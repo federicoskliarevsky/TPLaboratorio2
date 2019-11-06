@@ -28,5 +28,5 @@ typedef struct{
 void menuUsuario(nodoLiga *, nodoArbol *);
 void verificarUsuario(nodoLiga *,nodoArbol *);
 void LoguearUsuario();
-void IngresarUsuario();
+int IngresarUsuario();
 #endif // USUARIO_H_INCLUDED

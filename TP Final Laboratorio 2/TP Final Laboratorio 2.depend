@@ -145,7 +145,7 @@
 	"Usuario.h"
 	"Jugador.h"
 
-1572995804 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.h
+1573001312 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.h
 	<stdio.h>
 	<stdlib.h>
 	"Jugador.h"
@@ -185,6 +185,6 @@
 1572992725 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\liga.c
 	"Liga.h"
 
-1572995804 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.c
+1573001449 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
