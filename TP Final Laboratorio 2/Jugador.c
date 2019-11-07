@@ -44,8 +44,28 @@ int leerJugador(jugador * nuevo){
     }
     nuevo->eliminado = 0;
     int rta = buscarJugadorArchivo(*nuevo);
+    if(rta==0)
+    {
+    nuevo->ID = buscarIDultimo()+1;
+    }
     return rta;
 }
+
+///retorna la ultima ID del jugador cargado
+int buscarIDultimo(){
+ int id=-1;
+ jugador a;
+ FILE * archi =fopen("Jugadores.dat","rb");
+ if(archi!=NULL)
+ {
+  fseek(archi,-1*sizeof(jugador),SEEK_END);
+  fread(&a,sizeof(jugador),1,archi);
+  id = a.ID;
+ }
+ fclose(archi);
+return id;
+}
+
 ///Printea todos los datos de la estructura jugador
 void mostrarJugador(jugador aux){
     if (aux.eliminado==0){

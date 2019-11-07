@@ -549,7 +549,7 @@ void menuArchLigas(nodoLiga * listaLigas){
     }
 }
 ///Segun la opcion elegida por el administrador nos lleva al menu archivos de: jugadores, equpos o ligas.
-nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUsuario * listaUsuarios){
     int opcion;
     system("cls");
     printf ("Bienvenido, Administrador.\n A continuacion, debera elegir una opcion:");
@@ -569,26 +569,26 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
     switch (opcion){
         case 0:
             system("cls");
-            ejecutarMenu(listaLigas, *arbolMercado);
+            ejecutarMenu(listaLigas, *arbolMercado,listaUsuarios);
             break;
         case 1:
             listaLigas = menuArchJugadores(listaLigas, arbolMercado);
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado);
+            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
             break;
         case 2:
             listaLigas = menuArchEquipos(listaLigas);
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado);
+            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
             break;
         case 3:
             menuArchLigas(listaLigas);
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado);
+            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
             break;
         case 4:
             printf ("\n  Arbol Mercado:");
             mostrarInOrder(*arbolMercado);
             printf ("\n\n");
             system ("pause");
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado);
+            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
             break;
     }
     return listaLigas;
@@ -596,7 +596,7 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
 /**Pide al administrador la contraseña. Si este ingresa una opcion incorrecta da dos intentos mas para que pueda ingresar
  la correcta,si vuelve a fallar en los dos intentos el programa termina.Si el administrador ingresa la contraseña correcta
  se invoca a la funcion "ingresoAdmin"**/
-nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUsuario * listaUsuarios){
     char pass[20];
     system("cls");
     printf ("Ingreso al Menu Administrador.");
@@ -604,7 +604,7 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
     fflush (stdin);
     gets (pass);
     if (strcmp (pass, password)==0){
-        listaLigas = ingresoAdmin (listaLigas, arbolMercado);
+        listaLigas = ingresoAdmin (listaLigas, arbolMercado,listaUsuarios);
     } else {
         int intentos=2;
         printf (" Password incorrecta. Intentos restantes: %d", intentos);
@@ -615,7 +615,7 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             gets (pass);
             if (strcmp (pass, password)==0){
                 seguirIntentando=0;
-                listaLigas = ingresoAdmin (listaLigas, arbolMercado);
+                listaLigas = ingresoAdmin (listaLigas, arbolMercado,listaUsuarios);
             } else {
                 intentos--;
                 printf (" Password incorrecta.");

@@ -11,6 +11,7 @@ typedef struct {
     int calificacion; ///Entre 1 y 99
     int precio; ///Mayor a 0. Se puso entero por correspondencia con el juego real
     int eliminado; ///1 si esta eliminado, 0 si no. Se crea en 0
+    int ID; ///ID unico a cada jugador
 } jugador;
 
 typedef struct {

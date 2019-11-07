@@ -75,11 +75,13 @@ void crearVariables(){
     listaLigas = cargarListaLigas(listaLigas);
     nodoArbol * arbolMercado = inicArbol();
     arbolMercado = crearArbolMercado(arbolMercado);
-    ejecutarMenu(listaLigas, arbolMercado);
+    nodoUsuario * listaUsuarios = inicListaUsuarios();
+    listaUsuarios = cargarListaUsuarios(listaUsuarios);
+    ejecutarMenu(listaLigas, arbolMercado,listaUsuarios);
 }
 
 ///Permite ingresar como usuario o administrador. Dependiendo la opción elegida nos lleva al menu de los anteriormente nombrados.
-void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado){
+void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado,nodoUsuario * listaUsuarios){
     int opcion=-1;
     printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n A continuacion, debera elegir una opcion:");
     printf ("\n  1. Para ingresar como administrador.");
@@ -95,12 +97,12 @@ void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado){
     }
     switch (opcion){
         case 1:
-            listaLigas = menuAdministrador(listaLigas, &arbolMercado);
+            listaLigas = menuAdministrador(listaLigas, &arbolMercado,listaUsuarios);
             break;
         case 2:
-            verificarUsuario(listaLigas,arbolMercado);
+            verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             break;
         default:
-            printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");
+            printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");///ERROR:vuelve al usuario
     }
 }

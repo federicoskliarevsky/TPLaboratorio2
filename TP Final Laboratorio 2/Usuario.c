@@ -1,16 +1,64 @@
 #include "Usuario.h"
 
-void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado){
+nodoUsuario * inicListaUsuarios (){
+    return NULL;
+}
+
+nodoUsuario * crearNodoUsuario(usuario dato){
+    nodoUsuario * nuevoNodo = (nodoUsuario*) malloc(sizeof(nodoUsuario));
+    nuevoNodo->dato = dato;
+    nuevoNodo->sig = NULL;
+    return nuevoNodo;
+}
+
+nodoUsuario * cargarListaUsuarios(nodoUsuario * listaUsuarios){
+    usuario aux;
+    FILE * archi = fopen("usuarios.dat","rb");
+    if(archi!=NULL)
+    {
+        while(fread(&aux,sizeof(usuario),1,archi)> 0)
+        {
+            nodoUsuario * nuevo = crearNodoUsuario(aux);
+            listaUsuarios = agregarFinalNodoUsuario(listaUsuarios,nuevo);
+        }
+    }
+    fclose(archi);
+    return listaUsuarios;
+}
+
+nodoUsuario *  agregarFinalNodoUsuario(nodoUsuario * listaUsuarios,nodoUsuario * nuevo){
+ if(listaUsuarios==NULL)
+ {
+  listaUsuarios = nuevo;
+ }else
+ {
+  nodoUsuario * ultimo = buscarUltimoUsuario(listaUsuarios);
+  ultimo->sig = nuevo;
+ }
+ return listaUsuarios;
+}
+
+nodoUsuario * buscarUltimoUsuario(nodoUsuario * listaUsuarios){
+ nodoUsuario* seg=listaUsuarios;
+ while(seg->sig!=NULL){
+    seg=seg->sig;
+ }
+ return seg;
+}
+
+
+void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
     int opcion=-1;
     system("cls");
     printf ("Bienvenido, Usuario!\n Que desea hacer?");
     printf ("\n  1. Listado de jugadores.");
     printf ("\n  2. Ir a Mi Club");
+    printf ("\n  3. Ir a Mercado.");
     printf ("\n  0. Para salir.");
     printf ("\n\n Ingrese la opcion deseada: ");
     fflush (stdin);
     scanf ("%d", &opcion);
-    while (opcion<0 || opcion>2){
+    while (opcion<0 || opcion>3){
         printf ("\nSe ingreso una opcion incorrecta. Por favor, ingrese una opcion valida: ");
         fflush (stdin);
         scanf ("%d", &opcion);
@@ -19,25 +67,31 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado){
         case 1:
             printf ("\n Listado de jugadores.\n");
             system ("pause");
-            ///menuListarTodos();
+            ///FUNC MOSTRAR JUG CLUB
             system("cls");
-            ejecutarMenu(listaLigas, arbolMercado);
+            menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
         case 2:
             printf ("\n Menu Mi Club\n");
             system ("pause");
             ///menuMiClub();
             system("cls");
-            ejecutarMenu(listaLigas, arbolMercado);
+            menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
+
+        case 3:
+            printf("\n Ingreso al mercado\n");
+            system("pause");
+            menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
         default:
             system("cls");
-            ejecutarMenu(listaLigas, arbolMercado);
+             verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
     }
 }
 
-void verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado){
+usuario verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado,nodoUsuario * listaUsuarios){
     int opcion = -1;
+    usuario cargado;
     system("cls");
     printf("Menu de Usuario:\n");
     printf ("\n  1.Ingresar Usuario");
@@ -53,29 +107,43 @@ void verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado){
     }
      switch (opcion){
         case 1:
-            system("cls");
-            int res = 0;
-            while(res == 0)
+            if(listaUsuarios!=NULL)
             {
             system("cls");
-            res = IngresarUsuario();
+            int res = 0,intento = 3;
+             while(res == 0 || intento != 0)
+             {
+             intento--;
+             system("cls");
+             res = IngresarUsuario(&cargado);
+             }
+             if(intento == 0)
+             {
+              verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
+             }
+             menuUsuario(listaLigas,arbolMercado,cargado,listaUsuarios);
+            }else
+            {
+             system("cls");
+             printf("no hay usuarios cargados");
+             Sleep(100);
             }
-            menuUsuario(listaLigas,arbolMercado);
+            verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             break;
         case 2:
             system("cls");
             LoguearUsuario();
             system("cls");
-            verificarUsuario(listaLigas,arbolMercado);
+            verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             break;
         default:
             system("cls");
             ejecutarMenu(listaLigas, arbolMercado);
     }
-
+ return cargado;
 }
 
-int IngresarUsuario(){
+int  IngresarUsuario(usuario* aux){
   FILE * archUsuarios = fopen("usuarios.dat","rb");
   usuario a;
   char nombre[30];
@@ -94,6 +162,7 @@ int IngresarUsuario(){
      if(strcmpi(a.nombreUser,nombre)==0 && strcmpi(a.pass,pass)==0)
      {
       res = 1;
+      *aux = a;
      }
     }
   }
@@ -121,8 +190,10 @@ void LoguearUsuario(){
    printf("Ingrese estadio de club:");
    fflush(stdin);
    gets(a.club.estadio);
-   a.club.arbolJugadoresClub = inicArbol();
    a.club.monedas = 2000000;
+   for (int i=0; i<11; i++){
+        a.club.arregloID[i]=-1;
+   }
    fwrite(&a,sizeof(usuario),1,archUsuarios);
   }
   fclose(archUsuarios);

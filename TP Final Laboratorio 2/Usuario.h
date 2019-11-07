@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Jugador.h"
-#include "Menu.h"
+///#include "Menu.h"
 #include "Liga.h"
 
 typedef struct{
@@ -11,7 +11,7 @@ typedef struct{
     int monedas;
     char estadio[30];
     char camiseta[30];
-    nodoArbol * arbolJugadoresClub;
+    int  arregloID[11];
 } miClub;
 
 typedef struct{
@@ -21,12 +21,17 @@ typedef struct{
 }usuario;
 
 typedef struct{
-  usuario user;
+  usuario dato;
   struct nodoUsuario * sig;
 }nodoUsuario;
 
-void menuUsuario(nodoLiga *, nodoArbol *);
-void verificarUsuario(nodoLiga *,nodoArbol *);
+nodoUsuario * crearNodoUsuario(usuario);
+nodoUsuario * cargarListaUsuarios(nodoUsuario *);
+nodoUsuario * inicListaUsuarios();
+void menuUsuario(nodoLiga *, nodoArbol *,usuario,nodoUsuario *);
+usuario verificarUsuario(nodoLiga *,nodoArbol *,nodoUsuario *);
 void LoguearUsuario();
-int IngresarUsuario();
+int IngresarUsuario(usuario*);
+nodoUsuario * agregarFinalNodoUsuario(nodoUsuario *,nodoUsuario *);
+nodoUsuario * buscarUltimoUsuario(nodoUsuario *);
 #endif // USUARIO_H_INCLUDED

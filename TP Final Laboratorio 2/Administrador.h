@@ -7,6 +7,7 @@
 #include "Menu.h"
 #include "Jugador.h"
 #include "Equipo.h"
+#include "Usuario.h"
 #include "Liga.h"
 #define password "a"
 
@@ -24,7 +25,7 @@ nodoLiga * cargaArchEquipos(nodoLiga *);
 void muestraArchEquipos();
 nodoLiga * cargaArchLigas(nodoLiga *);
 void muestraArchLigas();
-nodoLiga * ingresoAdmin(nodoLiga *, nodoArbol**);
-nodoLiga * menuAdministrador(nodoLiga *, nodoArbol**);
+nodoLiga * ingresoAdmin(nodoLiga *,nodoArbol**,nodoUsuario*);
+nodoLiga * menuAdministrador(nodoLiga *,nodoArbol**,nodoUsuario*);
 
 #endif // ADMINISTRADOR_H_INCLUDED
