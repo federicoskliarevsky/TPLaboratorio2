@@ -16,8 +16,9 @@ void leerEquipo (equipo * nuevo){
         printf (" Ingrese un anio valido: ");
         scanf ("%d", &(nuevo->anioCreacion));
     }
-    nuevo->arbolJugadoresEquipo = NULL;
+    crearArregloID(nuevo->arregloID);
 }
+
 /**Printea los campos de la estructura equipo. Si el equipo tiene cargado jugadores da la opcion de ver los jugadores que tiene
 el equipo,caso contrario muestra un mensaje informando que el equipo esta sin jugadores*/
 void mostrarEquipo (equipo aux){
@@ -26,20 +27,20 @@ void mostrarEquipo (equipo aux){
     printf (" Liga: ");
     puts (aux.nombreLiga);
     printf (" Anio de creacion: %d", aux.anioCreacion);
-    if (aux.arbolJugadoresEquipo!=NULL){
+    int validos = buscarValidos(aux.arregloID);
+    if (validos>0){
         char control;
         printf ("\n Desea ver jugadores? (s para confirmar): ");
         fflush (stdin);
         scanf ("%c", &control);
         if (control=='s'){
-            printf ("\n Muestra jugadores (ordenados por valoracion): ");
-            mostrarInOrder(aux.arbolJugadoresEquipo);
+            printf ("\n Muestra jugadores (ordenados por ID): ");
+            mostrarArregloID(aux.arregloID, validos);
         }
     } else {
         printf ("\n Equipo sin jugadores.");
     }
 }
-
 nodoEquipo * iniclistaEquipo(){
 return NULL;
 }
@@ -68,8 +69,6 @@ strcpy(nombre,dato.nombreEquipo);
 nodoEquipo * nuevoNodo =(nodoEquipo*) malloc (sizeof(nodoEquipo));
 nuevoNodo->dato = dato;
 nuevoNodo->sig = NULL;
-nuevoNodo->dato.arbolJugadoresEquipo = inicArbol();
-nuevoNodo->dato.arbolJugadoresEquipo = cargarArbolJugador(nuevoNodo->dato.arbolJugadoresEquipo,nombre); ///Carga desde el archivo
 return nuevoNodo;
 }
 /**Se invoca en la funcion "cargarListaEquipo" para ir agregando en orden de carga los equipos a la lista**/

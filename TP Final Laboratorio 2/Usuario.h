@@ -11,7 +11,7 @@ typedef struct{
     int monedas;
     char estadio[30];
     char camiseta[30];
-    int  arregloID[11];
+    int  arregloID[MAXJugadores];
 } miClub;
 
 typedef struct{

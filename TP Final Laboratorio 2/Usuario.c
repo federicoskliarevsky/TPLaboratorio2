@@ -111,7 +111,7 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado,nodoUsu
             {
             system("cls");
             int res = 0,intento = 3;
-             while(res == 0 || intento != 0)
+             while(res == 0 && intento != 0)
              {
              intento--;
              system("cls");
@@ -127,8 +127,8 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado,nodoUsu
              system("cls");
              printf("no hay usuarios cargados");
              Sleep(100);
+             verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             }
-            verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             break;
         case 2:
             system("cls");
@@ -191,9 +191,7 @@ void LoguearUsuario(){
    fflush(stdin);
    gets(a.club.estadio);
    a.club.monedas = 2000000;
-   for (int i=0; i<11; i++){
-        a.club.arregloID[i]=-1;
-   }
+   crearArregloID(a.club.arregloID);
    fwrite(&a,sizeof(usuario),1,archUsuarios);
   }
   fclose(archUsuarios);

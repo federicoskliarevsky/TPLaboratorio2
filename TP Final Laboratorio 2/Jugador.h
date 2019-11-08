@@ -2,6 +2,7 @@
 #define JUGADOR_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
+#define MAXJugadores 11
 
 typedef struct {
     char nombreJugador[30];
@@ -15,19 +16,23 @@ typedef struct {
 } jugador;
 
 typedef struct {
-    jugador dato;
+    int datoID;
     struct nodoArbol * izq;
     struct nodoArbol * der;
 } nodoArbol;
 
-int buscarJugadorArchivo(jugador);
+jugador buscarJugadorArchivo(jugador);
+void crearArregloID (int[]);
 int leerJugador (jugador *);
 void mostrarJugador (jugador);
 nodoArbol * inicArbol();
-nodoArbol* crearNodoArbolJug(jugador);
-nodoArbol* insertarArbol(nodoArbol*,jugador);
-nodoArbol* cargarArbolJugador(nodoArbol* ,char[]);
+nodoArbol* crearNodoArbolJug(int);
+nodoArbol* insertarArbol(nodoArbol*,int);
+void cargarArregloJugador(int[],char[]);
 nodoArbol* mostrarInOrder(nodoArbol*);
 nodoArbol* crearArbolMercado (nodoArbol*);
-nodoArbol* buscarJugador (nodoArbol*, char[]);
+int buscarJugador (nodoArbol*,int);
+jugador buscaIDArch(int);
+int buscarValidos(int[]);
+void mostrarArregloID (int[], int);
 #endif // JUGADOR_H_INCLUDED

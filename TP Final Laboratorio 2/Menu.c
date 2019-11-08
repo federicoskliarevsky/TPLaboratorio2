@@ -4,7 +4,8 @@ void imprimirCabecera()  ///Printea el nombre del juego
 {
     system("COLOR 02");
     printf ("CARGANDO");
-    printf ("     ");
+
+    /*printf ("     ");
     for (int i=0; i<30; i++){
         printf ("%c", 178);
         Sleep(50);
@@ -65,7 +66,7 @@ void imprimirCabecera()  ///Printea el nombre del juego
     printf("%c", 188);
     printf("\n");
     system("pause");
-    system("cls");
+    system("cls");*/
     crearVariables();
 }
 

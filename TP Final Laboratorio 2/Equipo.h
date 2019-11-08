@@ -8,7 +8,7 @@ typedef struct {
     char nombreEquipo[30];
     char nombreLiga[30];
     int anioCreacion;
-    nodoArbol * arbolJugadoresEquipo;
+    int arregloID[MAXJugadores];
 } equipo;
 
 typedef struct {

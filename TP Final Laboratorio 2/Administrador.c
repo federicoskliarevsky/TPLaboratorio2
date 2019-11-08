@@ -12,7 +12,7 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
     printf ("Ingreso al menu cargar archivo de jugadores.");
     while (control=='s'){
         printf ("\n Lectura de datos de jugador:");
-        if (leerJugador(&aux)==0){
+        if (leerJugador(&aux)==-1){ ///Si el jugador ingresado no se encuentra en el archivo
             nodoLiga * listaLigasAuxiliar = inicListaliga();
             nodoEquipo * listaEquiposAuxiliar = iniclistaEquipo();
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
@@ -27,8 +27,13 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             fwrite(&aux, sizeof(jugador), 1, archJug);
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
             listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
-            listaEquiposAuxiliar->dato.arbolJugadoresEquipo = insertarArbol(listaEquiposAuxiliar->dato.arbolJugadoresEquipo, aux);
-            *arbolMercado = insertarArbol(arbolMercado, aux);
+            int validos = buscarValido(listaEquiposAuxiliar->dato.arregloID);
+            if (validos<MAXJugadores){
+                listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
+            } else {
+                printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
+            }
+            *arbolMercado = insertarArbol(arbolMercado, aux.ID);
             system ("cls");
         } else {
             printf ("\n Jugador ya ingresado.");
@@ -40,6 +45,7 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
     fclose(archJug);
     return listaLigas;
 }
+
 
 
 ///Muestra todos los jugadores cargados exitosamente al archivo
@@ -78,24 +84,26 @@ nodoLiga * bajaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             printf ("\n  Equipo encontrado. Ingrese el nombre del jugador a dar de baja: ");
             fflush (stdin);
             gets (nombreJugador);
-            nodoArbol * arbolAux = inicArbol();
-            arbolAux = buscarJugador (*arbolMercado, nombreJugador);
-            if (arbolAux!=NULL){
-                if (arbolAux->dato.eliminado==0){
+            jugador jugAux;
+            strcpy(jugAux.nombreEquipo, nombreEquipo);
+            strcpy(jugAux.nombreJugador, nombreJugador);
+            strcpy(jugAux.nombreLiga, nombreLiga);
+            jugador jugEncontrado = buscarJugadorArchivo(jugAux);
+            if (jugEncontrado.ID != -1){
+                if (jugEncontrado.eliminado==0){
                     char opcion;
                     printf ("\n  Jugador encontrado. Datos: ");
-                    mostrarJugador(arbolAux->dato);
+                    mostrarJugador(jugEncontrado);
                     printf ("\n  Esta seguro de que desea eliminarlo? (s para confirmar): ");
                     fflush (stdin);
                     scanf ("%c", &opcion);
                     if (opcion=='s'){
-                        arbolAux->dato.eliminado = 1; ///Baja el jugador en el arbolMercado
                         FILE * archJugadores = fopen("Jugadores.dat", "r+b"); ///Baja el jugador en el arch jugadores
                         if (archJugadores!=NULL){
                             jugador jugadorAux;
                             int encontrado = 0;
                             while (fread(&jugadorAux, sizeof(jugador), 1, archJugadores)>0 && encontrado == 0){
-                                if (strcmpi(jugadorAux.nombreJugador, nombreJugador)==0){
+                                if (strcmpi(jugadorAux.ID, jugEncontrado.ID)==0){
                                     fseek(archJugadores, sizeof(jugador)*(-1), SEEK_CUR);
                                     jugadorAux.eliminado=1;
                                     fwrite(&jugadorAux, sizeof(jugador), 1, archJugadores);
@@ -105,8 +113,6 @@ nodoLiga * bajaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                             }
                             fclose(archJugadores);
                         }
-                        arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al jugador en el equipo
-                        arbolAux->dato.eliminado = 1; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo baja
                         printf ("\n  Jugador dado de baja con exito.");
                         system ("pause");
                     }
@@ -149,23 +155,26 @@ nodoLiga * altaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             printf ("\n  Equipo encontrado. Ingrese el nombre del jugador a dar de alta: ");
             fflush (stdin);
             gets (nombreJugador);
-            nodoArbol * arbolAux = inicArbol();
-            arbolAux = buscarJugador (*arbolMercado, nombreJugador);
-            if (arbolAux!=NULL){
-                if (arbolAux->dato.eliminado==1){
+            jugador jugAux;
+            strcpy(jugAux.nombreEquipo, nombreEquipo);
+            strcpy(jugAux.nombreJugador, nombreJugador);
+            strcpy(jugAux.nombreLiga, nombreLiga);
+            jugador jugEncontrado = buscarJugadorArchivo(jugAux);
+            if (jugEncontrado.ID != -1){
+                if (jugEncontrado.eliminado==1){
                     char opcion;
-                    printf ("\n  Jugador encontrado.");
-                    printf ("\n  Esta seguro de que desea darlo de alta? (s para confirmar): ");
+                    printf ("\n  Jugador encontrado. Datos: ");
+                    mostrarJugador(jugEncontrado);
+                    printf ("\n  Esta seguro de que desea eliminarlo? (s para confirmar): ");
                     fflush (stdin);
                     scanf ("%c", &opcion);
                     if (opcion=='s'){
-                        arbolAux->dato.eliminado = 0; ///Alta del jugador en el arbolMercado
-                        FILE * archJugadores = fopen("Jugadores.dat", "r+b"); ///Alta del jugador en el arch jugadores
+                        FILE * archJugadores = fopen("Jugadores.dat", "r+b"); ///Baja el jugador en el arch jugadores
                         if (archJugadores!=NULL){
                             jugador jugadorAux;
                             int encontrado = 0;
                             while (fread(&jugadorAux, sizeof(jugador), 1, archJugadores)>0 && encontrado == 0){
-                                if (strcmpi(jugadorAux.nombreJugador, nombreJugador)==0){
+                                if (strcmpi(jugadorAux.ID, jugEncontrado.ID)==0){
                                     fseek(archJugadores, sizeof(jugador)*(-1), SEEK_CUR);
                                     jugadorAux.eliminado=0;
                                     fwrite(&jugadorAux, sizeof(jugador), 1, archJugadores);
@@ -175,13 +184,11 @@ nodoLiga * altaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                             }
                             fclose(archJugadores);
                         }
-                        arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al jugador en el equipo
-                        arbolAux->dato.eliminado = 0; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo da de alta
                         printf ("\n  Jugador dado de alta con exito.");
                         system ("pause");
                     }
                 } else {
-                    printf ("\n  El jugador no estaba dado de baja.");
+                    printf ("\n  El jugador ya estaba dado de alta.");
                     system ("pause");
                 }
             } else {
@@ -217,7 +224,7 @@ void reemplazarArchivoJugadores (jugador modificado, char nombreBuscado[]){
     }
 }
 
-nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){///falta cambiar la funcion para el arreglo
     char nombreLiga[30];
     printf ("Ingreso al menu modificacion de jugador.\n");
     printf ("  Ingrese liga del jugador a dar de modificacion: ");

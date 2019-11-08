@@ -202,20 +202,20 @@
 	"Usuario.h"
 	"Liga.h"
 
-1573148793 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\menu.h
+1573229663 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\menu.h
 	<stdio.h>
 	<stdlib.h>
 	"Usuario.h"
 	"Administrador.h"
 	"Jugador.h"
 
-1573149090 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\usuario.h
+1573233402 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\usuario.h
 	<stdio.h>
 	<stdlib.h>
 	"Jugador.h"
 	"Liga.h"
 
-1573146709 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\jugador.h
+1573236361 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\jugador.h
 	<stdio.h>
 	<stdlib.h>
 
@@ -226,15 +226,15 @@
 	<windows.h>
 	"Equipo.h"
 
-1572811670 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\equipo.h
+1573233402 c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\equipo.h
 	<stdio.h>
 	<stdlib.h>
 	"Jugador.h"
 
-1572973392 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\equipo.c
+1573234282 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\equipo.c
 	"Equipo.h"
 
-1573146719 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\jugador.c
+1573236342 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\jugador.c
 	"Jugador.h"
 
 1572971104 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\liga.c
@@ -245,9 +245,9 @@
 	<stdlib.h>
 	"Menu.h"
 
-1573149773 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\menu.c
+1573229663 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\menu.c
 	"Menu.h"
 
-1573149588 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\usuario.c
+1573234282 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
