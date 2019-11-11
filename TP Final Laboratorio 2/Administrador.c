@@ -104,7 +104,7 @@ nodoLiga * bajaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                             jugador jugadorAux;
                             int encontrado = 0;
                             while (fread(&jugadorAux, sizeof(jugador), 1, archJugadores)>0 && encontrado == 0){
-                                if (strcmpi(jugadorAux.ID, jugEncontrado.ID)==0){
+                                if (jugadorAux.ID == jugEncontrado.ID){
                                     fseek(archJugadores, sizeof(jugador)*(-1), SEEK_CUR);
                                     jugadorAux.eliminado=1;
                                     fwrite(&jugadorAux, sizeof(jugador), 1, archJugadores);
@@ -166,7 +166,7 @@ nodoLiga * altaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                     char opcion;
                     printf ("\n  Jugador encontrado. Datos: ");
                     mostrarJugador(jugEncontrado);
-                    printf ("\n  Esta seguro de que desea dar de alta? (s para confirmar): ");
+                    printf ("\n  Esta seguro de que desea darlo de alta? (s para confirmar): ");
                     fflush (stdin);
                     scanf ("%c", &opcion);
                     if (opcion=='s'){
@@ -175,7 +175,7 @@ nodoLiga * altaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                             jugador jugadorAux;
                             int encontrado = 0;
                             while (fread(&jugadorAux, sizeof(jugador), 1, archJugadores)>0 && encontrado == 0){
-                                if (strcmpi(jugadorAux.ID, jugEncontrado.ID)==0){
+                                if (jugadorAux.ID == jugEncontrado.ID){
                                     fseek(archJugadores, sizeof(jugador)*(-1), SEEK_CUR);
                                     jugadorAux.eliminado=0;
                                     fwrite(&jugadorAux, sizeof(jugador), 1, archJugadores);

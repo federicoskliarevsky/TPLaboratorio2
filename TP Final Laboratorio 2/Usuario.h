@@ -30,8 +30,10 @@ nodoUsuario * cargarListaUsuarios(nodoUsuario *);
 nodoUsuario * inicListaUsuarios();
 void menuUsuario(nodoLiga *, nodoArbol *,usuario,nodoUsuario *);
 usuario verificarUsuario(nodoLiga *,nodoArbol *,nodoUsuario *);
-void LoguearUsuario();
+nodoUsuario * LoguearUsuario();
 int IngresarUsuario(usuario*);
 nodoUsuario * agregarFinalNodoUsuario(nodoUsuario *,nodoUsuario *);
 nodoUsuario * buscarUltimoUsuario(nodoUsuario *);
+void menuMercado();
+
 #endif // USUARIO_H_INCLUDED
