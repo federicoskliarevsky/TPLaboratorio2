@@ -30,7 +30,7 @@ void mostrarEquipo (equipo aux){
     int validos = buscarValidos(aux.arregloID);
     if (validos>0){
         char control;
-        printf ("\n Desea ver jugadores? (s para confirmar): ");
+        printf ("\n Validos: %d Desea ver jugadores? (s para confirmar): ", validos);
         fflush (stdin);
         scanf ("%c", &control);
         if (control=='s'){
@@ -111,4 +111,25 @@ nodoEquipo * buscarEquipo(nodoEquipo * lista, char nombreBuscado[]){
         lista = lista->sig;
     }
     return lista;
+}
+
+void actualizaArchEquipos (jugador recibido){
+    FILE * archEq;
+    archEq = fopen("Equipos.dat", "r+b");
+    equipo aux;
+    int encontrado=0;
+    while (fread(&aux, sizeof(equipo), 1, archEq)>0 && encontrado==0){
+        if (strcmpi(aux.nombreLiga, recibido.nombreLiga)==0 && strcmpi(aux.nombreEquipo, recibido.nombreEquipo)==0){
+            int i=0;
+            while (i<MAXJugadores && aux.arregloID[i]!=-1){
+                i++;
+            }
+            aux.arregloID[i]=recibido.ID;
+            fseek(archEq, sizeof(equipo)*(-1), SEEK_CUR);
+            fwrite(&aux, sizeof(equipo), 1, archEq);
+            fclose(archEq);
+            encontrado = 1;
+        }
+    }
+    fclose(archEq);
 }

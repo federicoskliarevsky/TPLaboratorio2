@@ -30,10 +30,11 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
             if (validos<MAXJugadores){
                 listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
+                actualizaArchEquipos (aux);
             } else {
                 printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
             }
-            *arbolMercado = insertarArbol(arbolMercado, aux.ID);
+            *arbolMercado = insertarArbol(*arbolMercado, aux.ID);
             system ("cls");
         } else {
             printf ("\n Jugador ya ingresado.");
@@ -234,14 +235,14 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
     ligaAux = buscarLiga(listaLigas, nombreLiga);
     if (ligaAux!=NULL){
         char nombreEquipo[30];
-        printf ("\n  Liga encontrada. Ingrese equipo del jugador a dar de modificacion: ");
+        printf ("\n  Liga encontrada. Ingrese equipo del jugador a modificar: ");
         fflush (stdin);
         gets (nombreEquipo);
         nodoEquipo * equipoAux = iniclistaEquipo();
         equipoAux = buscarEquipo(ligaAux->dato.listaEquipos, nombreEquipo);
         if (equipoAux!=NULL){
             char nombreJugador[30];
-            printf ("\n  Equipo encontrado. Ingrese el nombre del jugador a dar de modificacion: ");
+            printf ("\n  Equipo encontrado. Ingrese el nombre del jugador a modificar: ");
             fflush (stdin);
             gets (nombreJugador);
             jugador jugAux;
@@ -250,7 +251,7 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
             strcpy(jugAux.nombreLiga, nombreLiga);
             jugador jugEncontrado = buscarJugadorArchivo(jugAux);
             if (jugEncontrado.ID != -1){
-                if (jugEncontrado.eliminado==1){
+                if (jugEncontrado.eliminado==0){
                     char opcion;
                     ///jugador jugadorAux;
                     ///jugadorAux = arbolAux->dato;
@@ -414,7 +415,7 @@ void muestraArchEquipos(){
     archEquipos = fopen("Equipos.dat", "rb");
     equipo aux;
     system("Cls");
-    printf ("Ingreso al menu mostrar archivo de equipos (el arbol de jugadores dentro del archivo no tiene jugadores).");
+    printf ("Ingreso al menu mostrar archivo de equipos.");
     while (fread(&aux, sizeof(equipo), 1, archEquipos)>0){
         printf("\n");
         mostrarEquipo(aux);

@@ -54,6 +54,8 @@ int leerJugador(jugador * nuevo){
     if(rta.ID==-1) ///Si el jugador no esta
     {
         nuevo->ID = buscarIDultimo()+1;
+        printf ("ID asignado: %d", nuevo->ID);
+        system("pause");
     }
     return rta.ID;
 }
@@ -66,8 +68,9 @@ int buscarIDultimo(){
  if(archi!=NULL)
  {
   fseek(archi,-1*sizeof(jugador),SEEK_END);
-  fread(&a,sizeof(jugador),1,archi);
-  id = a.ID;
+  if (fread(&a,sizeof(jugador),1,archi)>0){
+    id = a.ID;
+  }
  }
  fclose(archi);
 return id;
@@ -86,6 +89,7 @@ void mostrarJugador(jugador aux){
         puts (aux.nacionalidad);
         printf (" Calificacion: %d", aux.calificacion);
         printf ("\n Precio: %d", aux.precio);
+        printf ("\n ID: %d", aux.ID);
     } else {
         printf ("\n\n El jugador %s esta dado de baja (eliminado=1).", aux.nombreJugador);
     }
@@ -104,7 +108,7 @@ nodoArbol* crearNodoArbolJug(int ID){
 }
 
 /**Inserta los datos del jugador cargado en el arbol segun su campo de calificacion**/
-nodoArbol* insertarArbol(nodoArbol* a,int ID){
+nodoArbol * insertarArbol(nodoArbol * a,int ID){
     if(a==NULL){
         a=crearNodoArbolJug(ID);
     }else{
@@ -136,7 +140,7 @@ jugador buscaIDArch(int ID){
     jugador aux;
     if(arch!=NULL){
         int encontrado = 0;
-        while(fread(&aux,sizeof(jugador),1,arch)>0 && encontrado == 0){
+        while(encontrado == 0 && fread(&aux,sizeof(jugador),1,arch)>0){
             if(ID == aux.ID){
                 encontrado = 1;
             }
@@ -148,9 +152,9 @@ jugador buscaIDArch(int ID){
 ///Muestra el contenido del arbol de jugadores **/
 nodoArbol* mostrarInOrder(nodoArbol* a){
     if(a!=NULL){
-        mostrarInOrder(a->der);
-        mostrarJugador(buscaIDArch(a->datoID));
         mostrarInOrder(a->izq);
+        mostrarJugador(buscaIDArch(a->datoID));
+        mostrarInOrder(a->der);
     }
 }
 ///Carga todos los jugadores del archivo al arbol del mercado
@@ -184,11 +188,13 @@ int buscarJugador(nodoArbol * arbol,int ID){
 }
 
 int buscarValidos(int arregloID[]){
-int i= 0;
-while(arregloID[i] == -1 && i<MAXJugadores){
- i++;
-}
-return i;
+    int j=0;
+    for (int i=0; i<MAXJugadores; i++){
+        if (arregloID[i]!=-1){
+            j++;
+        }
+    }
+    return j;
 }
 
 void mostrarArregloID (int arreglo[], int validos){

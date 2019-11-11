@@ -25,4 +25,5 @@ nodoEquipo * crearNodoEquipo(equipo);
 nodoEquipo * buscarUltimoEquipo(nodoEquipo *);
 nodoEquipo * buscarEquipo(nodoEquipo *, char[]);
 void muestraListaEquipos (nodoEquipo *);
+void actualizaArchEquipos (jugador);
 #endif // EQUIPO_H_INCLUDED
