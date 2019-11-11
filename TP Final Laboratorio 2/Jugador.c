@@ -124,7 +124,7 @@ void cargarArregloJugador(int arregloID[],char nombreEquipo[]){
         jugador aux;
         while(fread(&aux,sizeof(jugador),1,archi)>0){
             if(strcmpi(aux.nombreEquipo,nombreEquipo) == 0){
-                arregloID[buscarValido(arregloID)] = aux.ID;
+                arregloID[buscarValidos(arregloID)] = aux.ID;
             }
     }
     }

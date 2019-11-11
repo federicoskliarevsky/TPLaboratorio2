@@ -27,7 +27,7 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             fwrite(&aux, sizeof(jugador), 1, archJug);
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
             listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
-            int validos = buscarValido(listaEquiposAuxiliar->dato.arregloID);
+            int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
             if (validos<MAXJugadores){
                 listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
             } else {
@@ -165,11 +165,11 @@ nodoLiga * altaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                     char opcion;
                     printf ("\n  Jugador encontrado. Datos: ");
                     mostrarJugador(jugEncontrado);
-                    printf ("\n  Esta seguro de que desea eliminarlo? (s para confirmar): ");
+                    printf ("\n  Esta seguro de que desea dar de alta? (s para confirmar): ");
                     fflush (stdin);
                     scanf ("%c", &opcion);
                     if (opcion=='s'){
-                        FILE * archJugadores = fopen("Jugadores.dat", "r+b"); ///Baja el jugador en el arch jugadores
+                        FILE * archJugadores = fopen("Jugadores.dat", "r+b"); ///Da de alta el jugador en el arch jugadores
                         if (archJugadores!=NULL){
                             jugador jugadorAux;
                             int encontrado = 0;
@@ -244,15 +244,18 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
             printf ("\n  Equipo encontrado. Ingrese el nombre del jugador a dar de modificacion: ");
             fflush (stdin);
             gets (nombreJugador);
-            nodoArbol * arbolAux = inicArbol();
-            arbolAux = buscarJugador (*arbolMercado, nombreJugador);
-            if (arbolAux!=NULL){
-                if (arbolAux->dato.eliminado==0){
+            jugador jugAux;
+            strcpy(jugAux.nombreEquipo, nombreEquipo);
+            strcpy(jugAux.nombreJugador, nombreJugador);
+            strcpy(jugAux.nombreLiga, nombreLiga);
+            jugador jugEncontrado = buscarJugadorArchivo(jugAux);
+            if (jugEncontrado.ID != -1){
+                if (jugEncontrado.eliminado==1){
                     char opcion;
-                    jugador jugadorAux;
-                    jugadorAux = arbolAux->dato;
+                    ///jugador jugadorAux;
+                    ///jugadorAux = arbolAux->dato;
                     printf ("\n\n  Jugador encontrado. Datos: \n ");
-                    mostrarJugador(arbolAux->dato);
+                    mostrarJugador(jugEncontrado);
                     printf ("\n\n  Que campo desea modificar?");
                     printf ("\n  1. Para modificar el nombre del jugador.");
                     printf ("\n  2. Para modificar la nacionalidad del jugador.");
@@ -275,52 +278,52 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
                         case 1:
                             system("cls");
                             char nombreViejo[30];
-                            strcpy (nombreViejo, arbolAux->dato.nombreJugador); ///Para buscar correctamente al llamar modificar archivo
+                            strcpy (nombreViejo,jugEncontrado.nombreJugador); ///Para buscar correctamente al llamar modificar archivo
                             printf ("\n Ingrese el nuevo nombre del jugador: ");
                             fflush (stdin);
-                            gets (jugadorAux.nombreJugador);
-                            strcpy(arbolAux->dato.nombreJugador, jugadorAux.nombreJugador);
-                            arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            strcpy(arbolAux->dato.nombreJugador, jugadorAux.nombreJugador); ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
-                            reemplazarArchivoJugadores(jugadorAux, nombreViejo);
+                            gets (jugEncontrado.nombreJugador);
+                            ///strcpy(arbolAux->dato.nombreJugador, jugadorAux.nombreJugador);
+                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
+                            ///strcpy(arbolAux->dato.nombreJugador, jugadorAux.nombreJugador); ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
+                            reemplazarArchivoJugadores(jugEncontrado, nombreViejo);
                             break;
                         case 2:
                             system("cls");
                             printf ("\n Ingrese la nueva nacionalidad del jugador: ");
                             fflush (stdin);
-                            gets (jugadorAux.nacionalidad);
-                            strcpy(arbolAux->dato.nacionalidad, jugadorAux.nacionalidad);
-                            arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            strcpy(arbolAux->dato.nacionalidad, jugadorAux.nacionalidad); ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
-                            reemplazarArchivoJugadores(jugadorAux, jugadorAux.nombreJugador);
+                            gets (jugEncontrado.nacionalidad);
+                            ///strcpy(arbolAux->dato.nacionalidad, jugadorAux.nacionalidad);
+                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
+                            ///strcpy(arbolAux->dato.nacionalidad, jugadorAux.nacionalidad); ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
+                            reemplazarArchivoJugadores(jugEncontrado, jugEncontrado.nombreJugador);
                             break;
                         case 3:
                             system("cls");
                             printf ("\n Ingrese la nueva calificacion del jugador: ");
                             fflush (stdin);
-                            scanf ("%d", &jugadorAux.calificacion);
-                            while (jugadorAux.calificacion<1 || jugadorAux.calificacion>99){
+                            scanf ("%d", &jugEncontrado.calificacion);
+                            while (jugEncontrado.calificacion<1 || jugEncontrado.calificacion>99){
                                 printf ("\n Ingrese una calificacion valida (entre 0 y 99): ");
-                                scanf ("%d", &jugadorAux.calificacion);
+                                scanf ("%d", &jugEncontrado.calificacion);
                             }
-                            arbolAux->dato.calificacion = jugadorAux.calificacion;
-                            arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            arbolAux->dato.calificacion = jugadorAux.calificacion; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
-                            reemplazarArchivoJugadores(jugadorAux, jugadorAux.nombreJugador);
+                            ///arbolAux->dato.calificacion = jugadorAux.calificacion;
+                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
+                            ///arbolAux->dato.calificacion = jugadorAux.calificacion; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
+                            reemplazarArchivoJugadores(jugEncontrado, jugEncontrado.nombreJugador);
                             break;
                         case 4:
                             system("cls");
                             printf ("\n Ingrese el nuevo precio del jugador: ");
                             fflush (stdin);
-                            scanf ("%d", &jugadorAux.precio);
-                            while (jugadorAux.precio<100 || jugadorAux.precio>4999999){
+                            scanf ("%d", &jugEncontrado.precio);
+                            while (jugEncontrado.precio<100 || jugEncontrado.precio>4999999){
                                 printf ("\n Ingrese un precio valido (entre 100 y 5.000.000): ");
-                                scanf ("%d", &jugadorAux.precio);
+                                scanf ("%d", &jugEncontrado.precio);
                             }
-                            arbolAux->dato.precio = jugadorAux.precio;
-                            arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            arbolAux->dato.precio = jugadorAux.precio; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
-                            reemplazarArchivoJugadores(jugadorAux, jugadorAux.nombreJugador);
+                            ///arbolAux->dato.precio = jugadorAux.precio;
+                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
+                            ///arbolAux->dato.precio = jugadorAux.precio; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
+                            reemplazarArchivoJugadores(jugEncontrado, jugEncontrado.nombreJugador);
                             break;
                     }
                 } else {

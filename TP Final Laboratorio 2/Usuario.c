@@ -67,7 +67,9 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
         case 1:
             printf ("\n Listado de jugadores.\n");
             system ("pause");
-            ///FUNC MOSTRAR JUG CLUB
+            int validos;
+            buscarValidos(cargado.club.arregloID);
+            mostrarArregloID(cargado.club.arregloID,validos);
             system("cls");
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
