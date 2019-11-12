@@ -34,6 +34,8 @@ nodoUsuario * LoguearUsuario();
 int IngresarUsuario(usuario*);
 nodoUsuario * agregarFinalNodoUsuario(nodoUsuario *,nodoUsuario *);
 nodoUsuario * buscarUltimoUsuario(nodoUsuario *);
-void menuMercado();
+void menuMercado(nodoLiga *, nodoArbol *,usuario,nodoUsuario *);
+void actualizaArchivoUsuarios (usuario);
+void compraJugador (usuario *, nodoArbol *);
 
 #endif // USUARIO_H_INCLUDED

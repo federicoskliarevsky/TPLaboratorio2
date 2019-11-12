@@ -46,10 +46,69 @@ nodoUsuario * buscarUltimoUsuario(nodoUsuario * listaUsuarios){
  return seg;
 }
 
+
+/// Devuelve -1 si el ID no es encontrado
+int buscaIDArreglo (int arr[], int IDBuscado, int validos){
+    int rta = -1;
+    int i = 0;
+    while (i<validos && rta==-1){
+        if (arr[i]==IDBuscado){
+            rta = arr[i];
+        }
+        i++;
+    }
+    return rta;
+}
+
+///Menu de compra de  un jugador
+void compraJugador (usuario * cargado, nodoArbol * arbolMercado){
+    system("cls");
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado->nombreUser, cargado->club.nombreClub, 36, cargado->club.monedas);
+    int validos = buscarValidos(cargado->club.arregloID);
+    if (validos <MAXJugadores){
+        int IDBuscado;
+        printf ("\n Ingrese el ID del jugador a comprar: ");
+        fflush (stdin);
+        scanf ("%d", &IDBuscado);
+        jugador encontrado = buscaIDArch(IDBuscado);
+        if (encontrado.ID == IDBuscado && encontrado.eliminado==0){
+            printf ("\n Jugador encontrado: ");
+            mostrarJugador(encontrado);
+            if (buscaIDArreglo(cargado->club.arregloID, IDBuscado, validos)==-1){ /// Si no lo encuentra en el arreglo
+                if (encontrado.precio <= cargado->club.monedas){
+                    char control='s';
+                    printf ("\n\n Esta seguro de que desea comprarlo?");
+                    printf ("\n Le quedaran al club %d monedas.", cargado->club.monedas- encontrado.precio);
+                    printf ("\n S para confirmar: ");
+                    fflush (stdin);
+                    scanf ("%c", &control);
+                    if (control=='s'){
+                        cargado->club.arregloID[validos] = IDBuscado; /// Se agrega el nuevo jugador al arreglo del club
+                        /** validos++; Por ahora no hace falta */
+                        cargado->club.monedas -= encontrado.precio; /// Se resta el precio del jugador a las monedas del club
+                        actualizaArchivoUsuarios(*cargado);
+                    }
+                } else {
+                    printf ("\n\n Monedas insuficientes. Faltan %d monedas.", encontrado.precio - cargado->club.monedas);
+                }
+            } else {
+                printf ("\n El jugador %s (ID %d) ya es parte de tu club.", encontrado.nombreJugador, encontrado.ID);
+            }
+        } else {
+            printf ("\n El jugador ingresado no se encontro.");
+        }
+    } else {
+        printf ("\n No hay espacio para otro jugador, ya hay %d cargados en el club. Por favor, venda uno.");
+    }
+    printf ("\n\n");
+    system ("pause");
+}
+
 void menuMercado(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
  int opcion=-1;
     system("cls");
-    printf ("Bienvenido, al Menu Mercado, Que desea hacer?");
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
+    printf ("\n\nBienvenido al Menu Mercado. Que desea hacer?");
     printf ("\n  1. Comprar jugadores.");
     printf ("\n  2. Vender jugador");
     printf ("\n  3. Ver el mercado.");
@@ -63,32 +122,53 @@ void menuMercado(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
         scanf ("%d", &opcion);
     }
     switch(opcion){
-   case 1:
-       ///compraJugador();
-       menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
-       break;
-   case 2:
-       ///ventaJugador();
-       menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
-       break;
-   case 3:
-       system("cls");
-       printf ("\n  Arbol Mercado:");
-       mostrarInOrder(arbolMercado);
-       printf ("\n");
-       system("pause");
-       menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
-       break;
-   default:
-       system("cls");
-       menuUsuario(listaLigas,arbolMercado,cargado,listaUsuarios);
+           case 1:
+               compraJugador(&cargado, arbolMercado);
+               menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
+               break;
+           case 2:
+               ///ventaJugador();
+               menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
+               break;
+           case 3:
+               system("cls");
+               printf ("\n  Arbol Mercado:");
+               mostrarInOrder(arbolMercado);
+               printf ("\n");
+               system("pause");
+               menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
+               break;
+           default:
+               system("cls");
+               menuUsuario(listaLigas,arbolMercado,cargado,listaUsuarios);
+            }
+}
+
+void actualizaArchivoUsuarios (usuario recibido){
+    FILE * archUsuarios;
+    archUsuarios = fopen("usuarios.dat", "r+b");
+    usuario aux;
+    int encontrado=0;
+    if (archUsuarios!=NULL){
+        while (fread(&aux, sizeof(usuario), 1, archUsuarios)>0 && encontrado==0){
+            if (strcmpi(aux.nombreUser, recibido.nombreUser)==0){
+                fseek(archUsuarios, sizeof(usuario)*(-1), SEEK_CUR);
+                fwrite(&recibido, sizeof(usuario), 1, archUsuarios);
+                fclose(archUsuarios);
+                encontrado = 1;
+            }
+        }
+    } else {
+        printf ("\n Archivo no abierto.");
     }
+    fclose(archUsuarios);
 }
 
 void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
     int opcion=-1;
     system("cls");
-    printf ("Bienvenido, %s!\n Que desea hacer?", cargado.nombreUser);
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
+    printf ("\n\nBienvenido, %s!\n Que desea hacer?", cargado.nombreUser);
     printf ("\n  1. Listado de jugadores.");
     printf ("\n  2. Ir a Mi Club");
     printf ("\n  3. Ir a Mercado.");
@@ -108,6 +188,8 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
             int validos = buscarValidos(cargado.club.arregloID);
             if (validos>0){
                 mostrarArregloID(cargado.club.arregloID,validos);
+                printf ("\n\n Fin de muestra de jugadores.\n\n");
+                system ("pause");
             } else {
                 printf ("\n No hay jugadores cargados.");
                 Sleep(1000);
@@ -122,14 +204,20 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
             system("cls");
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
-
         case 3:
-            printf("\n Ingreso al mercado\n");
-            Sleep(1000);
+            printf("\n Ingreso al mercado ");
+            Sleep(200);
+            printf (". ");
+            Sleep (200);
+            printf (". ");
+            Sleep (200);
+            printf (". ");
+            Sleep (200);
             menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
+            break;
         default:
             system("cls");
-             verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
+            verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
     }
 }
 
@@ -151,27 +239,25 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado,nodoUsu
     }
      switch (opcion){
         case 1:
-            if(listaUsuarios!=NULL)
-            {
-            system("cls");
-            int res = 0,intento = 3;
-             while(res == 0 && intento != 0)
-             {
-             intento--;
-             system("cls");
-             res = IngresarUsuario(&cargado);
-             }
-             if(intento == 0)
-             {
-              verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
-             }
-             menuUsuario(listaLigas,arbolMercado,cargado,listaUsuarios);
-            }else
-            {
-             system("cls");
-             printf("no hay usuarios cargados");
-             Sleep(1000);
-             verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
+            if(listaUsuarios!=NULL){
+                system("cls");
+                int res = 0, intento = 3;
+                while(res == 0 && intento != 0){
+                    intento--;
+                    system("cls");
+                    res = IngresarUsuario(&cargado);
+                }
+                if(intento == 0){
+                    verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
+                }
+                if (res==1){
+                    menuUsuario(listaLigas,arbolMercado,cargado,listaUsuarios);
+                }
+            } else {
+                system("cls");
+                printf("no hay usuarios cargados");
+                Sleep(1000);
+                verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             }
             break;
         case 2:

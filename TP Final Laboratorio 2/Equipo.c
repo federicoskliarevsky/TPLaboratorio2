@@ -64,12 +64,12 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
 }
 /**Crea un nodo en la lista de equipos.Se invoca en la funcion "cargarListaEquipo"**/
 nodoEquipo * crearNodoEquipo(equipo dato){
-char nombre[30];
-strcpy(nombre,dato.nombreEquipo);
-nodoEquipo * nuevoNodo =(nodoEquipo*) malloc (sizeof(nodoEquipo));
-nuevoNodo->dato = dato;
-nuevoNodo->sig = NULL;
-return nuevoNodo;
+    char nombre[30];
+    strcpy(nombre,dato.nombreEquipo);
+    nodoEquipo * nuevoNodo =(nodoEquipo*) malloc (sizeof(nodoEquipo));
+    nuevoNodo->dato = dato;
+    nuevoNodo->sig = NULL;
+    return nuevoNodo;
 }
 /**Se invoca en la funcion "cargarListaEquipo" para ir agregando en orden de carga los equipos a la lista**/
 nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
@@ -86,15 +86,15 @@ nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
 /**Se invoca en la funcion "agregarFinalNodoEquipo" para buscar el ultimo nodo y asi poder enlazar este con el nodo recien
 cargado**/
 nodoEquipo * buscarUltimoEquipo(nodoEquipo * lista){
- nodoEquipo * seg = lista;
- if(seg!=NULL)
- {
-  while(seg->sig != NULL)
-  {
-   seg = seg->sig;
-  }
- }
- return seg;
+     nodoEquipo * seg = lista;
+     if(seg!=NULL)
+     {
+      while(seg->sig != NULL)
+      {
+       seg = seg->sig;
+      }
+     }
+     return seg;
 }
 
 void muestraListaEquipos (nodoEquipo * lista){

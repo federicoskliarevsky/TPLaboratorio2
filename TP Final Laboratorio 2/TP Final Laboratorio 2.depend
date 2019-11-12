@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1572967678 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\administrador.c
+1573498320 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\administrador.c
 	"Administrador.h"
 
-1572966144 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\administrador.h
+1573498320 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\administrador.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -10,56 +10,56 @@
 	"Menu.h"
 	"Jugador.h"
 	"Equipo.h"
-	"Liga.h"
-
-1572963800 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\menu.h
-	<stdio.h>
-	<stdlib.h>
-	"Administrador.h"
 	"Usuario.h"
-	"Jugador.h"
-
-1572963941 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\usuario.h
-	<stdio.h>
-	<stdlib.h>
-	"Jugador.h"
-	"Menu.h"
 	"Liga.h"
 
-1572966144 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\jugador.h
+1573498320 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\menu.h
+	<stdio.h>
+	<stdlib.h>
+	"Usuario.h"
+	"Administrador.h"
+	"Jugador.h"
+
+1573580827 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\usuario.h
+	<stdio.h>
+	<stdlib.h>
+	"Jugador.h"
+	"Liga.h"
+
+1573498320 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\jugador.h
 	<stdio.h>
 	<stdlib.h>
 
-1572811670 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\liga.h
+1573498320 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\liga.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<windows.h>
 	"Equipo.h"
 
-1572811670 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\equipo.h
+1573498320 c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\equipo.h
 	<stdio.h>
 	<stdlib.h>
 	"Jugador.h"
 
-1572963541 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\equipo.c
+1573580349 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\equipo.c
 	"Equipo.h"
 
-1572966144 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\jugador.c
+1573578541 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\jugador.c
 	"Jugador.h"
 
-1572963541 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\liga.c
+1573498320 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\liga.c
 	"Liga.h"
 
-1572811670 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\main.c
+1573498320 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Menu.h"
 
-1572963965 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\usuario.c
+1573581681 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
-1572963948 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\menu.c
+1573498320 source:c:\users\usuario\desktop\tplaboratorio2-master\tp final laboratorio 2\menu.c
 	"Menu.h"
 
 1573492928 source:f:\tplaboratorio2\tp final laboratorio 2\administrador.c

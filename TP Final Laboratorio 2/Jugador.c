@@ -54,7 +54,7 @@ int leerJugador(jugador * nuevo){
     if(rta.ID==-1) ///Si el jugador no esta
     {
         nuevo->ID = buscarIDultimo()+1;
-        printf ("ID asignado: %d", nuevo->ID);
+        printf (" ID asignado: %d.\n\n", nuevo->ID);
         system("pause");
     }
     return rta.ID;
