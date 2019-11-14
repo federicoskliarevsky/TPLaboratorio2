@@ -24,32 +24,33 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                 system ("pause");
                 listaLigas = cargaArchEquipos(listaLigas); ///Usamos esta funcion para no crear una muy parecida que solo pida un equipo
             }
-            archJug = fopen("Jugadores.dat", "ab");
-            if (archJug!=NULL){
-                fwrite(&aux, sizeof(jugador), 1, archJug);
-                fclose(archJug);
-            } else {
-                printf ("\n  Error de apertura en el archivo Jugadores.dat");
-            }
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
             listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
             int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
             if (validos<MAXJugadores){
+                archJug = fopen("Jugadores.dat", "ab");
+                if (archJug!=NULL){
+                    fwrite(&aux, sizeof(jugador), 1, archJug);
+                    fclose(archJug);
+                } else {
+                    printf ("\n  Error de apertura en el archivo Jugadores.dat");
+                }
                 listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
                 actualizaArchEquipos (aux);
+                *arbolMercado = insertarArbol(*arbolMercado, aux.ID);
             } else {
-                printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
+                printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.\n", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
+                printf ("Si desea, puede modificar uno de los jugadores del equipo desde el menu Modificacion.\n");
+                system ("pause");
             }
-            *arbolMercado = insertarArbol(*arbolMercado, aux.ID);
             system ("cls");
         } else {
             printf ("\n Jugador ya ingresado.");
         }
         printf ("\n Desea ingresar otro jugador? (s para continuar): ");
-            fflush (stdin);
-            scanf ("%c", &control);
+        fflush (stdin);
+        scanf ("%c", &control);
     }
-
     return listaLigas;
 }
 
@@ -289,9 +290,6 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
                             printf ("\n Ingrese el nuevo nombre del jugador: ");
                             fflush (stdin);
                             gets (jugEncontrado.nombreJugador);
-                            ///strcpy(arbolAux->dato.nombreJugador, jugadorAux.nombreJugador);
-                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            ///strcpy(arbolAux->dato.nombreJugador, jugadorAux.nombreJugador); ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
                             reemplazarArchivoJugadores(jugEncontrado, nombreViejo);
                             break;
                         case 2:
@@ -299,9 +297,6 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
                             printf ("\n Ingrese la nueva nacionalidad del jugador: ");
                             fflush (stdin);
                             gets (jugEncontrado.nacionalidad);
-                            ///strcpy(arbolAux->dato.nacionalidad, jugadorAux.nacionalidad);
-                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            ///strcpy(arbolAux->dato.nacionalidad, jugadorAux.nacionalidad); ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
                             reemplazarArchivoJugadores(jugEncontrado, jugEncontrado.nombreJugador);
                             break;
                         case 3:
@@ -313,9 +308,6 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
                                 printf ("\n Ingrese una calificacion valida (entre 0 y 99): ");
                                 scanf ("%d", &jugEncontrado.calificacion);
                             }
-                            ///arbolAux->dato.calificacion = jugadorAux.calificacion;
-                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            ///arbolAux->dato.calificacion = jugadorAux.calificacion; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
                             reemplazarArchivoJugadores(jugEncontrado, jugEncontrado.nombreJugador);
                             break;
                         case 4:
@@ -327,9 +319,6 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
                                 printf ("\n Ingrese un precio valido (entre 100 y 5.000.000): ");
                                 scanf ("%d", &jugEncontrado.precio);
                             }
-                            ///arbolAux->dato.precio = jugadorAux.precio;
-                            ///arbolAux = buscarJugador(equipoAux->dato.arbolJugadoresEquipo, nombreJugador); ///Cambiamos el valor del arbolMercado al del jugador en el equipo
-                            ///arbolAux->dato.precio = jugadorAux.precio; ///Le asigna a arbolAux el jugador buscado dentro de la lista de ligas y lo modifica
                             reemplazarArchivoJugadores(jugEncontrado, jugEncontrado.nombreJugador);
                             break;
                     }
@@ -640,7 +629,10 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado,no
                 if (intentos>0){
                     printf (" Intentos restantes: %d", intentos);
                 } else {
-                    printf (" No le quedan mas intentos.");
+                    printf (" No le quedan mas intentos.\n");
+                    system ("pause");
+                    system("cls");
+                    ejecutarMenu(listaLigas, *arbolMercado,listaUsuarios);
                 }
             }
         }

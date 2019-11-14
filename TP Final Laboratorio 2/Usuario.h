@@ -28,7 +28,12 @@ typedef struct{
 nodoUsuario * crearNodoUsuario(usuario);
 nodoUsuario * cargarListaUsuarios(nodoUsuario *);
 nodoUsuario * inicListaUsuarios();
+void mostrarClub (usuario);
+void menuMiClub(nodoLiga *, nodoArbol *, usuario, nodoUsuario *);
 void menuUsuario(nodoLiga *, nodoArbol *,usuario,nodoUsuario *);
+void insertarOrdenado (int[], int, int);
+void ordenarArregloMayorMenor (int[]);
+int buscaEliminados (usuario *);
 usuario verificarUsuario(nodoLiga *,nodoArbol *,nodoUsuario *);
 nodoUsuario * LoguearUsuario();
 int IngresarUsuario(usuario*);
@@ -37,5 +42,6 @@ nodoUsuario * buscarUltimoUsuario(nodoUsuario *);
 void menuMercado(nodoLiga *, nodoArbol *,usuario,nodoUsuario *);
 void actualizaArchivoUsuarios (usuario);
 void compraJugador (usuario *, nodoArbol *);
+void ventaJugador (usuario *, nodoArbol *);
 
 #endif // USUARIO_H_INCLUDED

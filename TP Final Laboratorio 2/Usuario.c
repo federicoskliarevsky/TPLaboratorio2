@@ -47,13 +47,13 @@ nodoUsuario * buscarUltimoUsuario(nodoUsuario * listaUsuarios){
 }
 
 
-/// Devuelve -1 si el ID no es encontrado
+/// Devuelve -1 si el ID no es encontrado. Si lo encuentra, devuelve la posicion
 int buscaIDArreglo (int arr[], int IDBuscado, int validos){
     int rta = -1;
     int i = 0;
     while (i<validos && rta==-1){
         if (arr[i]==IDBuscado){
-            rta = arr[i];
+            rta = i;
         }
         i++;
     }
@@ -87,6 +87,7 @@ void compraJugador (usuario * cargado, nodoArbol * arbolMercado){
                         /** validos++; Por ahora no hace falta */
                         cargado->club.monedas -= encontrado.precio; /// Se resta el precio del jugador a las monedas del club
                         actualizaArchivoUsuarios(*cargado);
+                        printf ("\n El jugador ha sido contratado por tu club con exito!");
                     }
                 } else {
                     printf ("\n\n Monedas insuficientes. Faltan %d monedas.", encontrado.precio - cargado->club.monedas);
@@ -99,6 +100,44 @@ void compraJugador (usuario * cargado, nodoArbol * arbolMercado){
         }
     } else {
         printf ("\n No hay espacio para otro jugador, ya hay %d cargados en el club. Por favor, venda uno.");
+    }
+    printf ("\n\n");
+    system ("pause");
+}
+
+///Menu de venta de  un jugador
+void ventaJugador (usuario * cargado, nodoArbol * arbolMercado){
+    system("cls");
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado->nombreUser, cargado->club.nombreClub, 36, cargado->club.monedas);
+    int validos = buscarValidos(cargado->club.arregloID);
+    if (validos > 0){
+        int IDBuscado;
+        printf ("\n Ingrese el ID del jugador a vender: ");
+        fflush (stdin);
+        scanf ("%d", &IDBuscado);
+        jugador encontrado = buscaIDArch(IDBuscado);
+        int posicionID = buscaIDArreglo(cargado->club.arregloID, IDBuscado, validos);
+        if (posicionID!=-1){ /// Si no lo encuentra en el arreglo
+            printf ("\n Jugador encontrado: ");
+            mostrarJugador(encontrado);
+            char control='s';
+            printf ("\n\n Esta seguro de que desea venderlo?");
+            printf ("\n Le quedaran al club %d monedas.", cargado->club.monedas + encontrado.precio);
+            printf ("\n S para confirmar: ");
+            fflush (stdin);
+            scanf ("%c", &control);
+            if (control=='s'){
+                cargado->club.arregloID[posicionID] = -1; /// Se elimina el jugador vendido del arreglo del club
+                cargado->club.monedas += encontrado.precio; /// Se suma el precio del jugador a las monedas del club
+                ordenarArregloMayorMenor(cargado->club.arregloID); /// Ordenamos el arreglo para que quede el -1 al final
+                actualizaArchivoUsuarios(*cargado);
+                printf ("\n El jugador ha sido vendido con exito!");
+            }
+        } else {
+            printf ("\n El jugador ingresado no se encontro en el club.");
+        }
+    } else {
+        printf ("\n No hay jugadores en el club.");
     }
     printf ("\n\n");
     system ("pause");
@@ -127,7 +166,7 @@ void menuMercado(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
                menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
                break;
            case 2:
-               ///ventaJugador();
+               ventaJugador(&cargado, arbolMercado);
                menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
                break;
            case 3:
@@ -164,14 +203,61 @@ void actualizaArchivoUsuarios (usuario recibido){
     fclose(archUsuarios);
 }
 
-void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
+void insertarOrdenado (int arreglo[], int i, int dato){
+    while (i>=0 && dato > arreglo[i]){
+        arreglo[i+1] = arreglo[i];
+        i --;
+    }
+    arreglo[i+1] = dato;
+}
+
+void ordenarArregloMayorMenor (int arreglo[]){
+    for (int i=0; i<MAXJugadores-1; i++){
+        insertarOrdenado (arreglo, i, arreglo[i+1]);
+    }
+}
+
+int buscaEliminados (usuario * cargado){
+    int rtaMonedas = (*cargado).club.monedas;
+    jugador encontrado;
+    int validos = buscarValidos((*cargado).club.arregloID);
+    for (int i=0; i<validos; i++){
+        encontrado = buscaIDArch((*cargado).club.arregloID[i]);
+        if (encontrado.eliminado==1){
+            rtaMonedas += encontrado.precio;
+            printf ("\nEl jugador %s fue eliminado por el administrador. Se le devolveran %d monedas a tu club!\n", encontrado.nombreJugador, encontrado.precio);
+            system ("pause");
+            (*cargado).club.arregloID[i] = -1;
+        }
+    }
+    ordenarArregloMayorMenor ((*cargado).club.arregloID);
+    return rtaMonedas;
+}
+
+void mostrarClub (usuario recibido){
+    system("cls");
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", recibido.nombreUser, recibido.club.nombreClub, 36, recibido.club.monedas);
+    printf ("\n\nInformacion del Club:");
+    printf ("\n\n Nombre de usuario: ");
+    puts (recibido.nombreUser);
+    printf (" Nombre de Club: ");
+    puts (recibido.club.nombreClub);
+    printf (" Camiseta: ");
+    puts (recibido.club.camiseta);
+    printf (" Estadio: ");
+    puts (recibido.club.estadio);
+    printf (" Monedas: %d\n\n", recibido.club.monedas);
+    system ("pause");
+}
+
+void menuMiClub(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
     int opcion=-1;
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
-    printf ("\n\nBienvenido, %s!\n Que desea hacer?", cargado.nombreUser);
+    printf ("\n\nMenu Mi Club", cargado.nombreUser);
     printf ("\n  1. Listado de jugadores.");
-    printf ("\n  2. Ir a Mi Club");
-    printf ("\n  3. Ir a Mercado.");
+    printf ("\n  2. Informacion del club.");
+    printf ("\n  3. Modificacion de club.");
     printf ("\n  0. Para salir.");
     printf ("\n\n Ingrese la opcion deseada: ");
     fflush (stdin);
@@ -195,12 +281,55 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
                 Sleep(1000);
             }
             system("cls");
+            menuMiClub(listaLigas, arbolMercado,cargado,listaUsuarios);
+            break;
+        case 2:
+            printf ("\n Eligio la opcion Informacion del Club.\n");
+            system ("pause");
+            mostrarClub (cargado);
+            system("cls");
+            menuMiClub(listaLigas, arbolMercado,cargado,listaUsuarios);
+            break;
+        case 3:
+            printf("\n Modificacion del Club.\n");
+            ///menuModificarClub
+            menuMercado(listaLigas,arbolMercado,cargado,listaUsuarios);
+            break;
+        default:
+            system("cls");
+    }
+}
+
+void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
+    int opcion=-1;
+    int validos = buscarValidos(cargado.club.arregloID);
+    cargado.club.monedas = buscaEliminados (&cargado);
+    actualizaArchivoUsuarios(cargado);
+    system("cls");
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
+    printf ("\n\nBienvenido, %s!\n Que desea hacer?", cargado.nombreUser);
+    printf ("\n  1. Jugar partido.");
+    printf ("\n  2. Ir a Mi Club");
+    printf ("\n  3. Ir a Mercado.");
+    printf ("\n  0. Para salir.");
+    printf ("\n\n Ingrese la opcion deseada: ");
+    fflush (stdin);
+    scanf ("%d", &opcion);
+    while (opcion<0 || opcion>3){
+        printf ("\nSe ingreso una opcion incorrecta. Por favor, ingrese una opcion valida: ");
+        fflush (stdin);
+        scanf ("%d", &opcion);
+    }
+    switch (opcion){
+        case 1:
+            printf ("\n Jugar partido.\n");
+            system("cls");
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
         case 2:
             printf ("\n Menu Mi Club\n");
             system ("pause");
-            ///menuMiClub();
+            menuMiClub(listaLigas,arbolMercado,cargado,listaUsuarios);
             system("cls");
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
@@ -255,14 +384,17 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoArbol *  arbolMercado,nodoUsu
                 }
             } else {
                 system("cls");
-                printf("no hay usuarios cargados");
+                printf(" No hay usuarios cargados");
                 Sleep(1000);
                 verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             }
             break;
         case 2:
             system("cls");
-            listaUsuarios = agregarFinalNodoUsuario(listaUsuarios,LoguearUsuario());
+            nodoUsuario * nuevoUsuario = LoguearUsuario();
+            if (nuevoUsuario!=NULL){
+                listaUsuarios = agregarFinalNodoUsuario(listaUsuarios,nuevoUsuario);
+            }
             system("cls");
             verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
             break;
@@ -281,10 +413,10 @@ int  IngresarUsuario(usuario* aux){
   int res = 0;
   if(archUsuarios!=NULL)
   {
-    printf("Ingrese Nombre Usuario:");
+    printf(" Ingrese Nombre Usuario:");
     fflush(stdin);
     gets(nombre);
-    printf("ingrese Password:");
+    printf(" Ingrese Password:");
     fflush(stdin);
     gets(pass);
     while(fread(&a,sizeof(usuario),1,archUsuarios)>0 && res == 0)
@@ -300,30 +432,54 @@ int  IngresarUsuario(usuario* aux){
    return res;
 }
 
+///Busca el nombre de usuario en el archivo. Si lo encuentra, devuelve 1
+int buscaUsuarioArch (char nombreBuscado[]){
+    int encontrado = 0;
+    FILE * archUsuarios;
+    archUsuarios = fopen ("usuarios.dat", "rb");
+    if (archUsuarios!=NULL){
+        usuario aux;
+        while (fread(&aux, sizeof(usuario), 1, archUsuarios)>0 && encontrado==0){
+            if (strcmpi(aux.nombreUser, nombreBuscado)==0){
+                encontrado = 1;
+            }
+        }
+    }
+    fclose(archUsuarios);
+    return encontrado;
+}
+
 nodoUsuario * LoguearUsuario(){
-  FILE * archUsuarios = fopen("usuarios.dat","ab");
-  usuario a;
-  if(archUsuarios!=NULL)
-  {
-   printf("Ingrese Nombre Usuario:");
-   fflush(stdin);
-   gets(a.nombreUser);
-   printf("ingrese Password:");
-   fflush(stdin);
-   gets(a.pass);
-   printf("Ingrese nombre de club:");
-   fflush(stdin);
-   gets(a.club.nombreClub);
-   printf("Ingrese camiseta de club:");
-   fflush(stdin);
-   gets(a.club.camiseta);
-   printf("Ingrese estadio de club:");
-   fflush(stdin);
-   gets(a.club.estadio);
-   a.club.monedas = 2000000;
-   crearArregloID(a.club.arregloID);
-   fwrite(&a,sizeof(usuario),1,archUsuarios);
-  }
-  fclose(archUsuarios);
-  return crearNodoUsuario(a);
+    FILE * archUsuarios = fopen("usuarios.dat","ab");
+    usuario a;
+    nodoUsuario * rta = NULL;
+    if(archUsuarios!=NULL){
+        printf("Ingrese Nombre Usuario:");
+        fflush(stdin);
+        gets(a.nombreUser);
+        int encontrado = buscaUsuarioArch(a.nombreUser);
+        if (encontrado==0){
+            printf("ingrese Password:");
+            fflush(stdin);
+            gets(a.pass);
+            printf("Ingrese nombre de club:");
+            fflush(stdin);
+            gets(a.club.nombreClub);
+            printf("Ingrese camiseta de club:");
+            fflush(stdin);
+            gets(a.club.camiseta);
+            printf("Ingrese estadio de club:");
+            fflush(stdin);
+            gets(a.club.estadio);
+            a.club.monedas = 2000000;
+            crearArregloID(a.club.arregloID);
+            fwrite(&a,sizeof(usuario),1,archUsuarios);
+            rta = crearNodoUsuario(a);
+        } else {
+            printf ("\n  Nombre de usuario ya existente.\n\n");
+            system ("pause");
+        }
+    }
+    fclose(archUsuarios);
+    return rta;
 }

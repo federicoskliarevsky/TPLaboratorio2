@@ -2,7 +2,7 @@
 #define JUGADOR_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
-#define MAXJugadores 11
+#define MAXJugadores 11 ///TENER EN CUENTA QUE SI SE MODIFICA HAY QUE CAMBIAR TODOS LOS ARCHIVOS.
 
 typedef struct {
     char nombreJugador[30];
