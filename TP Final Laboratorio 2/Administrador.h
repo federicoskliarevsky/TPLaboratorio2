@@ -17,7 +17,7 @@ void reemplazarArchivoJugadores (jugador, char[]);
 nodoLiga * modificarJugador (nodoLiga *, nodoArbol **);
 nodoLiga * menuArchJugadores(nodoLiga *, nodoArbol**);
 nodoLiga * menuArchEquipos(nodoLiga *);
-void menuArchLigas(nodoLiga *);
+nodoLiga * menuArchLigas(nodoLiga *);
 nodoLiga * cargaArchJugadores(nodoLiga *, nodoArbol **);
 void muestraArchJugadores();
 nodoLiga * modificaArchJugadores (nodoLiga *, nodoArbol **);

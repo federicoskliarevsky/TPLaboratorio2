@@ -4,10 +4,10 @@ encuentra en la lista de ligas o equipos se pedira al administrador que cargue l
 el jugador ingresado se cargara directamente al arbol y archivo**/
 
 nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
-    FILE * archJug;
-    archJug = fopen("Jugadores.dat", "ab");
+
     jugador aux;
     char control='s';
+    FILE * archJug;
     system("Cls");
     printf ("Ingreso al menu cargar archivo de jugadores.");
     while (control=='s'){
@@ -24,7 +24,13 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                 system ("pause");
                 listaLigas = cargaArchEquipos(listaLigas); ///Usamos esta funcion para no crear una muy parecida que solo pida un equipo
             }
-            fwrite(&aux, sizeof(jugador), 1, archJug);
+            archJug = fopen("Jugadores.dat", "ab");
+            if (archJug!=NULL){
+                fwrite(&aux, sizeof(jugador), 1, archJug);
+                fclose(archJug);
+            } else {
+                printf ("\n  Error de apertura en el archivo Jugadores.dat");
+            }
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
             listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
             int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
@@ -43,7 +49,7 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             fflush (stdin);
             scanf ("%c", &control);
     }
-    fclose(archJug);
+
     return listaLigas;
 }
 
@@ -528,7 +534,7 @@ nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
     return listaLigas;
 }
 ///Segun la opcion elegida por el administrador carga lisgas al archivo y lista, o muestra el contenido que hay en ellos
-void menuArchLigas(nodoLiga * listaLigas){
+nodoLiga * menuArchLigas(nodoLiga * listaLigas){
     int opc;
     system("cls");
     printf ("Bienvenido al menu archivo de ligas.\n A continuacion, debera elegir una opcion:");
@@ -558,6 +564,7 @@ void menuArchLigas(nodoLiga * listaLigas){
             system ("pause");
             break;
     }
+    return listaLigas;
 }
 ///Segun la opcion elegida por el administrador nos lleva al menu archivos de: jugadores, equpos o ligas.
 nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUsuario * listaUsuarios){
@@ -591,7 +598,7 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUs
             listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
             break;
         case 3:
-            menuArchLigas(listaLigas);
+            listaLigas = menuArchLigas(listaLigas);
             listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
             break;
         case 4:

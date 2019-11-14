@@ -62,18 +62,18 @@ int leerJugador(jugador * nuevo){
 
 ///retorna la ultima ID del jugador cargado
 int buscarIDultimo(){
- int id=-1;
- jugador a;
- FILE * archi =fopen("Jugadores.dat","rb");
- if(archi!=NULL)
- {
-  fseek(archi,-1*sizeof(jugador),SEEK_END);
-  if (fread(&a,sizeof(jugador),1,archi)>0){
-    id = a.ID;
-  }
- }
- fclose(archi);
-return id;
+    int id=-1;
+    jugador a;
+    FILE * archi =fopen("Jugadores.dat","rb");
+    if(archi!=NULL){
+        fseek(archi,-1*sizeof(jugador),SEEK_END);
+        if (fread(&a,sizeof(jugador),1,archi)>0){
+            id = a.ID;
+        }
+    }
+    fclose(archi);
+    ///printf ("Se devolvera el ID %d", id);
+    return id;
 }
 
 ///Printea todos los datos de la estructura jugador
