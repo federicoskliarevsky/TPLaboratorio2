@@ -327,8 +327,6 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;
         case 2:
-            printf ("\n Menu Mi Club\n");
-            system ("pause");
             menuMiClub(listaLigas,arbolMercado,cargado,listaUsuarios);
             system("cls");
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
