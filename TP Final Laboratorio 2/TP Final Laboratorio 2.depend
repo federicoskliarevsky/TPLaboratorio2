@@ -285,9 +285,10 @@
 	"Administrador.h"
 	"Jugador.h"
 
-1573755029 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.h
+1573830040 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.h
 	<stdio.h>
 	<stdlib.h>
+	<time.h>
 	"Jugador.h"
 	"Liga.h"
 
@@ -305,7 +306,7 @@
 1573484079 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
 	"Menu.h"
 
-1573755590 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
+1573824380 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
 	"Administrador.h"
 
 1573686641 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.c

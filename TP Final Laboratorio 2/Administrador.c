@@ -121,23 +121,23 @@ nodoLiga * bajaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                             }
                             fclose(archJugadores);
                         }
-                        printf ("\n  Jugador dado de baja con exito.");
+                        printf ("\n  Jugador dado de baja con exito.\n");
                         system ("pause");
                     }
                 } else {
-                    printf ("\n  El jugador ya estaba dado de baja.");
+                    printf ("\n  El jugador ya estaba dado de baja.\n");
                     system ("pause");
                 }
             } else {
-                printf ("\n  Jugador no encontrado.");
+                printf ("\n  Jugador no encontrado.\n");
                 system ("pause");
             }
         } else {
-            printf ("\n  Equipo no encontrado.");
+            printf ("\n  Equipo no encontrado.\n");
             system ("pause");
         }
     } else {
-        printf ("\n  Liga no encontrada.");
+        printf ("\n  Liga no encontrada.\n");
         system ("pause");
     }
     return listaLigas;

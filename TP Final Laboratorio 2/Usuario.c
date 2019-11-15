@@ -300,6 +300,117 @@ void menuMiClub(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,
     }
 }
 
+float calcularPromedio (int arr[]){
+    float promedio=0;
+    float suma=0;
+    int valoracion;
+    for (int i=0; i<MAXJugadores; i++){
+        valoracion = buscaIDArch(arr[i]).calificacion;
+        suma += (float)valoracion;
+    }
+    promedio = suma/MAXJugadores;
+    return promedio;
+}
+
+int resultadoPartido (float promJug, float promRiv){
+    float diferencia = promJug - promRiv;
+    float x;
+    int resultado;
+    if (diferencia > 0){
+        if (diferencia>20){
+            diferencia = 20; ///Seteamos un tope de diferencia
+        }
+        time (NULL);
+        x = rand.()%100;
+        if (x<=50+diferencia){
+            resultado = 1;
+        } else {
+            if (x>=95){
+                resultado = 0;
+            } else {
+                resultado = -1;
+            }
+        }
+    } else { ///No tomamos valor absoluto porque tomamos dos casos, segun quien tenga el mayor promedio
+        diferencia = promRiv - promJug;
+        if (diferencia>20){
+            diferencia = 20; ///Seteamos un tope de diferencia
+        }
+        time (NULL);
+        x = rand()%100;
+        if (x<=50+diferencia){
+            resultado = -1;
+        } else {
+            if (x>=95){
+                resultado = 0;
+            } else {
+                resultado = 1;
+            }
+        }
+    }
+    return resultado;
+}
+
+int menuJugarPartido (nodoLiga * listaLigas, nodoArbol * arbolMercado, usuario cargado, nodoUsuario * listaUsuarios){
+    int rtaMonedas = cargado.club.monedas;
+    int validosJugador = buscarValidos(cargado.club.arregloID);
+    system ("cls");
+    printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
+    printf ("\n\n Menu Jugar Partido.");
+    if (validosJugador == MAXJugadores){
+        char nombreLiga[30];
+        printf ("  Ingrese liga del equipo que desea enfrentar: ");
+        fflush (stdin);
+        gets (nombreLiga);
+        nodoLiga * ligaAux = inicListaliga();
+        ligaAux = buscarLiga(listaLigas, nombreLiga);
+        if (ligaAux!=NULL){
+            char nombreEquipo[30];
+            printf ("\n  Liga encontrada. Ingrese el equipo que desea enfrentar: ");
+            fflush (stdin);
+            gets (nombreEquipo);
+            nodoEquipo * equipoAux = iniclistaEquipo();
+            equipoAux = buscarEquipo(ligaAux->dato.listaEquipos, nombreEquipo);
+            if (equipoAux!=NULL){
+                int validosRival = buscarValidos(equipoAux->dato.arregloID);
+                if (validosRival == MAXJugadores){
+                    printf ("Todo correcto. A jugar!\n\n");
+                    system ("pause");
+                    int resultado = resultadoPartido(calcularPromedio(cargado.club.arregloID), calcularPromedio(equipoAux->dato.arregloID));
+                    switch (resultado){
+                        case -1:
+                            printf ("\nPerdiste chinchulin. A caasa petee.");
+                            break;
+                        case 0:
+                            printf ("\nEmpataste, casi casi campeon.");
+                            break;
+                        case 1:
+                            printf ("\nGanaste titan!!!");
+                    }
+                    ///case -1: pierde el jugador, se elige un resultado correcto y se asignan las monedas
+                    ///case 0: empate, se elige un resultado correcto y se asignan las monedas
+                    ///case 1: gana el jugador, se elige un resultado correcto y se asignan las monedas
+                    ///end switch
+                    ///actualizacion del archivo
+                } else {
+                    printf ("\n  Los jugadores del equipo rival no son suficientes. El administrador debe cargar %d mas.\n\n", MAXJugadores - validosRival);
+                    system ("pause");
+                }
+            } else {
+                printf ("\n  Equipo no encontrado.\n\n");
+                system ("pause");
+            }
+        } else {
+            printf ("\n  Liga no encontrada.\n\n");
+            system ("pause");
+        }
+    } else {
+        printf ("\n  Los jugadores en tu equipo no son suficientes. Contas con %d y necesitas %d.\n\n", validosJugador, MAXJugadores);
+        system ("pause");
+    }
+    return rtaMonedas;
+}
+
 void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado,nodoUsuario * listaUsuarios){
     int opcion=-1;
     int validos = buscarValidos(cargado.club.arregloID);
@@ -322,7 +433,7 @@ void menuUsuario(nodoLiga * listaLigas, nodoArbol * arbolMercado,usuario cargado
     }
     switch (opcion){
         case 1:
-            printf ("\n Jugar partido.\n");
+            cargado.club.monedas = menuJugarPartido(listaLigas, arbolMercado, cargado, listaUsuarios);
             system("cls");
             menuUsuario(listaLigas, arbolMercado,cargado,listaUsuarios);
             break;

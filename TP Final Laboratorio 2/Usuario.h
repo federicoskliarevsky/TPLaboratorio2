@@ -2,8 +2,8 @@
 #define USUARIO_H_INCLUDED
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Jugador.h"
-///#include "Menu.h"
 #include "Liga.h"
 
 typedef struct{
@@ -30,6 +30,9 @@ nodoUsuario * cargarListaUsuarios(nodoUsuario *);
 nodoUsuario * inicListaUsuarios();
 void mostrarClub (usuario);
 void menuMiClub(nodoLiga *, nodoArbol *, usuario, nodoUsuario *);
+float calcularPromedio (int[]);
+int resultadoPartido (float, float);
+int menuJugarPartido(nodoLiga *, nodoArbol *, usuario, nodoUsuario *);
 void menuUsuario(nodoLiga *, nodoArbol *,usuario,nodoUsuario *);
 void insertarOrdenado (int[], int, int);
 void ordenarArregloMayorMenor (int[]);
