@@ -7,7 +7,7 @@
 #include "Jugador.h"
 
 void imprimirCabecera();
-void ejecutarMenu (nodoLiga *, nodoArbol *,nodoUsuario*);
+void ejecutarMenu (nodoLiga *, nodoMercado *,nodoUsuario*);
 void crearVariables();
 
 #endif // MENU_H_INCLUDED

@@ -3,9 +3,9 @@
 void imprimirCabecera()  ///Printea el nombre del juego
 {
     system("COLOR 02");
-    printf ("CARGANDO");
+    /*printf ("CARGANDO");
 
-    /*printf ("     ");
+    printf ("     ");
     for (int i=0; i<30; i++){
         printf ("%c", 178);
         Sleep(50);
@@ -74,15 +74,15 @@ void imprimirCabecera()  ///Printea el nombre del juego
 void crearVariables(){
     nodoLiga * listaLigas = inicListaliga();
     listaLigas = cargarListaLigas(listaLigas);
-    nodoArbol * arbolMercado = inicArbol();
-    arbolMercado = crearArbolMercado(arbolMercado);
+    nodoMercado * listaMercado = iniclistaMercado();
+    listaMercado = cargarListaMercado(listaMercado);
     nodoUsuario * listaUsuarios = inicListaUsuarios();
     listaUsuarios = cargarListaUsuarios(listaUsuarios);
-    ejecutarMenu(listaLigas, arbolMercado,listaUsuarios);
+    ejecutarMenu(listaLigas,listaMercado,listaUsuarios);
 }
 
 ///Permite ingresar como usuario o administrador. Dependiendo la opción elegida nos lleva al menu de los anteriormente nombrados.
-void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado,nodoUsuario * listaUsuarios){
+void ejecutarMenu (nodoLiga * listaLigas,nodoMercado * listaMercado,nodoUsuario * listaUsuarios){
     int opcion=-1;
     printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n A continuacion, debera elegir una opcion:");
     printf ("\n  1. Para ingresar como administrador.");
@@ -98,10 +98,10 @@ void ejecutarMenu (nodoLiga * listaLigas, nodoArbol * arbolMercado,nodoUsuario *
     }
     switch (opcion){
         case 1:
-            listaLigas = menuAdministrador(listaLigas, &arbolMercado,listaUsuarios);
+            listaLigas = menuAdministrador(listaLigas,listaMercado,listaUsuarios);
             break;
         case 2:
-            verificarUsuario(listaLigas,arbolMercado,listaUsuarios);
+            verificarUsuario(listaLigas,listaMercado,listaUsuarios);
             break;
         default:
             printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");///ERROR:vuelve al usuario

@@ -3,7 +3,7 @@
 encuentra en la lista de ligas o equipos se pedira al administrador que cargue la liga o el equipo no encontrado.Caso contrario
 el jugador ingresado se cargara directamente al arbol y archivo**/
 
-nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
 
     jugador aux;
     char control='s';
@@ -37,7 +37,7 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
                 }
                 listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
                 actualizaArchEquipos (aux);
-                *arbolMercado = insertarArbol(*arbolMercado, aux.ID);
+                listaMercado =agregarFinalNodoMercado(listaMercado,aux.ID);
             } else {
                 printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.\n", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
                 printf ("Si desea, puede modificar uno de los jugadores del equipo desde el menu Modificacion.\n");
@@ -72,7 +72,7 @@ void muestraArchJugadores (){
     fclose(archJug);
 }
 
-nodoLiga * bajaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * bajaJugador (nodoLiga * listaLigas){
     char nombreLiga[30];
     printf ("Ingreso al menu baja de jugador.\n");
     printf ("  Ingrese liga del jugador a dar de baja: ");
@@ -143,7 +143,7 @@ nodoLiga * bajaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
     return listaLigas;
 }
 
-nodoLiga * altaJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * altaJugador (nodoLiga * listaLigas){
     char nombreLiga[30];
     printf ("Ingreso al menu alta de jugador.\n");
     printf ("  Ingrese liga del jugador a dar de alta: ");
@@ -232,7 +232,7 @@ void reemplazarArchivoJugadores (jugador modificado, char nombreBuscado[]){
     }
 }
 
-nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){///falta cambiar la funcion para el arreglo
+nodoLiga * modificarJugador (nodoLiga * listaLigas){///falta cambiar la funcion para el arreglo
     char nombreLiga[30];
     printf ("Ingreso al menu modificacion de jugador.\n");
     printf ("  Ingrese liga del jugador a dar de modificacion: ");
@@ -341,7 +341,7 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas, nodoArbol ** arbolMercado){/
     return listaLigas;
 }
 
-nodoLiga * modificaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * modificaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
     printf ("Bienvenido al menu modificacion de jugadores.\n A continuacion, debera elegir una opcion:");
     printf ("\n  1. Para dar de baja un jugador.");
     printf ("\n  2. Para dar de alta un jugador.");
@@ -362,15 +362,15 @@ nodoLiga * modificaArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercad
             break;
         case 1:
             system("cls");
-            listaLigas = bajaJugador(listaLigas, arbolMercado);
+            listaLigas = bajaJugador(listaLigas);
             break;
         case 2:
             system("cls");
-            listaLigas = altaJugador(listaLigas, arbolMercado);
+            listaLigas = altaJugador(listaLigas);
             break;
         case 3:
             system ("cls");
-            listaLigas = modificarJugador(listaLigas, arbolMercado);
+            listaLigas = modificarJugador(listaLigas);
             break;
     }
     return listaLigas;
@@ -454,8 +454,9 @@ void muestraArchLigas(){
     system ("Pause");
     fclose(archLigas);
 }
+
 ///Segun la opcion elegida por el administrador carga jugadores al archivo y arbol, o muestra el contenido que hay en ellos
-nodoLiga * menuArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
+nodoLiga * menuArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
     int opc;
     system("cls");
     printf ("Bienvenido al menu archivo de jugadores.\n A continuacion, debera elegir una opcion:");
@@ -477,7 +478,7 @@ nodoLiga * menuArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             break;
         case 1:
             system("cls");
-            listaLigas = cargaArchJugadores(listaLigas, arbolMercado);
+            listaLigas = cargaArchJugadores(listaLigas,listaMercado);
             break;
         case 2:
             system("cls");
@@ -485,7 +486,7 @@ nodoLiga * menuArchJugadores(nodoLiga * listaLigas, nodoArbol ** arbolMercado){
             break;
         case 3:
             system ("cls");
-            listaLigas = modificaArchJugadores(listaLigas, arbolMercado);
+            listaLigas = modificaArchJugadores(listaLigas, listaMercado);
     }
     return listaLigas;
 }
@@ -556,7 +557,7 @@ nodoLiga * menuArchLigas(nodoLiga * listaLigas){
     return listaLigas;
 }
 ///Segun la opcion elegida por el administrador nos lleva al menu archivos de: jugadores, equpos o ligas.
-nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUsuario * listaUsuarios){
+nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoUsuario * listaUsuarios){
     int opcion;
     system("cls");
     printf ("Bienvenido, Administrador.\n A continuacion, debera elegir una opcion:");
@@ -576,26 +577,26 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUs
     switch (opcion){
         case 0:
             system("cls");
-            ejecutarMenu(listaLigas, *arbolMercado,listaUsuarios);
+            ejecutarMenu(listaLigas,listaMercado,listaUsuarios);
             break;
         case 1:
-            listaLigas = menuArchJugadores(listaLigas, arbolMercado);
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
+            listaLigas = menuArchJugadores(listaLigas, listaMercado);
+            listaLigas = ingresoAdmin(listaLigas, listaMercado,listaUsuarios);
             break;
         case 2:
             listaLigas = menuArchEquipos(listaLigas);
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
+            listaLigas = ingresoAdmin(listaLigas, listaMercado,listaUsuarios);
             break;
         case 3:
             listaLigas = menuArchLigas(listaLigas);
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
+            listaLigas = ingresoAdmin(listaLigas, listaMercado,listaUsuarios);
             break;
         case 4:
-            printf ("\n  Arbol Mercado:");
-            mostrarInOrder(*arbolMercado);
+            printf ("\n  Lista Mercado:");
+            ///Mostrar Lista Mercado;
             printf ("\n\n");
             system ("pause");
-            listaLigas = ingresoAdmin(listaLigas, arbolMercado,listaUsuarios);
+            listaLigas = ingresoAdmin(listaLigas, listaMercado ,listaUsuarios);
             break;
     }
     return listaLigas;
@@ -603,7 +604,7 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUs
 /**Pide al administrador la contraseña. Si este ingresa una opcion incorrecta da dos intentos mas para que pueda ingresar
  la correcta,si vuelve a fallar en los dos intentos el programa termina.Si el administrador ingresa la contraseña correcta
  se invoca a la funcion "ingresoAdmin"**/
-nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado,nodoUsuario * listaUsuarios){
+nodoLiga * menuAdministrador(nodoLiga * listaLigas,nodoMercado * listaMercado,nodoUsuario * listaUsuarios){
     char pass[20];
     system("cls");
     printf ("Ingreso al Menu Administrador.");
@@ -611,7 +612,7 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado,no
     fflush (stdin);
     gets (pass);
     if (strcmp (pass, password)==0){
-        listaLigas = ingresoAdmin (listaLigas, arbolMercado,listaUsuarios);
+        listaLigas = ingresoAdmin (listaLigas,listaMercado,listaUsuarios);
     } else {
         int intentos=2;
         printf (" Password incorrecta. Intentos restantes: %d", intentos);
@@ -622,7 +623,7 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado,no
             gets (pass);
             if (strcmp (pass, password)==0){
                 seguirIntentando=0;
-                listaLigas = ingresoAdmin (listaLigas, arbolMercado,listaUsuarios);
+                listaLigas = ingresoAdmin (listaLigas,listaMercado,listaUsuarios);
             } else {
                 intentos--;
                 printf (" Password incorrecta.");
@@ -632,7 +633,7 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas, nodoArbol ** arbolMercado,no
                     printf (" No le quedan mas intentos.\n");
                     system ("pause");
                     system("cls");
-                    ejecutarMenu(listaLigas, *arbolMercado,listaUsuarios);
+                    ejecutarMenu(listaLigas,listaMercado,listaUsuarios);
                 }
             }
         }

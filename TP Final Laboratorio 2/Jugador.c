@@ -95,32 +95,43 @@ void mostrarJugador(jugador aux){
     }
 }
 
-nodoArbol * inicArbol(){
+nodoMercado * iniclistaMercado(){
     return NULL;
 }
 
-nodoArbol* crearNodoArbolJug(int ID){
-    nodoArbol* aux=(nodoArbol*)malloc(sizeof(nodoArbol));
-    aux->datoID=ID;
-    aux->der=NULL;
-    aux->izq=NULL;
+nodoMercado * crearNodoMercado(int ID){
+    nodoMercado * aux=(nodoMercado*) malloc(sizeof(nodoMercado));
+    aux->datoID = ID;
+    aux->sig = NULL;
     return aux;
 }
 
 /**Inserta los datos del jugador cargado en el arbol segun su campo de calificacion**/
-nodoArbol * insertarArbol(nodoArbol * a,int ID){
-    if(a==NULL){
-        a=crearNodoArbolJug(ID);
+nodoMercado * agregarFinalNodoMercado(nodoMercado * lista,int ID){
+    nodoMercado * a = crearNodoMercado(ID);
+    if(lista==NULL){
+        lista = a;
     }else{
-        if(a->datoID>=ID){
-            a->izq=insertarArbol(a->izq,ID);
-        }else{
-            a->der=insertarArbol(a->der,ID);
-        }
+        nodoMercado * ultimo = buscarUltimoMercado(lista);
+        ultimo->sig = a;
     }
 
-    return a;
+    return lista;
 }
+
+nodoMercado * buscarUltimoMercado(nodoMercado * lista){
+ nodoMercado * seg = lista;
+ if(seg!=NULL)
+ {
+  while(seg->sig != NULL)
+  {
+   seg = seg->sig;
+  }
+ }
+ return seg;
+}
+
+
 /**Pasa los datos de los jugadores cargados del archivo al arreglo de jugadores**/
 void cargarArregloJugador(int arregloID[],char nombreEquipo[]){
     FILE* archi=fopen("Jugadores.dat","rb");
@@ -149,42 +160,30 @@ jugador buscaIDArch(int ID){
     return aux; ///Siempre va a encontrarlo, porque los ID se cargan en el archivo y no se modifican
 }
 
-///Muestra el contenido del arbol de jugadores **/
-nodoArbol* mostrarInOrder(nodoArbol* a){
-    if(a!=NULL){
-        mostrarInOrder(a->izq);
-        mostrarJugador(buscaIDArch(a->datoID));
-        mostrarInOrder(a->der);
-    }
-}
+
 ///Carga todos los jugadores del archivo al arbol del mercado
-nodoArbol * crearArbolMercado (nodoArbol * arbol){
+nodoMercado * cargarListaMercado (nodoMercado * lista){
     FILE * archJugadores = fopen("Jugadores.dat", "rb");
     if (archJugadores!=NULL){
         jugador aux;
         while (fread(&aux, sizeof(jugador), 1, archJugadores)>0){
-            arbol=insertarArbol(arbol, aux.ID);
+            lista = agregarFinalNodoMercado(lista,aux.ID);
         }
     }
     fclose(archJugadores);
-    return arbol;
+    return lista;
 }
 
-///Busca jugador en el arbol
-int buscarJugador(nodoArbol * arbol,int ID){
+///Busca jugador en la lista
+int buscarJugador(nodoMercado * lista,int ID){
     int rta=0;
-    if (arbol!=NULL){
-        if (arbol->datoID > ID){
-            rta = buscarJugador(arbol->izq, ID);
-        } else{
-            if (arbol->datoID < ID){
-                rta = buscarJugador(arbol->der, ID);
-            } else {
-                rta=1;
-            }
+    while(lista!=NULL){
+        if (lista->datoID == ID){
+            rta = 1;
         }
-    }
-    return rta;
+        lista = lista ->sig;
+        }
+   return rta;
 }
 
 int buscarValidos(int arregloID[]){

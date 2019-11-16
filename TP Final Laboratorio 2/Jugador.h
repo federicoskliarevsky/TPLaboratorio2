@@ -17,21 +17,20 @@ typedef struct {
 
 typedef struct {
     int datoID;
-    struct nodoArbol * izq;
-    struct nodoArbol * der;
-} nodoArbol;
+    struct nodoMercado * sig;
+} nodoMercado;
 
 jugador buscarJugadorArchivo(jugador);
 void crearArregloID (int[]);
 int leerJugador (jugador *);
 void mostrarJugador (jugador);
-nodoArbol * inicArbol();
-nodoArbol* crearNodoArbolJug(int);
-nodoArbol* insertarArbol(nodoArbol*,int);
+nodoMercado * iniclistaMercado();
+nodoMercado* crearNodoMercado(int);
+nodoMercado* agregarFinalNodoMercado(nodoMercado*,int);
+nodoMercado * buscarUltimoMercado(nodoMercado *);
 void cargarArregloJugador(int[],char[]);
-nodoArbol* mostrarInOrder(nodoArbol*);
-nodoArbol* crearArbolMercado (nodoArbol*);
-int buscarJugador (nodoArbol*,int);
+///nodoArbol* mostrarInOrder(nodoArbol*);
+int buscarJugador (nodoMercado*,int);
 jugador buscaIDArch(int);
 int buscarValidos(int[]);
 void mostrarArregloID (int[], int);

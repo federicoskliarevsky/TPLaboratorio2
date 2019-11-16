@@ -11,21 +11,21 @@
 #include "Liga.h"
 #define password "a"
 
-nodoLiga * bajaJugador (nodoLiga *, nodoArbol **);
-nodoLiga * altaJugador (nodoLiga *, nodoArbol **);
+nodoLiga * bajaJugador (nodoLiga *);
+nodoLiga * altaJugador (nodoLiga *);
 void reemplazarArchivoJugadores (jugador, char[]);
-nodoLiga * modificarJugador (nodoLiga *, nodoArbol **);
-nodoLiga * menuArchJugadores(nodoLiga *, nodoArbol**);
+nodoLiga * modificarJugador (nodoLiga *);
+nodoLiga * menuArchJugadores(nodoLiga *,nodoMercado *);
 nodoLiga * menuArchEquipos(nodoLiga *);
 nodoLiga * menuArchLigas(nodoLiga *);
-nodoLiga * cargaArchJugadores(nodoLiga *, nodoArbol **);
+nodoLiga * cargaArchJugadores(nodoLiga *,nodoMercado *);
 void muestraArchJugadores();
-nodoLiga * modificaArchJugadores (nodoLiga *, nodoArbol **);
+nodoLiga * modificaArchJugadores (nodoLiga *,nodoMercado *);
 nodoLiga * cargaArchEquipos(nodoLiga *);
 void muestraArchEquipos();
 nodoLiga * cargaArchLigas(nodoLiga *);
 void muestraArchLigas();
-nodoLiga * ingresoAdmin(nodoLiga *,nodoArbol**,nodoUsuario*);
-nodoLiga * menuAdministrador(nodoLiga *,nodoArbol**,nodoUsuario*);
+nodoLiga * ingresoAdmin(nodoLiga *,nodoMercado*,nodoUsuario*);
+nodoLiga * menuAdministrador(nodoLiga *,nodoMercado*,nodoUsuario*);
 
 #endif // ADMINISTRADOR_H_INCLUDED
