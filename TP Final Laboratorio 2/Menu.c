@@ -104,6 +104,6 @@ void ejecutarMenu (nodoLiga * listaLigas,nodoMercado * listaMercado,nodoUsuario 
             verificarUsuario(listaLigas,listaMercado,listaUsuarios);
             break;
         default:
-            printf("\nGracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!");///ERROR:vuelve al usuario
+            printf("\n Gracias por haber usado el Simulador de Mercado de FIFA 20. Nos vemos pronto!\n\n\n\n");
     }
 }

@@ -203,7 +203,7 @@ void mostrarArregloID (int arreglo[], int validos){
 }
 
 void MostrarMercado(nodoMercado * lista){
- while(lista == NULL){
+ while(lista != NULL){
   jugador aux;
   aux = buscaIDArch(lista->datoID);
    mostrarJugador(aux);

@@ -260,7 +260,7 @@
 	<stdlib.h>
 	"Jugador.h"
 
-1573951853 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.h
+1574020184 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.h
 	<stdio.h>
 	<stdlib.h>
 
@@ -304,16 +304,16 @@
 	"Usuario.h"
 	"Liga.h"
 
-1573956696 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
+1574020558 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
 	"Menu.h"
 
-1573951853 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
+1574020184 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
 	"Administrador.h"
 
-1573951853 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.c
+1574020484 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.c
 	"Jugador.h"
 
-1573957077 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.c
+1574025891 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
 1573492882 source:f:\tp final laboratorio 2\administrador.c

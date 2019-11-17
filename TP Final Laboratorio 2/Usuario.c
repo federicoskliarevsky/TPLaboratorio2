@@ -275,9 +275,9 @@ nodoUsuario *  menuModificarClub(usuario *  recibido,nodoUsuario * listaUsuarios
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", recibido->nombreUser, recibido->club.nombreClub, 36, recibido->club.monedas);
     printf ("\n\nMenu Modificar Mi Club", recibido->nombreUser);
-    printf ("\n  1. Modificar nombre club.");
+    printf ("\n  1. Modificar nombre del Club.");
     printf ("\n  2. Modificar estadio.");
-    printf ("\n  3. Modificaciar camiseta.");
+    printf ("\n  3. Modificar camiseta.");
     printf ("\n  0. Para salir.");
     printf("\n\nIngrese la opcion deseada: ");
     fflush(stdin);
@@ -290,47 +290,52 @@ nodoUsuario *  menuModificarClub(usuario *  recibido,nodoUsuario * listaUsuarios
     switch(opcion){
         case 1:
             system("cls");
-            printf("\nIngrese nuevo nombre de Club:");
+            printf("\nIngrese el nuevo nombre del Club: ");
             fflush(stdin);
             gets(recibido->club.nombreClub);
             reemplazarArchivoUsuario(*recibido);
-            printf("\nCambio de Nombre de Club a %s con exito",recibido->club.nombreClub);
+            printf("\nCambio de Nombre de Club a %s con exito.",recibido->club.nombreClub);
             Sleep(2000);
             break;
         case 2:
             system("cls");
-            printf("\nIngrese nuevo estadio:");
+            printf("\nIngrese el nuevo estadio: ");
             fflush(stdin);
             gets(recibido->club.estadio);
             reemplazarArchivoUsuario(*recibido);
-            printf("\nCambio  de estadio a %s con exito",recibido->club.estadio);
+            printf("\nCambio de estadio a %s con exito.",recibido->club.estadio);
             Sleep(2000);
             break;
         case 3:
             system("cls");
-            printf("\Ingrese nueva camiseta:");
+            printf("Ingrese la nueva camiseta: ");
             fflush(stdin);
             gets(recibido->club.camiseta);
             reemplazarArchivoUsuario(*recibido);
-            printf("\nCambio de camiseta a %s con exito",recibido->club.camiseta);
+            printf("\nCambio de camiseta a %s con exito.",recibido->club.camiseta);
             Sleep(2000);
             break;
         case 55:
             system("cls");
-             printf("Menu hack:\n");
-             printf("ingrese hack:");
-             fflush(stdin);
-             gets(hack);
-             if(strcmpi(hack,"klapaucius")==0){
-              printf("ingrese dinero a cargar:");
-              scanf("%d",&dinero);
-              recibido->club.monedas += dinero;
-              reemplazarArchivoUsuario(*recibido);
-             }else
-             {
-              printf("el hack no existe");
-              Sleep(1000);
-             }
+            printf("Menu hack.\n");
+            printf("  Ingrese hack: ");
+            fflush(stdin);
+            gets(hack);
+            if(strcmpi(hack,"klapaucius")==0){
+                printf("  Ingrese dinero a cargar: ");
+                scanf("%d",&dinero);
+                Sleep(1000);
+                if (dinero + recibido->club.monedas >=0){
+                    recibido->club.monedas += dinero;
+                    reemplazarArchivoUsuario(*recibido);
+                } else {
+                    printf("\n  No es posible descontar %d monedas.", dinero*-1);
+                    Sleep(3000);
+                }
+            } else {
+                printf("\n  El hack %s no existe.", hack);
+                Sleep(3000);
+            }
             break;
         default:
             reemplazarArchivoUsuario(*recibido);
@@ -447,6 +452,11 @@ int calcularMonedas (int resultado, usuario cargado, nodoEquipo * rival){
     int x = -1; ///Goles usuario
     int y = -1; ///Goles rival
     int jugX=-1; ///Variable para calcular posiciones de jugadores en los arreglos
+    printf ("\n\n      SIMULANDO PARTIDO    ");
+    for (int i=0; i<15; i++){
+        Sleep(200);
+        printf ("%c  ", 178);
+    }
     srand(time(NULL));
     switch (resultado){
         case -1:                    /// Usuario pierde
@@ -460,60 +470,96 @@ int calcularMonedas (int resultado, usuario cargado, nodoEquipo * rival){
                     x = (rand()%5)+1;
                 }
             }
-            printf ("\nDerrota.\nResultado del partido: %s %d - %s %d.\n\n", cargado.club.nombreClub, x, rival->dato.nombreEquipo, y);
+            printf("\n\n       %c", 201);
+            for(int i=0; i<10; i++){
+                printf("%c",205);
+                Sleep(20);
+            }
+            printf ("%c", 187);
+            printf ("\n       %c DERROTA. %c\n", 186, 186);
+            printf("       %c", 200);
+            for(int i=0; i<10; i++){
+                printf("%c",205);
+                Sleep(20);
+            }
+            printf ("%c", 188);
+            printf ("\n        Resultado del partido: %s %d - %s %d.\n\n", cargado.club.nombreClub, x, rival->dato.nombreEquipo, y);
             rtaMonedas += 150 + x*30 - y*20; ///150 monedas por perder, 30 por gol a favor y -20 por gol en contra. Rango de ganancias: [50,170]
             if (x>0){
-                printf ("\nGoles del equipo %s:\n", cargado.club.nombreClub);
+                printf ("\n        Goles del equipo %s:\n", cargado.club.nombreClub);
                 for (int i=0; i<x; i++){
                     jugX = -1;
                     while (jugX<0 || jugX>10){
                         jugX = (rand()%10)+1;
                     }
                     Sleep (200);
-                    printf ("\n  Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
+                    printf ("\n         Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
                 }
             } else {
-                printf ("\nTu equipo %s no hizo goles.\n", cargado.club.nombreClub);
+                printf ("\n        Tu equipo %s no hizo goles.\n", cargado.club.nombreClub);
             }
-            printf ("\nGoles del equipo %s:\n", rival->dato.nombreEquipo);
+            printf ("\n\n        Goles del equipo %s:\n", rival->dato.nombreEquipo);
             for (int i=0; i<y; i++){
                 jugX = -1;
                 while (jugX<0 || jugX>10){
                     jugX = (rand()%10)+1;
                 }
                 Sleep (200);
-                printf ("\n  Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
+                printf ("\n         Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
             }
+            printf ("\n\n         Informe de monedas:");
+            printf ("\n          Monedas por la derrota: %c 150.", 36);
+            printf ("\n          Monedas por goles a favor: %c %d.", 36, x*30);
+            printf ("\n          Monedas por goles en contra: - %c %d.", 36, y*20);
+            printf ("\n\n         Total de monedas ganadas en el partido: %c %d.", 36, rtaMonedas);
             break;
         case 0:                     /// Empate
             while (y<=0){           /// Le asignamos a Y un random mayor a 0 y menor a 6
                 y = (rand()%5)+1;
             }
             x = y;                  /// Le asignamos a x un valor igual a Y
-            printf ("\nEmpate.\nResultado del partido: %s %d - %s %d.\n\n", cargado.club.nombreClub, x, rival->dato.nombreEquipo, y);
+            printf("\n\n       %c", 201);
+            for(int i=0; i<10; i++){
+                printf("%c",205);
+                Sleep(20);
+            }
+            printf ("%c", 187);
+            printf ("\n       %c EMPATE.  %c\n", 186, 186);
+            printf("       %c", 200);
+            for(int i=0; i<10; i++){
+                printf("%c",205);
+                Sleep(20);
+            }
+            printf ("%c", 188);
+            printf ("\n        Resultado del partido: %s %d - %s %d.\n\n", cargado.club.nombreClub, x, rival->dato.nombreEquipo, y);
             rtaMonedas += 200 + x*30 - y*20; ///200 monedas por empatar, 30 por gol a favor y -20 por gol en contra. Rango de ganancias: [200,250]
             if (x>0){
-                printf ("\nGoles del equipo %s:\n", cargado.club.nombreClub);
+                printf ("\n        Goles del equipo %s:\n", cargado.club.nombreClub);
                 for (int i=0; i<x; i++){
                     jugX = -1;
                     while (jugX<0 || jugX>10){
                         jugX = (rand()%10)+1;
                     }
                     Sleep (200);
-                    printf ("\n  Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
+                    printf ("\n         Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
                 }
-                printf ("\nGoles del equipo %s:\n", rival->dato.nombreEquipo);
+                printf ("\n\n        Goles del equipo %s:\n", rival->dato.nombreEquipo);
                 for (int i=0; i<y; i++){
                     jugX = -1;
                     while (jugX<0 || jugX>10){
                         jugX = (rand()%10)+1;
                     }
                     Sleep (200);
-                    printf ("\n  Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
+                    printf ("\n         Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
                 }
             } else {
-                printf ("\nFue un partido sin goles.\n", cargado.club.nombreClub);
+                printf ("\n        Fue un partido sin goles.\n", cargado.club.nombreClub);
             }
+            printf ("\n\n         Informe de monedas:");
+            printf ("\n          Monedas por el empate: %c 200.", 36);
+            printf ("\n          Monedas por goles a favor: %c %d.", 36, x*30);
+            printf ("\n          Monedas por goles en contra: - %c %d.", 36, y*20);
+            printf ("\n\n         Total de monedas ganadas en el partido: %c %d.", 36, rtaMonedas);
             break;
         case 1:                     /// Usuario gana
             while (x<=0){           /// Le asignamos a Y un random mayor a 0 y menor a 6
@@ -526,30 +572,48 @@ int calcularMonedas (int resultado, usuario cargado, nodoEquipo * rival){
                     y = (rand()%5)+1;
                 }
             }
-            printf ("\nVictoria.\nResultado del partido: %s %d - %s %d.\n\n", cargado.club.nombreClub, x, rival->dato.nombreEquipo, y);
+            printf("\n\n       %c", 201);
+            for(int i=0; i<10; i++){
+                printf("%c",205);
+                Sleep(20);
+            }
+            printf ("%c", 187);
+            printf ("\n       %c VICTORIA.%c\n", 186, 186);
+            printf("       %c", 200);
+            for(int i=0; i<10; i++){
+                printf("%c",205);
+                Sleep(20);
+            }
+            printf ("%c", 188);
+            printf ("\n        Resultado del partido: %s %d - %s %d.\n\n", cargado.club.nombreClub, x, rival->dato.nombreEquipo, y);
             rtaMonedas += 250 + x*30 - y*20; ///250 monedas por ganar, 30 por gol a favor y -20 por gol en contra. Rango de ganancias: [320,400]
-            printf ("\nGoles del equipo %s:\n", cargado.club.nombreClub);
+            printf ("\n        Goles del equipo %s:\n", cargado.club.nombreClub);
             for (int i=0; i<x; i++){
                 jugX = -1;
                 while (jugX<0 || jugX>10){
                     jugX = (rand()%10)+1;
                 }
                 Sleep (200);
-                printf ("\n  Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
+                printf ("\n         Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
             }
             if (y>0){
-            printf ("\nGoles del equipo %s:\n", rival->dato.nombreEquipo);
-            for (int i=0; i<y; i++){
-                jugX = -1;
-                while (jugX<0 || jugX>10){
-                    jugX = (rand()%10)+1;
+                printf ("\n\n        Goles del equipo %s:\n", rival->dato.nombreEquipo);
+                for (int i=0; i<y; i++){
+                    jugX = -1;
+                    while (jugX<0 || jugX>10){
+                        jugX = (rand()%10)+1;
+                    }
+                    Sleep (200);
+                    printf ("\n         Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
                 }
-                Sleep (200);
-                printf ("\n  Gol de %s.\n", buscaIDArch(cargado.club.arregloID[jugX]).nombreJugador);
-            }
             } else {
-                printf ("\nEl equipo %s no hizo goles.\n", rival->dato.nombreEquipo);
+                printf ("\n        El equipo %s no hizo goles.\n", rival->dato.nombreEquipo);
             }
+            printf ("\n\n         Informe de monedas:");
+            printf ("\n          Monedas por la victoria: %c 250.", 36);
+            printf ("\n          Monedas por goles a favor: %c %d.", 36, x*30);
+            printf ("\n          Monedas por goles en contra: - %c %d.", 36, y*20);
+            printf ("\n\n         Total de monedas ganadas en el partido: %c %d.", 36, rtaMonedas);
             break;
     }
     return rtaMonedas;
@@ -578,7 +642,7 @@ int menuJugarPartido (nodoLiga * listaLigas,nodoMercado * listaMercado, usuario 
             if (equipoAux!=NULL){
                 int validosRival = buscarValidos(equipoAux->dato.arregloID);
                 if (validosRival == MAXJugadores){
-                    printf ("\n   Todo correcto. A jugar!\n\n");
+                    printf ("\n   Todo correcto. A jugar!\n\n    ");
                     system ("pause");
                     int resultado = resultadoPartido(calcularPromedio(cargado.club.arregloID), calcularPromedio(equipoAux->dato.arregloID));
                     switch (resultado){
@@ -591,6 +655,8 @@ int menuJugarPartido (nodoLiga * listaLigas,nodoMercado * listaMercado, usuario 
                         case 1:
                             rtaMonedas += calcularMonedas (1, cargado, equipoAux);
                     }
+                    actualizaArchivoUsuarios(cargado);
+                    printf ("\n\n         ");
                     system ("pause");
                     ///case -1: pierde el jugador, se elige un resultado correcto y se asignan las monedas
                     ///case 0: empate, se elige un resultado correcto y se asignan las monedas
@@ -720,30 +786,27 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,nodoU
 }
 
 int  IngresarUsuario(usuario* aux){
-  FILE * archUsuarios = fopen("usuarios.dat","rb");
-  usuario a;
-  char nombre[30];
-  char pass[30];
-  int res = 0;
-  if(archUsuarios!=NULL)
-  {
-    printf(" Ingrese Nombre Usuario:");
-    fflush(stdin);
-    gets(nombre);
-    printf(" Ingrese Password:");
-    fflush(stdin);
-    gets(pass);
-    while(fread(&a,sizeof(usuario),1,archUsuarios)>0 && res == 0)
-    {
-     if(strcmpi(a.nombreUser,nombre)==0 && strcmpi(a.pass,pass)==0)
-     {
-      res = 1;
-      *aux = a;
-     }
+    FILE * archUsuarios = fopen("usuarios.dat","rb");
+    usuario a;
+    char nombre[30];
+    char pass[30];
+    int res = 0;
+    if(archUsuarios!=NULL){
+        printf(" Ingrese Nombre de Usuario: ");
+        fflush(stdin);
+        gets(nombre);
+        printf(" Ingrese Password: ");
+        fflush(stdin);
+        gets(pass);
+        while(fread(&a,sizeof(usuario),1,archUsuarios)>0 && res == 0){
+            if(strcmpi(a.nombreUser,nombre)==0 && strcmpi(a.pass,pass)==0){
+                res = 1;
+                *aux = a;
+            }
+        }
     }
-  }
-   fclose(archUsuarios);
-   return res;
+    fclose(archUsuarios);
+    return res;
 }
 
 ///Busca el nombre de usuario en el archivo. Si lo encuentra, devuelve 1
