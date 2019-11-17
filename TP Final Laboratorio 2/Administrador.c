@@ -564,7 +564,7 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoU
     printf ("\n  1. Para menu archivo de jugadores.");
     printf ("\n  2. Para menu archivo de equipos.");
     printf ("\n  3. Para menu archivo de ligas.");
-    printf ("\n  4. Para mostrar arbol de mercado.");
+    printf ("\n  4. Para mostrar lista de mercado.");
     printf ("\n  0. Para salir.");
     printf ("\n\n Ingrese la opcion deseada: ");
     fflush (stdin);
@@ -593,7 +593,7 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoU
             break;
         case 4:
             printf ("\n  Lista Mercado:");
-            ///Mostrar Lista Mercado;
+            MostrarMercado(listaMercado);
             printf ("\n\n");
             system ("pause");
             listaLigas = ingresoAdmin(listaLigas, listaMercado ,listaUsuarios);

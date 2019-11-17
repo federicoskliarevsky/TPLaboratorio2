@@ -125,7 +125,7 @@
 1573494500 source:f:\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
-1573934540 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\administrador.c
+1573959320 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\administrador.c
 	"Administrador.h"
 
 1573934079 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\administrador.h
@@ -146,14 +146,14 @@
 	"Administrador.h"
 	"Jugador.h"
 
-1573933416 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.h
+1573958568 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	"Jugador.h"
 	"Liga.h"
 
-1573935784 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.h
+1573959285 c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.h
 	<stdio.h>
 	<stdlib.h>
 
@@ -180,13 +180,13 @@
 1573580350 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\equipo.c
 	"Equipo.h"
 
-1573933347 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.c
+1573959285 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\jugador.c
 	"Jugador.h"
 
 1573498320 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\liga.c
 	"Liga.h"
 
-1573935178 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.c
+1573961107 source:c:\users\rosa\desktop\compiladores\github\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
 1573148546 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\administrador.c

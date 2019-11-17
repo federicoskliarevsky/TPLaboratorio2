@@ -202,3 +202,12 @@ void mostrarArregloID (int arreglo[], int validos){
     }
 }
 
+void MostrarMercado(nodoMercado * lista){
+ while(lista == NULL){
+  jugador aux;
+  aux = buscaIDArch(lista->datoID);
+   mostrarJugador(aux);
+   lista = lista->sig;
+ }
+}
+

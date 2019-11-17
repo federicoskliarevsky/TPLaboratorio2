@@ -270,7 +270,8 @@ void reemplazarArchivoUsuario(usuario modificado){
 
 
 nodoUsuario *  menuModificarClub(usuario *  recibido,nodoUsuario * listaUsuarios){
-    int opcion = -1;
+    int opcion = -1,dinero = 0;
+    char hack[30];
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", recibido->nombreUser, recibido->club.nombreClub, 36, recibido->club.monedas);
     printf ("\n\nMenu Modificar Mi Club", recibido->nombreUser);
@@ -281,7 +282,7 @@ nodoUsuario *  menuModificarClub(usuario *  recibido,nodoUsuario * listaUsuarios
     printf("\n\nIngrese la opcion deseada: ");
     fflush(stdin);
     scanf("%d",&opcion);
-    while (opcion<0 || opcion>3){
+    while (opcion<0 || opcion>3 && opcion !=55){
         printf ("\nSe ingreso una opcion incorrecta. Por favor, ingrese una opcion valida: ");
         fflush (stdin);
         scanf ("%d", &opcion);
@@ -313,6 +314,23 @@ nodoUsuario *  menuModificarClub(usuario *  recibido,nodoUsuario * listaUsuarios
             reemplazarArchivoUsuario(*recibido);
             printf("\nCambio de camiseta a %s con exito",recibido->club.camiseta);
             Sleep(2000);
+            break;
+        case 55:
+            system("cls");
+             printf("Menu hack:\n");
+             printf("ingrese hack:");
+             fflush(stdin);
+             gets(hack);
+             if(strcmpi(hack,"klapaucius")==0){
+              printf("ingrese dinero a cargar:");
+              scanf("%d",&dinero);
+              recibido->club.monedas += dinero;
+              reemplazarArchivoUsuario(*recibido);
+             }else
+             {
+              printf("el hack no existe");
+              Sleep(1000);
+             }
             break;
         default:
             reemplazarArchivoUsuario(*recibido);
