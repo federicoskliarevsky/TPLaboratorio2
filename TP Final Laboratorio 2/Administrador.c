@@ -342,7 +342,7 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas){///falta cambiar la funcion 
 }
 
 nodoLiga * modificaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
-    printf ("Bienvenido al menu modificacion de jugadores.\n A continuacion, debera elegir una opcion:");
+    printf ("Bienvenido al menu modificacion de jugadores.\n Opciones disponibles:");
     printf ("\n  1. Para dar de baja un jugador.");
     printf ("\n  2. Para dar de alta un jugador.");
     printf ("\n  3. Para modificar un jugador.");
@@ -391,7 +391,7 @@ nodoLiga * cargaArchEquipos (nodoLiga * listaLigas){
         leerEquipo(&aux);
         nodoLiga * listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
         if ((listaLigasAuxiliar)==NULL){
-            printf ("\n No se encontro la liga %s. A continuacion debera crearla): ", aux.nombreLiga);
+            printf ("\n No se encontro la liga %s. A continuacion debera crearla: ", aux.nombreLiga);
             listaLigas = agregarLigaIndividual(listaLigas); ///Crea la liga y la agrega al final de la lista
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga); ///Actualizo el dato para que no salga igual a NULL
         }
@@ -459,7 +459,7 @@ void muestraArchLigas(){
 nodoLiga * menuArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
     int opc;
     system("cls");
-    printf ("Bienvenido al menu archivo de jugadores.\n A continuacion, debera elegir una opcion:");
+    printf ("Bienvenido al menu archivo de jugadores.\n Opciones disponibles:");
     printf ("\n  1. Para cargar archivo de jugadores.");
     printf ("\n  2. Para mostrar archivo de jugadores.");
     printf ("\n  3. Para modificar archivo de jugadores.");
@@ -494,7 +494,7 @@ nodoLiga * menuArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
 nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
     int opc;
     system("cls");
-    printf ("Bienvenido al menu archivo de equipos.\n A continuacion, debera elegir una opcion:");
+    printf ("Bienvenido al menu archivo de equipos.\n Opciones disponibles:");
     printf ("\n  1. Para cargar archivo de equipos.");
     printf ("\n  2. Para mostrar archivo de equipos.");
     printf ("\n  0. Para salir.");
@@ -527,7 +527,7 @@ nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
 nodoLiga * menuArchLigas(nodoLiga * listaLigas){
     int opc;
     system("cls");
-    printf ("Bienvenido al menu archivo de ligas.\n A continuacion, debera elegir una opcion:");
+    printf ("Bienvenido al menu archivo de ligas.\n Opciones disponibles:");
     printf ("\n  1. Para cargar archivo de ligas.");
     printf ("\n  2. Para mostrar archivo de ligas.");
     printf ("\n  0. Para salir.");
@@ -560,7 +560,7 @@ nodoLiga * menuArchLigas(nodoLiga * listaLigas){
 nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoUsuario * listaUsuarios){
     int opcion;
     system("cls");
-    printf ("Bienvenido, Administrador.\n A continuacion, debera elegir una opcion:");
+    printf ("Bienvenido, Administrador.\n Opciones disponibles:");
     printf ("\n  1. Para menu archivo de jugadores.");
     printf ("\n  2. Para menu archivo de equipos.");
     printf ("\n  3. Para menu archivo de ligas.");
@@ -608,17 +608,17 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas,nodoMercado * listaMercado,no
     char pass[20];
     system("cls");
     printf ("Ingreso al Menu Administrador.");
-    printf ("\n Ingrese password: ");
+    printf ("\n Ingrese la contrase%ca: ", 164);
     fflush (stdin);
     gets (pass);
     if (strcmp (pass, password)==0){
         listaLigas = ingresoAdmin (listaLigas,listaMercado,listaUsuarios);
     } else {
         int intentos=2;
-        printf (" Password incorrecta. Intentos restantes: %d", intentos);
+        printf (" Password incorrecta. Intentos restantes: %d.", intentos);
         int seguirIntentando=1;
         while (intentos>0 && seguirIntentando==1){
-            printf ("\n Ingrese password: ");
+            printf ("\n Ingrese la contrase%ca: ", 164);
             fflush (stdin);
             gets (pass);
             if (strcmp (pass, password)==0){
@@ -628,7 +628,7 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas,nodoMercado * listaMercado,no
                 intentos--;
                 printf (" Password incorrecta.");
                 if (intentos>0){
-                    printf (" Intentos restantes: %d", intentos);
+                    printf (" Intentos restantes: %d.", intentos);
                 } else {
                     printf (" No le quedan mas intentos.\n");
                     system ("pause");
@@ -638,5 +638,5 @@ nodoLiga * menuAdministrador(nodoLiga * listaLigas,nodoMercado * listaMercado,no
             }
         }
     }
-
+    return listaLigas;
 }

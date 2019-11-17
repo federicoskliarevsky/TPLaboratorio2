@@ -84,9 +84,9 @@ void crearVariables(){
 ///Permite ingresar como usuario o administrador. Dependiendo la opción elegida nos lleva al menu de los anteriormente nombrados.
 void ejecutarMenu (nodoLiga * listaLigas,nodoMercado * listaMercado,nodoUsuario * listaUsuarios){
     int opcion=-1;
-    printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n A continuacion, debera elegir una opcion:");
+    printf ("Bienvenido al Simulador de Mercado de FIFA 20!\n Opciones disponibles:");
     printf ("\n  1. Para ingresar como administrador.");
-    printf ("\n  2. Para ingresar como usuario");
+    printf ("\n  2. Para ingresar como usuario.");
     printf ("\n  0. Para salir.");
     printf ("\n\n Ingrese la opcion deseada: ");
     fflush (stdin);

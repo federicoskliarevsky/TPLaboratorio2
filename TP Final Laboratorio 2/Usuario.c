@@ -67,7 +67,7 @@ void compraJugador (usuario * cargado,nodoMercado * listaMercado){
     int validos = buscarValidos(cargado->club.arregloID);
     if (validos <MAXJugadores){
         int IDBuscado;
-        printf ("\n Ingrese el ID del jugador a comprar: ");
+        printf ("\n\nIngrese el ID del jugador a comprar: ");
         fflush (stdin);
         scanf ("%d", &IDBuscado);
         jugador encontrado = buscaIDArch(IDBuscado);
@@ -99,7 +99,7 @@ void compraJugador (usuario * cargado,nodoMercado * listaMercado){
             printf ("\n El jugador ingresado no se encontro.");
         }
     } else {
-        printf ("\n No hay espacio para otro jugador, ya hay %d cargados en el club. Por favor, venda uno.");
+        printf ("\n\nNo hay espacio para otro jugador, ya hay %d cargados en el club. Por favor, venda uno.", validos);
     }
     printf ("\n\n");
     system ("pause");
@@ -147,7 +147,7 @@ void menuMercado(nodoLiga * listaLigas,nodoMercado * listaMercado,usuario cargad
  int opcion=-1;
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
-    printf ("\n\nBienvenido al Menu Mercado. Que desea hacer?");
+    printf ("\n\nMenu Mercado.\n Opciones disponibles:");
     printf ("\n  1. Comprar jugadores.");
     printf ("\n  2. Vender jugador");
     printf ("\n  3. Ver el mercado.");
@@ -172,7 +172,7 @@ void menuMercado(nodoLiga * listaLigas,nodoMercado * listaMercado,usuario cargad
            case 3:
                system("cls");
                printf ("\n  Lista Mercado:");
-               ///Mostrar Lista Mercado
+               MostrarMercado(listaMercado);
                printf ("\n");
                system("pause");
                menuMercado(listaLigas,listaMercado,cargado,listaUsuarios);
@@ -238,15 +238,11 @@ void mostrarClub (usuario recibido){
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", recibido.nombreUser, recibido.club.nombreClub, 36, recibido.club.monedas);
     printf ("\n\nInformacion del Club:");
-    printf ("\n\n Nombre de usuario: ");
-    puts (recibido.nombreUser);
-    printf (" Nombre de Club: ");
-    puts (recibido.club.nombreClub);
-    printf (" Camiseta: ");
-    puts (recibido.club.camiseta);
-    printf (" Estadio: ");
-    puts (recibido.club.estadio);
-    printf (" Monedas: %d\n\n", recibido.club.monedas);
+    printf ("\n\n Nombre de usuario: %s.\n", recibido.nombreUser);
+    printf (" Nombre de Club: %s.\n", recibido.club.nombreClub);
+    printf (" Camiseta: %s.\n", recibido.club.camiseta);
+    printf (" Estadio: %s.\n", recibido.club.estadio);
+    printf (" Monedas: %c %d.\n\n", 36, recibido.club.monedas);
     system ("pause");
 }
 
@@ -379,8 +375,6 @@ nodoUsuario *  menuMiClub(nodoLiga * listaLigas,nodoMercado * listaMercado,usuar
             listaUsuarios = menuMiClub(listaLigas,listaMercado,cargado,listaUsuarios);
             break;
         case 2:
-            printf ("\n Eligio la opcion Informacion del Club.\n");
-            system ("pause");
             mostrarClub (*cargado);
             system("cls");
             listaUsuarios = menuMiClub(listaLigas,listaMercado,cargado,listaUsuarios);
@@ -689,9 +683,9 @@ nodoUsuario *  menuUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,usu
     actualizaArchivoUsuarios(cargado);
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
-    printf ("\n\nBienvenido, %s!\n Que desea hacer?", cargado.nombreUser);
+    printf ("\n\nBienvenido, %s!\n Opciones disponibles:", cargado.nombreUser);
     printf ("\n  1. Jugar partido.");
-    printf ("\n  2. Ir a Mi Club");
+    printf ("\n  2. Ir a Mi Club.");
     printf ("\n  3. Ir a Mercado.");
     printf ("\n  0. Para salir.");
     printf ("\n\n Ingrese la opcion deseada: ");
@@ -714,14 +708,6 @@ nodoUsuario *  menuUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,usu
             listaUsuarios = menuUsuario(listaLigas,listaMercado,cargado,listaUsuarios);
             break;
         case 3:
-            printf("\n Ingreso al mercado ");
-            Sleep(200);
-            printf (". ");
-            Sleep (200);
-            printf (". ");
-            Sleep (200);
-            printf (". ");
-            Sleep (200);
             menuMercado(listaLigas,listaMercado,cargado,listaUsuarios);
             break;
         default:
@@ -734,9 +720,9 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,nodoU
     int opcion = -1;
     usuario cargado;
     system("cls");
-    printf("Menu de Usuario:\n");
-    printf ("\n  1.Log in de Usuario");
-    printf ("\n  2.Crear Usuario");
+    printf("Menu de Usuario:\n Opciones disponibles:");
+    printf ("\n  1. Log in de Usuario.");
+    printf ("\n  2. Crear Usuario.");
     printf ("\n  0. Para salir.");
      printf ("\n\n Ingrese la opcion deseada: ");
     fflush (stdin);
@@ -746,7 +732,7 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,nodoU
         fflush (stdin);
         scanf ("%d", &opcion);
     }
-     switch (opcion){
+    switch (opcion){
         case 1:
             if(listaUsuarios!=NULL){
                 system("cls");
@@ -764,7 +750,7 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,nodoU
                 }
             } else {
                 system("cls");
-                printf(" No hay usuarios cargados");
+                printf("No hay usuarios cargados.");
                 Sleep(1000);
                 verificarUsuario(listaLigas,listaMercado,listaUsuarios);
             }
@@ -782,10 +768,10 @@ usuario verificarUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,nodoU
             system("cls");
             ejecutarMenu(listaLigas,listaMercado);
     }
- return cargado;
+    return cargado;
 }
 
-int  IngresarUsuario(usuario* aux){
+int IngresarUsuario(usuario* aux){
     FILE * archUsuarios = fopen("usuarios.dat","rb");
     usuario a;
     char nombre[30];
