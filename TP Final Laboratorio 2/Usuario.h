@@ -31,7 +31,7 @@ nodoUsuario * inicListaUsuarios();
 void mostrarClub (usuario);
 void reemplazarArchivoUsuario(usuario);
 nodoUsuario *  menuModificarClub(usuario*,nodoUsuario *);
-nodoUsuario *  menuMiClub(nodoLiga *,nodoMercado *,usuario,nodoUsuario *);
+nodoUsuario *  menuMiClub(nodoLiga *,nodoMercado *,usuario *,nodoUsuario *);
 float calcularPromedio (int[]);
 int resultadoPartido (float, float);
 int menuJugarPartido(nodoLiga *, nodoMercado *, usuario, nodoUsuario *);
