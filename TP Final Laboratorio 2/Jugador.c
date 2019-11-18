@@ -1,5 +1,5 @@
 #include "Jugador.h"
-
+///Busca a un jugador en el archivo. Si lo encuentra lo retorna.
 jugador buscarJugadorArchivo(jugador buscado){
     FILE * archJug;
     jugador encontrado;
@@ -21,7 +21,8 @@ void crearArregloID (int arregloID[]){
    }
 }
 
-///Lee los datos de la estructura jugador para luego cargarlos al archivo. Devuelve -1 si el leido es nuevo en el arch. Se invoca en la foncion "cargaArchJugadores"
+///Lee los datos de la estructura jugador para luego cargarlos al archivo. Devuelve -1 si el leido no esta en el arch, y si esta
+///retorna el id del jugador. Se invoca en la foncion "cargaArchJugadores"
 int leerJugador(jugador * nuevo){
     printf ("\n Ingrese el nombre del jugador: ");
     fflush (stdin);
@@ -60,7 +61,7 @@ int leerJugador(jugador * nuevo){
     return rta.ID;
 }
 
-///retorna la ultima ID del jugador cargado
+///retorna el ultimo ID del jugador cargado
 int buscarIDultimo(){
     int id=-1;
     jugador a;
@@ -106,7 +107,7 @@ nodoMercado * crearNodoMercado(int ID){
     return aux;
 }
 
-/**Inserta los datos del jugador cargado en el arbol segun su campo de calificacion**/
+/**Inserta el ID del jugador cargado en la lista del mercado**/
 nodoMercado * agregarFinalNodoMercado(nodoMercado * lista,int ID){
     nodoMercado * a = crearNodoMercado(ID);
     if(lista==NULL){
@@ -161,7 +162,7 @@ jugador buscaIDArch(int ID){
 }
 
 
-///Carga todos los jugadores del archivo al arbol del mercado
+///Carga todos los jugadores del archivo a la lista del mercado
 nodoMercado * cargarListaMercado (nodoMercado * lista){
     FILE * archJugadores = fopen("Jugadores.dat", "rb");
     if (archJugadores!=NULL){
@@ -174,7 +175,7 @@ nodoMercado * cargarListaMercado (nodoMercado * lista){
     return lista;
 }
 
-///Busca jugador en la lista
+///Busca jugador en la lista del mercado
 int buscarJugador(nodoMercado * lista,int ID){
     int rta=0;
     while(lista!=NULL){

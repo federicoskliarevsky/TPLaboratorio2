@@ -117,7 +117,7 @@ void ventaJugador (usuario * cargado,nodoMercado * listaMercado){
         scanf ("%d", &IDBuscado);
         jugador encontrado = buscaIDArch(IDBuscado);
         int posicionID = buscaIDArreglo(cargado->club.arregloID, IDBuscado, validos);
-        if (posicionID!=-1){ /// Si no lo encuentra en el arreglo
+        if (posicionID!=-1){ /// Si lo encuentra en el arreglo
             printf ("\n Jugador encontrado: ");
             mostrarJugador(encontrado);
             char control='s';
@@ -390,6 +390,7 @@ nodoUsuario *  menuMiClub(nodoLiga * listaLigas,nodoMercado * listaMercado,usuar
     return listaUsuarios;
 }
 
+///Promedio de un equipo
 float calcularPromedio (int arr[]){
     float promedio=0;
     float suma=0;

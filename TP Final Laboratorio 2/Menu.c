@@ -70,7 +70,7 @@ void imprimirCabecera()  ///Printea el nombre del juego
     crearVariables();
 }
 
-///Inicializa la lista de ligas, carga las ligas que esten en el archivo a la lista de ligas y ejecuta el menu principal.
+///Inicializa y carga las listas de ligas, mercado y usuario
 void crearVariables(){
     nodoLiga * listaLigas = inicListaliga();
     listaLigas = cargarListaLigas(listaLigas);

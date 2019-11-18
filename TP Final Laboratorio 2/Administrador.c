@@ -1,7 +1,7 @@
 #include "Administrador.h"
-/** Carga jugadores a su correpondiente archivo y arbol.Si el nombre de liga o equipo ingresado en los datos del jugador no se
-encuentra en la lista de ligas o equipos se pedira al administrador que cargue la liga o el equipo no encontrado.Caso contrario
-el jugador ingresado se cargara directamente al arbol y archivo**/
+/** Carga jugadores a su correpondiente archivo y arregloID.Si el nombre de liga o equipo ingresado en los datos del jugador no se
+encuentra en la lista de ligas o equipos se pedira al administrador que cargue la liga o el equipo no encontrado.Si el id del
+jugador ingresado ya existe no se podra cargar ni al archivo ni al arreglo**/
 
 nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
 
@@ -455,7 +455,8 @@ void muestraArchLigas(){
     fclose(archLigas);
 }
 
-///Segun la opcion elegida por el administrador carga jugadores al archivo y arbol, o muestra el contenido que hay en ellos
+///Segun la opcion elegida por el administrador carga jugadores al archivo, modifica la informacion de los ya cargados o muestra
+///el contenido que hay en ellos
 nodoLiga * menuArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
     int opc;
     system("cls");

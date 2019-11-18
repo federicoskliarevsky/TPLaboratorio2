@@ -55,7 +55,7 @@ nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
      {
       if(strcmpi(aux.nombreLiga,nombre) == 0)
       {
-       lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux)); ///Dentro de la funcion llamada se cargan los jugadores del archivo al arbol del equipo
+       lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux));
       }
      }
     }
@@ -106,6 +106,8 @@ void muestraListaEquipos (nodoEquipo * lista){
     }
 }
 
+///Busca a un equipo cargado en la lista. Se invoca en las funciones "cargaArchJugadores","bajaJugador","altaJugador" y
+///"modificarJugador".
 nodoEquipo * buscarEquipo(nodoEquipo * lista, char nombreBuscado[]){
     while (lista!=NULL && strcmpi(lista->dato.nombreEquipo, nombreBuscado)!=0){
         lista = lista->sig;
@@ -113,6 +115,9 @@ nodoEquipo * buscarEquipo(nodoEquipo * lista, char nombreBuscado[]){
     return lista;
 }
 
+
+///Se invoca en la funcion "cargaArchJugadores", para actualizar con la informacion nueva el archivo de equipos cada vez que
+///se agrega un jugador al archivo de jugadores
 void actualizaArchEquipos (jugador recibido){
     FILE * archEq;
     archEq = fopen("Equipos.dat", "r+b");
