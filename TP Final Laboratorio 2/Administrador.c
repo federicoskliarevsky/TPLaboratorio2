@@ -4,7 +4,6 @@ encuentra en la lista de ligas o equipos se pedira al administrador que cargue l
 jugador ingresado ya existe no se podra cargar ni al archivo ni al arreglo**/
 
 nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
-
     jugador aux;
     char control='s';
     FILE * archJug;
@@ -26,24 +25,28 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
             }
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
             listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
-            int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
-            if (validos<MAXJugadores){
-                archJug = fopen("Jugadores.dat", "ab");
-                if (archJug!=NULL){
-                    fwrite(&aux, sizeof(jugador), 1, archJug);
-                    fclose(archJug);
+            if (listaLigasAuxiliar!=NULL && listaEquiposAuxiliar!=NULL){
+                int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
+                if (validos<MAXJugadores){
+                    archJug = fopen("Jugadores.dat", "ab");
+                    if (archJug!=NULL){
+                        fwrite(&aux, sizeof(jugador), 1, archJug);
+                        fclose(archJug);
+                    } else {
+                        printf ("\n  Error de apertura en el archivo Jugadores.dat");
+                    }
+                    listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
+                    actualizaArchEquipos (aux);
+                    listaMercado =agregarFinalNodoMercado(listaMercado,aux.ID);
                 } else {
-                    printf ("\n  Error de apertura en el archivo Jugadores.dat");
+                    printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.\n", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
+                    printf ("Si desea, puede modificar uno de los jugadores del equipo desde el menu Modificacion.\n");
+                    system ("pause");
                 }
-                listaEquiposAuxiliar->dato.arregloID[validos] = aux.ID ;
-                actualizaArchEquipos (aux);
-                listaMercado =agregarFinalNodoMercado(listaMercado,aux.ID);
+                system ("cls");
             } else {
-                printf ("El jugador %s no pudo ser cargado al equipo %s porque ya tiene %d jugadores.\n", aux.nombreJugador, aux.nombreEquipo, MAXJugadores);
-                printf ("Si desea, puede modificar uno de los jugadores del equipo desde el menu Modificacion.\n");
-                system ("pause");
+                printf (" El jugador %s no pudo ser cargado porque la liga o el equipo cargados no coinciden con los creados.\n", aux.nombreJugador);
             }
-            system ("cls");
         } else {
             printf ("\n Jugador ya ingresado.");
         }
