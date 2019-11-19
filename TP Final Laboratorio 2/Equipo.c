@@ -27,7 +27,7 @@ void mostrarEquipo (equipo recibido){
     printf (" Liga: ");
     puts (recibido.nombreLiga);
     printf (" Anio de creacion: %d", recibido.anioCreacion);
-    int validos = buscarValidos(recibido.arregloID);
+    int validos = buscarValidos(recibido.arregloID, 1);
     if (validos>0){
         char control;
         printf ("\n Validos: %d Desea ver jugadores? (s para confirmar): ", validos);

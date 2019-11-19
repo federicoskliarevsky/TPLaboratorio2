@@ -138,7 +138,7 @@ void cargarArregloJugador(int arregloID[],char nombreEquipo[]){
         jugador aux;
         while(fread(&aux,sizeof(jugador),1,archi)>0){
             if(strcmpi(aux.nombreEquipo,nombreEquipo) == 0){
-                arregloID[buscarValidos(arregloID)] = aux.ID;
+                arregloID[buscarValidos(arregloID, 0)] = aux.ID;
             }
         }
     }
@@ -186,11 +186,17 @@ int buscarJugador(nodoMercado * lista,int ID){
     return rta;
 }
 
-int buscarValidos(int arregloID[]){
+int buscarValidos(int arregloID[], int llave){
     int j=0;
     for (int i=0; i<MAXJugadores; i++){
-        if (arregloID[i]!=-1 && buscaIDArch(arregloID[i]).eliminado==0){
-            j++;
+        if (arregloID[i]!=-1){
+            if (llave == 0 && buscaIDArch(arregloID[i]).eliminado==0){
+                j++;
+            } else {
+                if (llave==1){
+                    j++;
+                }
+            }
         }
     }
     return j;

@@ -28,7 +28,7 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
                 listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
             }
             if (listaLigasAuxiliar!=NULL && listaEquiposAuxiliar!=NULL){
-                int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
+                int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID, 1);
                 if (validos<MAXJugadores){
                     archJug = fopen("Jugadores.dat", "ab");
                     if (archJug!=NULL){
@@ -570,7 +570,7 @@ nodoLiga * menuArchLigas(nodoLiga * listaLigas){
     return listaLigas;
 }
 
-///Funcion recursiva que devuelve la suma de las calificaciones del mercado
+///Funcion recursiva que devuelve la suma de las calificaciones de los jugadores no eliminados del mercado
 float sumaMercado (nodoMercado * listaMercado){
     float rta=0;
     if (listaMercado!=NULL){
@@ -583,7 +583,7 @@ float sumaMercado (nodoMercado * listaMercado){
     return rta;
 }
 
-///Funcion recursiva que devuelve la cantidad de nodos del mercado
+///Funcion recursiva que devuelve la cantidad de nodos con información de los jugadores no eliminados del mercado
 float cantidadMercado (nodoMercado * listaMercado){
     int rta=0;
     if (listaMercado!=NULL){
@@ -595,7 +595,7 @@ float cantidadMercado (nodoMercado * listaMercado){
     return rta;
 }
 
-///Funcion que devuelve el promedio de las calificaciones del mercado
+///Funcion que devuelve el promedio de las calificaciones de los jugadores no eliminados del mercado
 float promedioMercado (nodoMercado * listaMercado){
     float promedio=0;
     if (listaMercado!=NULL){
@@ -604,6 +604,7 @@ float promedioMercado (nodoMercado * listaMercado){
     return promedio;
 }
 
+///Inserta un entero (lo usamos para la calificación) ordenado en un arreglo, de menor a mayor
 void insertar (int a[], int u, int dato){
     int i=u;
     while (i>=0 && dato<a[i]){
@@ -613,6 +614,7 @@ void insertar (int a[], int u, int dato){
     a[i+1]=dato;
 }
 
+///Devuelve la mediana de las calificaciones de los jugadores no eliminados del mercado. Si no hay datos, devuelve 0.
 float medianaMercado (nodoMercado * listaMercado){
     float rta = 0;
     if (listaMercado!=NULL){
@@ -637,13 +639,15 @@ float medianaMercado (nodoMercado * listaMercado){
     return rta;
 }
 
+
+///Devuelve el ID del jugador no eliminado con la mayor calificacion (si hay dos o mas con la misma, igual devuelve uno solo).
 int mayorCalificacion (nodoMercado * listaMercado){
     int rta=-1;
     if (listaMercado!=NULL){
         rta = listaMercado->datoID;
         listaMercado = listaMercado->sig;
         while (listaMercado!=NULL){
-            if (buscaIDArch(rta).eliminado== 0 && buscaIDArch(rta).calificacion < buscaIDArch(listaMercado->datoID).calificacion){
+            if ((buscaIDArch(listaMercado->datoID).eliminado== 0) && (buscaIDArch(rta).calificacion < buscaIDArch(listaMercado->datoID).calificacion)){
                 rta = listaMercado->datoID;
             }
             listaMercado = listaMercado->sig;
@@ -652,13 +656,14 @@ int mayorCalificacion (nodoMercado * listaMercado){
     return rta;
 }
 
+///Devuelve el ID del jugador no eliminado con la menor calificacion (si hay dos o mas con la misma, igual devuelve uno solo).
 int menorCalificacion (nodoMercado * listaMercado){
     int rta=-1;
     if (listaMercado!=NULL){
         rta = listaMercado->datoID;
         listaMercado = listaMercado->sig;
         while (listaMercado!=NULL){
-            if (buscaIDArch(rta).eliminado== 0 && buscaIDArch(rta).calificacion > buscaIDArch(listaMercado->datoID).calificacion){
+            if (buscaIDArch(listaMercado->datoID).eliminado== 0 && buscaIDArch(rta).calificacion > buscaIDArch(listaMercado->datoID).calificacion){
                 rta = listaMercado->datoID;
             }
             listaMercado = listaMercado->sig;
@@ -667,6 +672,7 @@ int menorCalificacion (nodoMercado * listaMercado){
     return rta;
 }
 
+///Muestra a los jugadores con la mayor calificacion y con la menor calificacion (si hay dos o mas con la misma, igual muestra uno solo).
 void mayorMenorMercado (nodoMercado * listaMercado){
     int ID = mayorCalificacion(listaMercado);
     jugador aux;

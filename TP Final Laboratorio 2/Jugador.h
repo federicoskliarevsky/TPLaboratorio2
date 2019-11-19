@@ -32,6 +32,6 @@ void cargarArregloJugador(int[],char[]);
 void MostrarMercado(nodoMercado *, int);
 int buscarJugador (nodoMercado*,int);
 jugador buscaIDArch(int);
-int buscarValidos(int[]);
+int buscarValidos(int[], int);
 void mostrarArregloID (int[], int);
 #endif // JUGADOR_H_INCLUDED

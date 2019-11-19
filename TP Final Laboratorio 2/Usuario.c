@@ -62,7 +62,7 @@ int buscaIDArreglo (int arr[], int IDBuscado, int validos){
 void compraJugador (usuario * cargado,nodoMercado * listaMercado){
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado->nombreUser, cargado->club.nombreClub, 36, cargado->club.monedas);
-    int validos = buscarValidos(cargado->club.arregloID);
+    int validos = buscarValidos(cargado->club.arregloID, 0);
     if (validos <MAXJugadores){
         int IDBuscado;
         printf ("\n\nIngrese el ID del jugador a comprar: ");
@@ -106,7 +106,7 @@ void compraJugador (usuario * cargado,nodoMercado * listaMercado){
 void ventaJugador (usuario * cargado,nodoMercado * listaMercado){
     system("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado->nombreUser, cargado->club.nombreClub, 36, cargado->club.monedas);
-    int validos = buscarValidos(cargado->club.arregloID);
+    int validos = buscarValidos(cargado->club.arregloID, 0);
     if (validos > 0){
         int IDBuscado;
         printf ("\n Ingrese el ID del jugador a vender: ");
@@ -217,7 +217,7 @@ void ordenarArregloMayorMenor (int arreglo[]){
 int buscaEliminados (usuario * cargado){
     int rtaMonedas = (*cargado).club.monedas;
     jugador encontrado;
-    int validos = buscarValidos((*cargado).club.arregloID);
+    int validos = buscarValidos((*cargado).club.arregloID, 1);
     for (int i=0; i<validos; i++){
         encontrado = buscaIDArch((*cargado).club.arregloID[i]);
         if (encontrado.eliminado==1){
@@ -359,7 +359,7 @@ nodoUsuario *  menuMiClub(nodoLiga * listaLigas,nodoMercado * listaMercado,usuar
         case 1:
             printf ("\n Listado de jugadores.\n");
             Sleep(1000);
-            int validos = buscarValidos(cargado->club.arregloID);
+            int validos = buscarValidos(cargado->club.arregloID, 0);
             if (validos>0){
                 mostrarArregloID(cargado->club.arregloID,validos);
                 printf ("\n\n Fin de muestra de jugadores.\n\n");
@@ -621,7 +621,7 @@ int calcularMonedas (int resultado, usuario cargado, nodoEquipo * rival){
 ///Pide liga y equipo a enfrentar. Si los encuentra y los equipos cuentan con 11 jugadores, recibe las monedas ganadas y las cambia en el club.
 int menuJugarPartido (nodoLiga * listaLigas,nodoMercado * listaMercado, usuario cargado, nodoUsuario * listaUsuarios){
     int rtaMonedas = cargado.club.monedas;
-    int validosJugador = buscarValidos(cargado.club.arregloID);
+    int validosJugador = buscarValidos(cargado.club.arregloID, 0);
     system ("cls");
     printf ("USUARIO: %s |  CLUB: %s |  %c: %d ", cargado.nombreUser, cargado.club.nombreClub, 36, cargado.club.monedas);
     printf ("\n\n Menu Jugar Partido.");
@@ -640,7 +640,7 @@ int menuJugarPartido (nodoLiga * listaLigas,nodoMercado * listaMercado, usuario 
             nodoEquipo * equipoAux = iniclistaEquipo();
             equipoAux = buscarEquipo(ligaAux->dato.listaEquipos, nombreEquipo);
             if (equipoAux!=NULL){
-                int validosRival = buscarValidos(equipoAux->dato.arregloID);
+                int validosRival = buscarValidos(equipoAux->dato.arregloID, 0);
                 if (validosRival == MAXJugadores){
                     printf ("\n   Todo correcto. A jugar!\n\n    ");
                     system ("pause");
@@ -670,7 +670,7 @@ int menuJugarPartido (nodoLiga * listaLigas,nodoMercado * listaMercado, usuario 
 
 nodoUsuario *  menuUsuario(nodoLiga * listaLigas,nodoMercado *  listaMercado,usuario cargado,nodoUsuario * listaUsuarios){
     int opcion=-1;
-    int validos = buscarValidos(cargado.club.arregloID);
+    int validos = buscarValidos(cargado.club.arregloID, 0);
     cargado.club.monedas = buscaEliminados (&cargado);
     actualizaArchivoUsuarios(cargado);
     system("cls");
