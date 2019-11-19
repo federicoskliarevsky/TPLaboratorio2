@@ -21,13 +21,13 @@ void leerEquipo (equipo * nuevo){
 
 /**Printea los campos de la estructura equipo. Si el equipo tiene cargado jugadores da la opcion de ver los jugadores que tiene
 el equipo,caso contrario muestra un mensaje informando que el equipo esta sin jugadores*/
-void mostrarEquipo (equipo aux){
+void mostrarEquipo (equipo recibido){
     printf ("\n Equipo: ");
-    puts (aux.nombreEquipo);
+    puts (recibido.nombreEquipo);
     printf (" Liga: ");
-    puts (aux.nombreLiga);
-    printf (" Anio de creacion: %d", aux.anioCreacion);
-    int validos = buscarValidos(aux.arregloID);
+    puts (recibido.nombreLiga);
+    printf (" Anio de creacion: %d", recibido.anioCreacion);
+    int validos = buscarValidos(recibido.arregloID);
     if (validos>0){
         char control;
         printf ("\n Validos: %d Desea ver jugadores? (s para confirmar): ", validos);
@@ -35,7 +35,7 @@ void mostrarEquipo (equipo aux){
         scanf ("%c", &control);
         if (control=='s'){
             printf ("\n Muestra jugadores (ordenados por ID): ");
-            mostrarArregloID(aux.arregloID, validos);
+            mostrarArregloID(recibido.arregloID, validos);
         }
     } else {
         printf ("\n Equipo sin jugadores.");

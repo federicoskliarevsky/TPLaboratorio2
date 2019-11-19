@@ -12,7 +12,7 @@ void imprimirCabecera()  ///Printea el nombre del juego
     }
     printf ("\n\n");
     system ("cls");
-    char cabecera[]="  _________         ______         _________         _________     ";
+    char cabecera[]="  _________          ____          _________         __________    ";
     char cabecera2[] =" |         |        |    |        |         |       |   ____   | ";
     char cabecera3[] =" |    _____|        |    |        |    _____|       |  |    |  | ";
     char cabecera4[] =" |   |              |    |        |   |             |  |    |  | ";
