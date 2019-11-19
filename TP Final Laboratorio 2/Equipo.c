@@ -9,11 +9,11 @@ void leerEquipo (equipo * nuevo){
     printf (" Ingrese liga del equipo: ");
     fflush (stdin);
     gets (nuevo->nombreLiga);
-    printf (" Ingrese anio de creacion (mayor a 0): ");
+    printf (" Ingrese a%co de creacion (mayor a 1800 y menor a %d): ", 164, anio+1);
     fflush (stdin);
     scanf ("%d", &(nuevo->anioCreacion));
-    while (nuevo->anioCreacion<1800 || nuevo->anioCreacion>2019){
-        printf (" Ingrese un anio valido: ");
+    while (nuevo->anioCreacion<1800 || nuevo->anioCreacion>anio){
+        printf (" Ingrese un a%co valido(mayor a 1800 y menor a %d): ", 164, anio+1);
         scanf ("%d", &(nuevo->anioCreacion));
     }
     crearArregloID(nuevo->arregloID);
@@ -41,27 +41,27 @@ void mostrarEquipo (equipo recibido){
         printf ("\n Equipo sin jugadores.");
     }
 }
+
 nodoEquipo * iniclistaEquipo(){
-return NULL;
+    return NULL;
 }
+
 /**Pasa los datos de los equipos cargados en el archivo a la lista de equipos**/
 nodoEquipo * cargarListaEquipo(nodoEquipo * lista,char nombre[]){
     equipo aux;
     nodoEquipo * a;
     FILE * archi = fopen("Equipos.dat","rb");
-    if(archi!=NULL)
-    {
-     while(fread(&aux,sizeof(equipo),1,archi) > 0)
-     {
-      if(strcmpi(aux.nombreLiga,nombre) == 0)
-      {
-       lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux));
-      }
-     }
+    if(archi!=NULL){
+        while(fread(&aux,sizeof(equipo),1,archi) > 0){
+            if(strcmpi(aux.nombreLiga,nombre) == 0){
+                lista = agregarFinalNodoEquipo(lista,crearNodoEquipo(aux));
+            }
+        }
     }
     fclose(archi);
     return lista;
 }
+
 /**Crea un nodo en la lista de equipos.Se invoca en la funcion "cargarListaEquipo"**/
 nodoEquipo * crearNodoEquipo(equipo dato){
     char nombre[30];
@@ -71,30 +71,28 @@ nodoEquipo * crearNodoEquipo(equipo dato){
     nuevoNodo->sig = NULL;
     return nuevoNodo;
 }
+
 /**Se invoca en la funcion "cargarListaEquipo" para ir agregando en orden de carga los equipos a la lista**/
 nodoEquipo * agregarFinalNodoEquipo(nodoEquipo * lista, nodoEquipo * nuevoNodo){
-    if(lista==NULL)
-    {
-     lista = nuevoNodo;
-    }else
-    {
-     nodoEquipo * ultimo = buscarUltimoEquipo(lista);
-     ultimo->sig = nuevoNodo;
+    if(lista==NULL){
+        lista = nuevoNodo;
+    }else{
+        nodoEquipo * ultimo = buscarUltimoEquipo(lista);
+        ultimo->sig = nuevoNodo;
     }
     return lista;
 }
+
 /**Se invoca en la funcion "agregarFinalNodoEquipo" para buscar el ultimo nodo y asi poder enlazar este con el nodo recien
 cargado**/
 nodoEquipo * buscarUltimoEquipo(nodoEquipo * lista){
-     nodoEquipo * seg = lista;
-     if(seg!=NULL)
-     {
-      while(seg->sig != NULL)
-      {
-       seg = seg->sig;
-      }
-     }
-     return seg;
+    nodoEquipo * seg = lista;
+    if(seg!=NULL){
+        while(seg->sig != NULL){
+            seg = seg->sig;
+        }
+    }
+    return seg;
 }
 
 void muestraListaEquipos (nodoEquipo * lista){

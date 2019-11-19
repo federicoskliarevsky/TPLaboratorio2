@@ -4,7 +4,6 @@ void imprimirCabecera()  ///Printea el nombre del juego
 {
     system("COLOR 02");
     printf ("CARGANDO");
-
     printf ("     ");
     for (int i=0; i<30; i++){
         printf ("%c", 178);
@@ -24,7 +23,6 @@ void imprimirCabecera()  ///Printea el nombre del juego
     char cabecera10[]=" |    |             |    |        |    |            |  |    |  | ";
     char cabecera11[]=" |    |             |    |        |    |            |  |    |  | ";
     char cabecera12[]=" |____|             |____|        |____|            |__|    |__| ";
-
     int i;
     printf("%c", 201);
     for(i=0; i<70; i++)

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Jugador.h"
+#define anio 2019
 
 typedef struct {
     char nombreEquipo[30];

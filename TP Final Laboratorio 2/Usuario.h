@@ -15,14 +15,14 @@ typedef struct{
 } miClub;
 
 typedef struct{
-  char nombreUser[30];
-  char pass[30];
-  miClub club;
+    char nombreUser[30];
+    char pass[30];
+    miClub club;
 }usuario;
 
 typedef struct{
-  usuario dato;
-  struct nodoUsuario * sig;
+    usuario dato;
+    struct nodoUsuario * sig;
 }nodoUsuario;
 
 nodoUsuario * crearNodoUsuario(usuario);

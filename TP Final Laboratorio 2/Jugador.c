@@ -1,4 +1,5 @@
 #include "Jugador.h"
+
 ///Busca a un jugador en el archivo. Si lo encuentra lo retorna.
 jugador buscarJugadorArchivo(jugador buscado){
     FILE * archJug;
@@ -40,14 +41,14 @@ int leerJugador(jugador * nuevo){
     fflush (stdin);
     scanf ("%d", &(nuevo->calificacion));
     while (nuevo->calificacion<1 || nuevo->calificacion>99){
-        printf ("\n Ingrese una calificacion valida: ");
+        printf ("\n Ingrese una calificacion valida (entre 1 y 99): ");
         scanf ("%d", &(nuevo->calificacion));
     }
     printf (" Ingrese precio (entre 100 y 5.000.000): ");
     fflush (stdin);
     scanf ("%d", &(nuevo->precio));
-    while (nuevo->precio<0 || nuevo->precio>4999999){
-        printf ("\n Ingrese un precio valido: ");
+    while (nuevo->precio<100 || nuevo->precio>4999999){
+        printf ("\n Ingrese un precio valido (entre 100 y 5.000.000): ");
         scanf ("%d", &(nuevo->precio));
     }
     nuevo->eliminado = 0;
@@ -73,7 +74,6 @@ int buscarIDultimo(){
         }
     }
     fclose(archi);
-    ///printf ("Se devolvera el ID %d", id);
     return id;
 }
 
@@ -94,6 +94,7 @@ void mostrarJugador(jugador aux){
     } else {
         printf ("\n\n El jugador %s esta dado de baja (eliminado=1).", aux.nombreJugador);
     }
+    Sleep(400);
 }
 
 nodoMercado * iniclistaMercado(){
@@ -116,20 +117,17 @@ nodoMercado * agregarFinalNodoMercado(nodoMercado * lista,int ID){
         nodoMercado * ultimo = buscarUltimoMercado(lista);
         ultimo->sig = a;
     }
-
     return lista;
 }
 
 nodoMercado * buscarUltimoMercado(nodoMercado * lista){
- nodoMercado * seg = lista;
- if(seg!=NULL)
- {
-  while(seg->sig != NULL)
-  {
-   seg = seg->sig;
-  }
- }
- return seg;
+    nodoMercado * seg = lista;
+    if(seg!=NULL){
+        while(seg->sig != NULL){
+            seg = seg->sig;
+        }
+    }
+    return seg;
 }
 
 
@@ -142,7 +140,7 @@ void cargarArregloJugador(int arregloID[],char nombreEquipo[]){
             if(strcmpi(aux.nombreEquipo,nombreEquipo) == 0){
                 arregloID[buscarValidos(arregloID)] = aux.ID;
             }
-    }
+        }
     }
     fclose(archi);
 }
@@ -158,6 +156,7 @@ jugador buscaIDArch(int ID){
             }
         }
     }
+    fclose(arch);
     return aux; ///Siempre va a encontrarlo, porque los ID se cargan en el archivo y no se modifican
 }
 
@@ -183,14 +182,14 @@ int buscarJugador(nodoMercado * lista,int ID){
             rta = 1;
         }
         lista = lista ->sig;
-        }
-   return rta;
+    }
+    return rta;
 }
 
 int buscarValidos(int arregloID[]){
     int j=0;
     for (int i=0; i<MAXJugadores; i++){
-        if (arregloID[i]!=-1){
+        if (arregloID[i]!=-1 && buscaIDArch(arregloID[i]).eliminado==0){
             j++;
         }
     }
@@ -203,12 +202,18 @@ void mostrarArregloID (int arreglo[], int validos){
     }
 }
 
-void MostrarMercado(nodoMercado * lista){
- while(lista != NULL){
-  jugador aux;
-  aux = buscaIDArch(lista->datoID);
-   mostrarJugador(aux);
-   lista = lista->sig;
- }
+///Muestra el mercado de jugadores. Si recibe 0, la llama el administrador y muestra todos los jugadores. Si recibe 1, la llama el usuario y no muestra los dados de baja
+void MostrarMercado(nodoMercado * lista, int i){
+    while(lista != NULL){
+        jugador aux;
+        aux = buscaIDArch(lista->datoID);
+        if (i==0){
+                mostrarJugador(aux);
+        } else {
+            if (aux.eliminado==0){
+                mostrarJugador(aux);
+            }
+        }
+        lista = lista->sig;
+    }
 }
-

@@ -29,7 +29,7 @@ nodoMercado* crearNodoMercado(int);
 nodoMercado* agregarFinalNodoMercado(nodoMercado*,int);
 nodoMercado * buscarUltimoMercado(nodoMercado *);
 void cargarArregloJugador(int[],char[]);
-void MostrarMercado(nodoMercado *);
+void MostrarMercado(nodoMercado *, int);
 int buscarJugador (nodoMercado*,int);
 jugador buscaIDArch(int);
 int buscarValidos(int[]);

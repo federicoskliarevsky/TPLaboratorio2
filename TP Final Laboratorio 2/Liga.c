@@ -1,4 +1,5 @@
 #include "Liga.h"
+
 /**Lee los datos de la estructura liga para luego cargarlos al archivo e inicializa la lista de equipos. Se invoca en la funcion
  "cargaArchLigas"**/
 void leerLiga (liga * nuevo){
@@ -10,6 +11,7 @@ void leerLiga (liga * nuevo){
     gets (nuevo->paisLiga);
     nuevo->listaEquipos=iniclistaEquipo();
 }
+
 ///Printea todos los datos de la estructura liga
 void mostrarLiga(liga aux){
     printf ("\n Liga: ");
@@ -21,14 +23,13 @@ void mostrarLiga(liga aux){
 nodoLiga * inicListaliga(){
  return NULL;
 }
+
 /**Pasa los datos de las ligas cargados en el archivo a la lista de ligas**/
 nodoLiga * cargarListaLigas(nodoLiga * lista){
     liga aux;
     FILE * archi = fopen("Ligas.dat","rb");
-    if(archi!=NULL)
-    {
-        while(fread(&aux,sizeof(liga),1,archi)> 0)
-        {
+    if(archi!=NULL){
+        while(fread(&aux,sizeof(liga),1,archi)> 0){
             nodoLiga * nuevo = crearNodoLiga(aux);
             lista = agregarFinalNodoLiga(lista,nuevo);
         }
@@ -36,17 +37,18 @@ nodoLiga * cargarListaLigas(nodoLiga * lista){
     fclose(archi);
     return lista;
 }
+
 /**Crea un nodo en la lista de ligas e inicializa el campo listaEquipos de la estructura liga.Se invoca en la funcion
 "agregarLigaIndividual" y "cargarListaLigas"**/
-nodoLiga * crearNodoLiga(liga dato){
- char nombre[40];
- strcpy(nombre,dato.nombreLiga);
- nodoLiga * nuevoNodo = (nodoLiga*) malloc(sizeof(nodoLiga));
- nuevoNodo->dato = dato;
- nuevoNodo->sig = NULL;
- nuevoNodo->dato.listaEquipos = iniclistaEquipo();
- nuevoNodo->dato.listaEquipos = cargarListaEquipo(nuevoNodo->dato.listaEquipos,nombre); ///Dentro de la funcion llamada se cargan los equipos del archivo a la lista de cada liga
- return nuevoNodo;
+    nodoLiga * crearNodoLiga(liga dato){
+    char nombre[40];
+    strcpy(nombre,dato.nombreLiga);
+    nodoLiga * nuevoNodo = (nodoLiga*) malloc(sizeof(nodoLiga));
+    nuevoNodo->dato = dato;
+    nuevoNodo->sig = NULL;
+    nuevoNodo->dato.listaEquipos = iniclistaEquipo();
+    nuevoNodo->dato.listaEquipos = cargarListaEquipo(nuevoNodo->dato.listaEquipos,nombre); ///Dentro de la funcion llamada se cargan los equipos del archivo a la lista de cada liga
+    return nuevoNodo;
 }
 
 /**Funcion utilizada en "cargaArchJugadores" y "cargaArchEquipos" para saber si un jugador o equipo cargado pertenecen a una
@@ -70,31 +72,29 @@ nodoLiga * agregarLigaIndividual(nodoLiga * lista){
     fclose(archLigas);
     return lista;
 }
+
 /**Se invoca en la funcion "cargarListaLigas","agregarLigaIndividual" y "cargaArchLigas" para ir agregando en orden de carga
  las ligas a la lista**/
 nodoLiga * agregarFinalNodoLiga(nodoLiga * lista,nodoLiga * nuevoNodo){
-  if(lista == NULL)
-  {
-   lista = nuevoNodo;
-  }else
-  {
-   nodoLiga * ultimo = buscarUltimoLiga(lista);
-   ultimo->sig = nuevoNodo;
-  }
-  return  lista;
+    if(lista == NULL){
+        lista = nuevoNodo;
+    }else{
+        nodoLiga * ultimo = buscarUltimoLiga(lista);
+        ultimo->sig = nuevoNodo;
+    }
+    return  lista;
 }
+
 /**Se invoca en la funcion "agregarFinalNodoLiga" para buscar el ultimo nodo y asi poder enlazar este con el nodo recien
 cargado**/
 nodoLiga * buscarUltimoLiga(nodoLiga * lista){
- nodoLiga * seg = lista;
- if(seg!=NULL)
- {
-  while(seg->sig != NULL)
-  {
-   seg = seg->sig;
-  }
- }
- return seg;
+    nodoLiga * seg = lista;
+    if(seg!=NULL){
+        while(seg->sig != NULL){
+            seg = seg->sig;
+        }
+    }
+    return seg;
 }
 
 void muestraListaLigas (nodoLiga * lista){

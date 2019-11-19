@@ -252,19 +252,19 @@
 1573234282 source:c:\users\hp\desktop\github\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
-1574124201 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\equipo.c
+1574170861 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\equipo.c
 	"Equipo.h"
 
-1573487314 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\equipo.h
+1574124809 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\equipo.h
 	<stdio.h>
 	<stdlib.h>
 	"Jugador.h"
 
-1574020184 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.h
+1574173268 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.h
 	<stdio.h>
 	<stdlib.h>
 
-1573069884 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\liga.c
+1574170861 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\liga.c
 	"Liga.h"
 
 1572648478 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\liga.h
@@ -286,14 +286,14 @@
 	"Administrador.h"
 	"Jugador.h"
 
-1573952228 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.h
+1574177763 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	"Jugador.h"
 	"Liga.h"
 
-1573951853 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.h
+1574177763 c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -304,16 +304,16 @@
 	"Usuario.h"
 	"Liga.h"
 
-1574123977 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
+1574170861 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\menu.c
 	"Menu.h"
 
-1574120482 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
+1574179764 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\administrador.c
 	"Administrador.h"
 
-1574124219 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.c
+1574173547 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\jugador.c
 	"Jugador.h"
 
-1574123825 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.c
+1574173268 source:c:\users\fede_\desktop\tplaboratorio2\tp final laboratorio 2\usuario.c
 	"Usuario.h"
 
 1573492882 source:f:\tp final laboratorio 2\administrador.c

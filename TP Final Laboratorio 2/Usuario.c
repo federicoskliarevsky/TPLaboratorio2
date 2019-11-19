@@ -27,23 +27,21 @@ nodoUsuario * cargarListaUsuarios(nodoUsuario * listaUsuarios){
 }
 
 nodoUsuario *  agregarFinalNodoUsuario(nodoUsuario * listaUsuarios,nodoUsuario * nuevo){
- if(listaUsuarios==NULL)
- {
-  listaUsuarios = nuevo;
- }else
- {
-  nodoUsuario * ultimo = buscarUltimoUsuario(listaUsuarios);
-  ultimo->sig = nuevo;
- }
- return listaUsuarios;
+    if(listaUsuarios==NULL){
+        listaUsuarios = nuevo;
+    }else{
+        nodoUsuario * ultimo = buscarUltimoUsuario(listaUsuarios);
+        ultimo->sig = nuevo;
+    }
+    return listaUsuarios;
 }
 
 nodoUsuario * buscarUltimoUsuario(nodoUsuario * listaUsuarios){
- nodoUsuario* seg=listaUsuarios;
- while(seg->sig!=NULL){
-    seg=seg->sig;
- }
- return seg;
+    nodoUsuario* seg=listaUsuarios;
+    while(seg->sig!=NULL){
+        seg=seg->sig;
+    }
+    return seg;
 }
 
 
@@ -84,7 +82,6 @@ void compraJugador (usuario * cargado,nodoMercado * listaMercado){
                     scanf ("%c", &control);
                     if (control=='s'){
                         cargado->club.arregloID[validos] = IDBuscado; /// Se agrega el nuevo jugador al arreglo del club
-                        /** validos++; Por ahora no hace falta */
                         cargado->club.monedas -= encontrado.precio; /// Se resta el precio del jugador a las monedas del club
                         actualizaArchivoUsuarios(*cargado);
                         printf ("\n El jugador ha sido contratado por tu club con exito!");
@@ -172,7 +169,7 @@ void menuMercado(nodoLiga * listaLigas,nodoMercado * listaMercado,usuario cargad
            case 3:
                system("cls");
                printf ("\n  Lista Mercado:");
-               MostrarMercado(listaMercado);
+               MostrarMercado(listaMercado, 1);
                printf ("\n");
                system("pause");
                menuMercado(listaLigas,listaMercado,cargado,listaUsuarios);
@@ -198,7 +195,7 @@ void actualizaArchivoUsuarios (usuario recibido){
             }
         }
     } else {
-        printf ("\n Archivo no abierto.");
+        printf ("\n El archivo usuarios.dat no pudo ser abierto correctamente.");
     }
     fclose(archUsuarios);
 }
@@ -248,20 +245,20 @@ void mostrarClub (usuario recibido){
 
 ///ESTA FUNCION ES PARA MODIFICAR EL ARCHIVO CON LO QUE SE ENCUENTRA EN EL CLUB
 void reemplazarArchivoUsuario(usuario modificado){
-  FILE * archUsuarios = fopen("usuarios.dat","r+b");
-  if(archUsuarios != NULL){
-    usuario usuarioaux;
-    int encontrado = 0;
-    while((fread(&usuarioaux,sizeof(usuario),1,archUsuarios)>0) && (encontrado == 0)){
-      if(strcmpi(usuarioaux.nombreUser,modificado.nombreUser) == 0){
-        fseek(archUsuarios,sizeof(usuario)*(-1),SEEK_CUR);
-        fwrite(&modificado,sizeof(usuario),1,archUsuarios);
+    FILE * archUsuarios = fopen("usuarios.dat","r+b");
+    if(archUsuarios != NULL){
+        usuario usuarioaux;
+        int encontrado = 0;
+        while((fread(&usuarioaux,sizeof(usuario),1,archUsuarios)>0) && (encontrado == 0)){
+            if(strcmpi(usuarioaux.nombreUser,modificado.nombreUser) == 0){
+                fseek(archUsuarios,sizeof(usuario)*(-1),SEEK_CUR);
+                fwrite(&modificado,sizeof(usuario),1,archUsuarios);
+                fclose(archUsuarios);
+                encontrado = 1;
+            }
+        }
         fclose(archUsuarios);
-        encontrado = 1;
-      }
     }
-    fclose(archUsuarios);
-  }
 }
 
 
@@ -828,7 +825,7 @@ nodoUsuario * LoguearUsuario(){
         gets(a.nombreUser);
         int encontrado = buscaUsuarioArch(a.nombreUser);
         if (encontrado==0){
-            printf("ingrese Password:");
+            printf("ingrese contrase%ca:", 164);
             fflush(stdin);
             gets(a.pass);
             printf("Ingrese nombre de club:");

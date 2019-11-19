@@ -1,8 +1,8 @@
 #include "Administrador.h"
+
 /** Carga jugadores a su correpondiente archivo y arregloID.Si el nombre de liga o equipo ingresado en los datos del jugador no se
 encuentra en la lista de ligas o equipos se pedira al administrador que cargue la liga o el equipo no encontrado.Si el id del
 jugador ingresado ya existe no se podra cargar ni al archivo ni al arreglo**/
-
 nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
     jugador aux;
     char control='s';
@@ -23,8 +23,10 @@ nodoLiga * cargaArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
                 system ("pause");
                 listaLigas = cargaArchEquipos(listaLigas); ///Usamos esta funcion para no crear una muy parecida que solo pida un equipo
             }
-            listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga);
-            listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
+            listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga); ///Actualizamos las listas con los datos cargados
+            if (listaLigasAuxiliar!=NULL){
+                listaEquiposAuxiliar = buscarEquipo(listaLigasAuxiliar->dato.listaEquipos, aux.nombreEquipo);
+            }
             if (listaLigasAuxiliar!=NULL && listaEquiposAuxiliar!=NULL){
                 int validos = buscarValidos(listaEquiposAuxiliar->dato.arregloID);
                 if (validos<MAXJugadores){
@@ -263,8 +265,6 @@ nodoLiga * modificarJugador (nodoLiga * listaLigas){///falta cambiar la funcion 
             if (jugEncontrado.ID != -1){
                 if (jugEncontrado.eliminado==0){
                     char opcion;
-                    ///jugador jugadorAux;
-                    ///jugadorAux = arbolAux->dato;
                     printf ("\n\n  Jugador encontrado. Datos: \n ");
                     mostrarJugador(jugEncontrado);
                     printf ("\n\n  Que campo desea modificar?");
@@ -398,8 +398,12 @@ nodoLiga * cargaArchEquipos (nodoLiga * listaLigas){
             listaLigas = agregarLigaIndividual(listaLigas); ///Crea la liga y la agrega al final de la lista
             listaLigasAuxiliar = buscarLiga(listaLigas, aux.nombreLiga); ///Actualizo el dato para que no salga igual a NULL
         }
-        fwrite(&aux, sizeof(equipo), 1, archEquipos);
-        listaLigasAuxiliar->dato.listaEquipos = agregarFinalNodoEquipo(listaLigasAuxiliar->dato.listaEquipos, crearNodoEquipo(aux)); ///Se agrega el equipo a la lista de la liga que corresponde
+        if (listaLigasAuxiliar!=NULL){
+            fwrite(&aux, sizeof(equipo), 1, archEquipos);
+            listaLigasAuxiliar->dato.listaEquipos = agregarFinalNodoEquipo(listaLigasAuxiliar->dato.listaEquipos, crearNodoEquipo(aux)); ///Se agrega el equipo a la lista de la liga que corresponde
+        } else {
+            printf ("\n La liga agregada no coincide con la del equipo leido. El equipo no pudo ser cargado.");
+        }
         printf ("\n Desea ingresar otro equipo? (s para continuar): ");
         fflush (stdin);
         scanf ("%c", &control);
@@ -407,6 +411,7 @@ nodoLiga * cargaArchEquipos (nodoLiga * listaLigas){
     fclose(archEquipos);
     return listaLigas;
 }
+
 ///Muestra todos los equipos cargados exitosamente al archivo
 void muestraArchEquipos(){
     FILE * archEquipos;
@@ -422,6 +427,7 @@ void muestraArchEquipos(){
     system ("Pause");
     fclose(archEquipos);
 }
+
 ///Carga ligas a su correpondiente lista y archivo.
 nodoLiga * cargaArchLigas (nodoLiga * listaLigas){
     FILE * archLigas;
@@ -442,6 +448,7 @@ nodoLiga * cargaArchLigas (nodoLiga * listaLigas){
     fclose(archLigas);
     return listaLigas;
 }
+
 ///Muestra todos las ligas cargadas exitosamente al archivo
 void muestraArchLigas(){
     FILE * archLigas;
@@ -494,6 +501,7 @@ nodoLiga * menuArchJugadores(nodoLiga * listaLigas,nodoMercado * listaMercado){
     }
     return listaLigas;
 }
+
 ///Segun la opcion elegida por el administrador carga equipos al archivo y lista, o muestra el contenido que hay en ellos
 nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
     int opc;
@@ -527,6 +535,7 @@ nodoLiga * menuArchEquipos(nodoLiga * listaLigas){
     }
     return listaLigas;
 }
+
 ///Segun la opcion elegida por el administrador carga lisgas al archivo y lista, o muestra el contenido que hay en ellos
 nodoLiga * menuArchLigas(nodoLiga * listaLigas){
     int opc;
@@ -560,6 +569,133 @@ nodoLiga * menuArchLigas(nodoLiga * listaLigas){
     }
     return listaLigas;
 }
+
+///Funcion recursiva que devuelve la suma de las calificaciones del mercado
+float sumaMercado (nodoMercado * listaMercado){
+    float rta=0;
+    if (listaMercado!=NULL){
+        jugador aux = buscaIDArch(listaMercado->datoID);
+        if (aux.eliminado==0){
+            rta = aux.calificacion;
+        }
+        rta += sumaMercado(listaMercado->sig);
+    }
+    return rta;
+}
+
+///Funcion recursiva que devuelve la cantidad de nodos del mercado
+float cantidadMercado (nodoMercado * listaMercado){
+    int rta=0;
+    if (listaMercado!=NULL){
+        if (buscaIDArch(listaMercado->datoID).eliminado==0){
+            rta = 1;
+        }
+        rta += cantidadMercado(listaMercado->sig);
+    }
+    return rta;
+}
+
+///Funcion que devuelve el promedio de las calificaciones del mercado
+float promedioMercado (nodoMercado * listaMercado){
+    float promedio=0;
+    if (listaMercado!=NULL){
+        promedio = (float)(sumaMercado(listaMercado)/cantidadMercado(listaMercado));
+    }
+    return promedio;
+}
+
+void insertar (int a[], int u, int dato){
+    int i=u;
+    while (i>=0 && dato<a[i]){
+        a[i+1] = a[i];
+        i--;
+    }
+    a[i+1]=dato;
+}
+
+float medianaMercado (nodoMercado * listaMercado){
+    float rta = 0;
+    if (listaMercado!=NULL){
+        int validos = cantidadMercado(listaMercado);
+        if (validos>0){
+            int arreglo[validos];
+            for (int i=0; i<validos; i++){
+                while (listaMercado!=NULL && buscaIDArch(listaMercado->datoID).eliminado==1){
+                    listaMercado = listaMercado->sig;
+                }
+                if (listaMercado!=NULL){
+                    insertar (arreglo, i, buscaIDArch(listaMercado->datoID).calificacion);
+                }
+            }
+            if ((validos%2)!=0){
+                rta = (arreglo[validos/2]+arreglo[(validos/2)+1])/2;
+            } else {
+                rta = arreglo[validos/2];
+            }
+        }
+    }
+    return rta;
+}
+
+int mayorCalificacion (nodoMercado * listaMercado){
+    int rta=-1;
+    if (listaMercado!=NULL){
+        rta = listaMercado->datoID;
+        listaMercado = listaMercado->sig;
+        while (listaMercado!=NULL){
+            if (buscaIDArch(rta).eliminado== 0 && buscaIDArch(rta).calificacion < buscaIDArch(listaMercado->datoID).calificacion){
+                rta = listaMercado->datoID;
+            }
+            listaMercado = listaMercado->sig;
+        }
+    }
+    return rta;
+}
+
+int menorCalificacion (nodoMercado * listaMercado){
+    int rta=-1;
+    if (listaMercado!=NULL){
+        rta = listaMercado->datoID;
+        listaMercado = listaMercado->sig;
+        while (listaMercado!=NULL){
+            if (buscaIDArch(rta).eliminado== 0 && buscaIDArch(rta).calificacion > buscaIDArch(listaMercado->datoID).calificacion){
+                rta = listaMercado->datoID;
+            }
+            listaMercado = listaMercado->sig;
+        }
+    }
+    return rta;
+}
+
+void mayorMenorMercado (nodoMercado * listaMercado){
+    int ID = mayorCalificacion(listaMercado);
+    jugador aux;
+    if (ID!=-1){
+        aux = buscaIDArch(ID);
+        printf ("\n Jugador con mayor calificacion: %s (calificacion: %d).", aux.nombreJugador, aux.calificacion);
+    }
+    ID = menorCalificacion(listaMercado);
+    if (ID!=-1){
+        aux = buscaIDArch(ID);
+        printf ("\n Jugador con menor calificacion: %s (calificacion:%d).", aux.nombreJugador, aux.calificacion);
+    }
+}
+
+///Muestra la media, mediana y dispersion de las calificaciones de los jugadores en el mercado.
+void estadisticasMercado (nodoMercado * listaMercado){
+    system("cls");
+    printf ("Menu estadisticas del Mercado. Estadisticas basadas en las calificaciones de los jugadores no eliminados:");
+    if (listaMercado!=NULL){
+        printf ("\n  Media: %.2f\n", promedioMercado(listaMercado));
+        printf ("\n  Mediana: %.2f\n", medianaMercado(listaMercado));
+        mayorMenorMercado (listaMercado);
+    } else {
+        printf ("\n No hay datos en el mercado.");
+    }
+    printf ("\n\n");
+    system ("pause");
+}
+
 ///Segun la opcion elegida por el administrador nos lleva al menu archivos de: jugadores, equpos o ligas.
 nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoUsuario * listaUsuarios){
     int opcion;
@@ -569,11 +705,12 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoU
     printf ("\n  2. Para menu archivo de equipos.");
     printf ("\n  3. Para menu archivo de ligas.");
     printf ("\n  4. Para mostrar lista de mercado.");
+    printf ("\n  5. Para mostrar estadisticas de mercado.");
     printf ("\n  0. Para salir.");
     printf ("\n\n Ingrese la opcion deseada: ");
     fflush (stdin);
     scanf ("%d", &opcion);
-    while (opcion<0 || opcion>4){
+    while (opcion<0 || opcion>5){
         printf ("\nSe ingreso una opcion incorrecta. Por favor, ingrese una opcion valida: ");
         fflush (stdin);
         scanf ("%d", &opcion);
@@ -597,14 +734,19 @@ nodoLiga * ingresoAdmin (nodoLiga * listaLigas, nodoMercado * listaMercado,nodoU
             break;
         case 4:
             printf ("\n  Lista Mercado:");
-            MostrarMercado(listaMercado);
+            MostrarMercado(listaMercado, 0);
             printf ("\n\n");
             system ("pause");
             listaLigas = ingresoAdmin(listaLigas, listaMercado ,listaUsuarios);
             break;
+        case 5:
+            estadisticasMercado (listaMercado);
+            listaLigas = ingresoAdmin(listaLigas, listaMercado,listaUsuarios);
+            break;
     }
     return listaLigas;
 }
+
 /**Pide al administrador la contraseña. Si este ingresa una opcion incorrecta da dos intentos mas para que pueda ingresar
  la correcta,si vuelve a fallar en los dos intentos el programa termina.Si el administrador ingresa la contraseña correcta
  se invoca a la funcion "ingresoAdmin"**/

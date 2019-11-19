@@ -25,6 +25,7 @@ nodoLiga * cargaArchEquipos(nodoLiga *);
 void muestraArchEquipos();
 nodoLiga * cargaArchLigas(nodoLiga *);
 void muestraArchLigas();
+void estadisticasMercado (nodoMercado *);
 nodoLiga * ingresoAdmin(nodoLiga *,nodoMercado*,nodoUsuario*);
 nodoLiga * menuAdministrador(nodoLiga *,nodoMercado*,nodoUsuario*);
 
